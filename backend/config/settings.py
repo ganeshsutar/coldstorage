@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "apps.accounting",
     "apps.inventory",
     "apps.warehouse",
+    "apps.masters",
+    "apps.billing",
+    "apps.system",
 ]
 
 MIDDLEWARE = [

@@ -114,6 +114,33 @@ class Room(models.Model):
         null=True,
         help_text="Color code for visual map display (e.g., #4CAF50)",
     )
+    name_hindi = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Room name in Hindi",
+    )
+    target_temperature = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Target temperature in Celsius",
+    )
+    min_temperature = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Minimum allowed temperature in Celsius",
+    )
+    max_temperature = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Maximum allowed temperature in Celsius",
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

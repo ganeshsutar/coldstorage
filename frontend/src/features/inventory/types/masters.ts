@@ -27,12 +27,16 @@ export interface Room {
   id: string
   number: string
   name: string | null
+  name_hindi: string | null
   capacity_quintals: number
   floor_count: number
   rack_count: number
   racks_per_row: number
   is_sugar_free: boolean
   occupancy_color: string | null
+  target_temperature: number | null
+  min_temperature: number | null
+  max_temperature: number | null
   is_active: boolean
   created_at?: string
   updated_at?: string
@@ -41,12 +45,16 @@ export interface Room {
 export interface CreateRoomRequest {
   number: string
   name?: string
+  name_hindi?: string
   capacity_quintals: number
   floor_count: number
   rack_count?: number
   racks_per_row?: number
   is_sugar_free?: boolean
   occupancy_color?: string
+  target_temperature?: number | null
+  min_temperature?: number | null
+  max_temperature?: number | null
   is_active?: boolean
 }
 

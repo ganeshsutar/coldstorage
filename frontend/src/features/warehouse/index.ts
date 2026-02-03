@@ -6,6 +6,9 @@ export * from "./types/shifting"
 export * from "./types/temperature"
 export * from "./types/room-map"
 
+// Utils
+export * from "./utils/floor-utils"
+
 // API Services
 export { roomFloorService } from "./api/room-floor"
 export { loadingService } from "./api/loading"

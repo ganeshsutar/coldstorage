@@ -170,6 +170,13 @@ class OrganizationMembership(models.Model):
     )
     invited_at = models.DateTimeField(blank=True, null=True)
     joined_at = models.DateTimeField(blank=True, null=True)
+    permissions = models.JSONField(default=dict, blank=True)
+    loan_per_bag_limit = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
+    backdate_entry_limit = models.PositiveIntegerField(
+        null=True, blank=True, help_text="Number of days allowed for backdated entries"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

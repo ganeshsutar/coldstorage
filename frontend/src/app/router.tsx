@@ -30,6 +30,20 @@ import { NewLoadingPage } from "@/routes/app/warehouse/loading.new"
 import { NewUnloadingPage } from "@/routes/app/warehouse/unloading.new"
 import { TemperatureDashboardPage } from "@/routes/app/warehouse/temperature"
 import { ShiftingPage } from "@/routes/app/warehouse/shifting"
+import { ChambersPage } from "@/routes/app/warehouse/chambers"
+// Billing routes
+import { BillingPage } from "@/routes/app/billing/index"
+import { NewBillPage } from "@/routes/app/billing/new"
+import { BillDetailPage } from "@/routes/app/billing/$id"
+import { ReceiptsPage } from "@/routes/app/billing/receipts"
+import { NewReceiptPage } from "@/routes/app/billing/receipts/new"
+import { ReceiptDetailPage } from "@/routes/app/billing/receipts/$id"
+// Masters routes
+import { GstRatesPage } from "@/routes/app/masters/gst-rates"
+import { BanksPage } from "@/routes/app/masters/banks"
+import { LaborRatesPage } from "@/routes/app/masters/labor-rates"
+// System routes
+import { SystemSettingsPage } from "@/routes/app/system/settings"
 
 // Root route
 const rootRoute = createRootRoute({
@@ -180,6 +194,75 @@ const warehouseShiftingRoute = createRoute({
   component: ShiftingPage,
 })
 
+const warehouseChambersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/warehouse/chambers",
+  component: ChambersPage,
+})
+
+// Billing routes
+const billingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing",
+  component: BillingPage,
+})
+
+const billingNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing/new",
+  component: NewBillPage,
+})
+
+const billingDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing/$id",
+  component: BillDetailPage,
+})
+
+const billingReceiptsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing/receipts",
+  component: ReceiptsPage,
+})
+
+const billingReceiptsNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing/receipts/new",
+  component: NewReceiptPage,
+})
+
+const billingReceiptsDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/billing/receipts/$id",
+  component: ReceiptDetailPage,
+})
+
+// Masters routes
+const mastersGstRatesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/masters/gst-rates",
+  component: GstRatesPage,
+})
+
+const mastersBanksRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/masters/banks",
+  component: BanksPage,
+})
+
+const mastersLaborRatesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/masters/labor-rates",
+  component: LaborRatesPage,
+})
+
+// System routes
+const systemSettingsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/system/settings",
+  component: SystemSettingsPage,
+})
+
 // Create the route tree
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -207,6 +290,20 @@ const routeTree = rootRoute.addChildren([
   warehouseUnloadingNewRoute,
   warehouseTemperatureRoute,
   warehouseShiftingRoute,
+  warehouseChambersRoute,
+  // Billing routes
+  billingRoute,
+  billingNewRoute,
+  billingDetailRoute,
+  billingReceiptsRoute,
+  billingReceiptsNewRoute,
+  billingReceiptsDetailRoute,
+  // Masters routes
+  mastersGstRatesRoute,
+  mastersBanksRoute,
+  mastersLaborRatesRoute,
+  // System routes
+  systemSettingsRoute,
 ])
 
 // Create the router instance

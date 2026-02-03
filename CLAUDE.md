@@ -63,8 +63,33 @@ backend/
 │   ├── settings.py      # Main config (uses .env for secrets)
 │   └── urls.py          # Root URL routing
 ├── apps/                # Django apps
-│   └── authentication/  # Custom User model, auth views
+│   ├── authentication/  # Custom User model, org membership, auth views
+│   ├── accounting/      # Financial transactions, ledgers
+│   ├── billing/         # Invoicing, payments
+│   ├── inventory/       # Stock tracking, commodities
+│   ├── masters/         # Reference data (parties, commodities, etc.)
+│   ├── system/          # System-level settings and configuration
+│   └── warehouse/       # Rooms, chambers, storage management
 └── manage.py            # Django CLI entry point
+```
+
+### Frontend Features
+
+```
+frontend/src/features/
+├── auth/                # Authentication flows
+├── dashboard/           # Dashboard widgets and views
+├── parties/             # Party (customer/vendor) management
+├── stock/               # Stock entry and tracking
+├── warehouse/           # Warehouse and room management
+├── inventory/           # Inventory views
+├── accounting/          # Financial accounting
+├── billing/             # Billing and invoices
+├── masters/             # Master data management
+├── system/              # System settings
+├── trading/             # Trading operations
+├── reports/             # Reporting views
+└── settings/            # User/org settings
 ```
 
 ### API Communication

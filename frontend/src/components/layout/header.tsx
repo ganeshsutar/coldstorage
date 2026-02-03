@@ -57,7 +57,7 @@ export function Header({ breadcrumbs = [] }: HeaderProps) {
           <span className="sr-only">Search</span>
         </Button>
         <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
-          <Link to="/app/settings">
+          <Link to="/app/system/settings">
             <Settings className="h-4 w-4" />
             <span className="sr-only">Settings</span>
           </Link>

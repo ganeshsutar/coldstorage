@@ -75,6 +75,11 @@ export const mainNavItems: NavItem[] = [
     icon: "warehouse",
     children: [
       {
+        id: "chamber-management",
+        label: "Chamber Management",
+        to: "/app/warehouse/chambers",
+      },
+      {
         id: "room-map",
         label: "Room Map",
         to: "/app/warehouse",
