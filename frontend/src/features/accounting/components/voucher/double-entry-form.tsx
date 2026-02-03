@@ -1,0 +1,157 @@
+import { PlusIcon, TrashIcon, CheckIcon, XIcon } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableFooter,
+} from "@/components/ui/table"
+import type { Account } from "../../types/account"
+import type { VoucherLine } from "../../types/voucher"
+import { formatIndianNumber } from "../../utils/format-currency"
+import { AccountCombobox } from "./account-combobox"
+
+interface DoubleEntryFormProps {
+  accounts: Account[]
+  lines: VoucherLine[]
+  onChange: (lines: VoucherLine[]) => void
+}
+
+export function DoubleEntryForm({
+  accounts,
+  lines,
+  onChange,
+}: DoubleEntryFormProps) {
+  const addLine = () => {
+    onChange([
+      ...lines,
+      { account_id: "", debit: null, credit: null },
+    ])
+  }
+
+  const updateLine = (index: number, updates: Partial<VoucherLine>) => {
+    const newLines = [...lines]
+    newLines[index] = { ...newLines[index], ...updates }
+    onChange(newLines)
+  }
+
+  const removeLine = (index: number) => {
+    if (lines.length <= 2) return
+    onChange(lines.filter((_, i) => i !== index))
+  }
+
+  const handleDebitChange = (index: number, value: string) => {
+    const numValue = value ? parseFloat(value) : null
+    updateLine(index, {
+      debit: numValue,
+      credit: numValue ? null : lines[index].credit,
+    })
+  }
+
+  const handleCreditChange = (index: number, value: string) => {
+    const numValue = value ? parseFloat(value) : null
+    updateLine(index, {
+      credit: numValue,
+      debit: numValue ? null : lines[index].debit,
+    })
+  }
+
+  const totalDebit = lines.reduce((sum, line) => sum + (line.debit || 0), 0)
+  const totalCredit = lines.reduce((sum, line) => sum + (line.credit || 0), 0)
+  const isBalanced = Math.abs(totalDebit - totalCredit) < 0.01
+
+  return (
+    <div data-slot="double-entry-form" className="space-y-4">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[40%]">Account</TableHead>
+            <TableHead className="text-right w-[25%]">Debit</TableHead>
+            <TableHead className="text-right w-[25%]">Credit</TableHead>
+            <TableHead className="w-[10%]" />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {lines.map((line, index) => (
+            <TableRow key={index}>
+              <TableCell>
+                <AccountCombobox
+                  accounts={accounts}
+                  value={line.account_id || null}
+                  onChange={(id) => updateLine(index, { account_id: id || "" })}
+                  placeholder="Select account..."
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  value={line.debit || ""}
+                  onChange={(e) => handleDebitChange(index, e.target.value)}
+                  placeholder="0"
+                  className="text-right font-mono"
+                  disabled={!!line.credit}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  value={line.credit || ""}
+                  onChange={(e) => handleCreditChange(index, e.target.value)}
+                  placeholder="0"
+                  className="text-right font-mono"
+                  disabled={!!line.debit}
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  variant="ghost"
+                  size="icon-xs"
+                  onClick={() => removeLine(index)}
+                  disabled={lines.length <= 2}
+                >
+                  <TrashIcon className="h-4 w-4" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell className="font-medium">Total</TableCell>
+            <TableCell className="text-right font-mono font-medium text-red-600">
+              {formatIndianNumber(totalDebit)}
+            </TableCell>
+            <TableCell className="text-right font-mono font-medium text-green-600">
+              {formatIndianNumber(totalCredit)}
+            </TableCell>
+            <TableCell>
+              {isBalanced ? (
+                <CheckIcon className="h-4 w-4 text-green-600" />
+              ) : (
+                <XIcon className="h-4 w-4 text-red-600" />
+              )}
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+
+      <div className="flex items-center justify-between">
+        <Button variant="outline" size="sm" onClick={addLine}>
+          <PlusIcon className="mr-2 h-4 w-4" />
+          Add Line
+        </Button>
+
+        {!isBalanced && (
+          <p className="text-sm text-destructive">
+            Difference: {formatIndianNumber(Math.abs(totalDebit - totalCredit))}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}

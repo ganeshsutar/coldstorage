@@ -1,0 +1,41 @@
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import type { DaybookTab } from "../../types/daybook"
+
+interface TransactionFiltersProps {
+  value: DaybookTab
+  onChange: (value: DaybookTab) => void
+  counts: {
+    all: number
+    receipts: number
+    payments: number
+    journal: number
+  }
+}
+
+export function TransactionFilters({
+  value,
+  onChange,
+  counts,
+}: TransactionFiltersProps) {
+  return (
+    <Tabs
+      value={value}
+      onValueChange={(v) => onChange(v as DaybookTab)}
+    >
+      <TabsList>
+        <TabsTrigger value="all">
+          All ({counts.all})
+        </TabsTrigger>
+        <TabsTrigger value="receipts">
+          Receipts ({counts.receipts})
+        </TabsTrigger>
+        <TabsTrigger value="payments">
+          Payments ({counts.payments})
+        </TabsTrigger>
+        <TabsTrigger value="journal">
+          Journal ({counts.journal})
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  )
+}
