@@ -56,6 +56,7 @@ export function useTemperatureReadings(filters?: TemperatureReadingFilters) {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters?.room_id, filters?.status, filters?.from_date, filters?.to_date])
 
   React.useEffect(() => {
@@ -166,6 +167,7 @@ export function useMeterReadings(filters?: {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters?.room_id, filters?.from_date, filters?.to_date])
 
   React.useEffect(() => {

@@ -91,6 +91,7 @@ export function AmadForm({
     },
   })
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const watchCommodityId = form.watch("commodity")
   const selectedCommodity = React.useMemo(() => {
     return commodities.find((c) => c.id === watchCommodityId)

@@ -18,6 +18,7 @@ export function useLoadings(filters?: LoadingFilters) {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters?.amad_id, filters?.room_id, filters?.from_date, filters?.to_date])
 
   React.useEffect(() => {
