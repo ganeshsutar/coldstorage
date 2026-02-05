@@ -48,6 +48,12 @@ import { BardanaReturnsPage } from "@/routes/app/bardana/returns"
 import { NewBardanaReturnPage } from "@/routes/app/bardana/returns.new"
 import { BardanaReturnDetailPage } from "@/routes/app/bardana/returns.$id"
 import { BardanaOutstandingPage } from "@/routes/app/bardana/outstanding"
+// Trading routes
+import { TradingPage } from "@/routes/app/trading/index"
+import { NewDealPage } from "@/routes/app/trading/deals.new"
+import { DealDetailPage } from "@/routes/app/trading/deals.$id"
+import { NewGatePassPage } from "@/routes/app/trading/gate-passes.new"
+import { NewGradingPage } from "@/routes/app/trading/grading.new"
 // Masters routes
 import { MastersPage } from "@/routes/app/masters/index"
 // System routes
@@ -298,6 +304,35 @@ const bardanaOutstandingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/bardana/outstanding",
   component: BardanaOutstandingPage,
+// Trading routes
+const tradingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/trading",
+  component: TradingPage,
+})
+
+const tradingNewDealRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/trading/deals/new",
+  component: NewDealPage,
+})
+
+const tradingDealDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/trading/deals/$id",
+  component: DealDetailPage,
+})
+
+const tradingNewGatePassRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/trading/gate-passes/new",
+  component: NewGatePassPage,
+})
+
+const tradingNewGradingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/trading/grading/new",
+  component: NewGradingPage,
 })
 
 // Masters routes
@@ -342,6 +377,12 @@ const routeTree = rootRoute.addChildren([
   warehouseTemperatureRoute,
   warehouseShiftingRoute,
   warehouseChambersRoute,
+  // Trading routes
+  tradingRoute,
+  tradingNewDealRoute,
+  tradingDealDetailRoute,
+  tradingNewGatePassRoute,
+  tradingNewGradingRoute,
   // Billing routes
   billingRoute,
   billingNewRoute,
