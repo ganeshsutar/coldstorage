@@ -61,19 +61,19 @@ export function ReceiptEntryForm({
   const [allocations, setAllocations] = React.useState<BillAllocation[]>([])
 
   // Data fetching
-  const { bills, loading: billsLoading } = useUnpaidBills(partyId || null)
-  const { outstanding } = usePartyOutstanding(partyId || null)
+  const { data: bills = [], isLoading: billsLoading } = useUnpaidBills(partyId || null)
+  const { data: outstanding } = usePartyOutstanding(partyId || null)
 
   // Set initial allocation for specific bill
   React.useEffect(() => {
     if (initialBillId && bills.length > 0) {
-      const bill = bills.find((b) => b.id === initialBillId)
+      const bill = bills.find((b: { id: string }) => b.id === initialBillId)
       if (bill) {
         setAmount(bill.balance_amount)
         setAutoAdjust(false)
         // Allocate to specific bill
         setAllocations(
-          bills.map((b) => ({
+          bills.map((b: { id: string; bill_no: string; bill_date: string; net_amount: number; balance_amount: number }) => ({
             bill_id: b.id,
             bill_no: b.bill_no,
             bill_date: b.bill_date,

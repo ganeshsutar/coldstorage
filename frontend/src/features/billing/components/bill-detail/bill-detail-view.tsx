@@ -51,7 +51,7 @@ interface BillDetailViewProps {
 
 export function BillDetailView({ billId }: BillDetailViewProps) {
   const navigate = useNavigate()
-  const { bill, loading, error, refetch } = useRentBillDetail(billId)
+  const { data: bill, isLoading: loading, error, refetch } = useRentBillDetail(billId)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [cancelReason, setCancelReason] = React.useState("")
   const [actionLoading, setActionLoading] = React.useState(false)
@@ -134,7 +134,7 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
         </div>
         <Card>
           <CardContent className="flex items-center justify-center h-32 text-destructive">
-            {error || "The requested bill could not be found."}
+            {error?.message || "The requested bill could not be found."}
           </CardContent>
         </Card>
       </div>

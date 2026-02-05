@@ -66,7 +66,7 @@ const statusOptions = [
 export function ReceiptList() {
   const navigate = useNavigate()
   const [statusFilter, setStatusFilter] = React.useState<string>("ALL")
-  const { receipts, loading, error, refetch } = useReceipts(
+  const { data: receipts = [], isLoading: loading, error, refetch } = useReceipts(
     statusFilter === "ALL" ? undefined : { status: statusFilter as BillStatus }
   )
   const [cancelReceipt, setCancelReceipt] = React.useState<Receipt | null>(null)
@@ -109,7 +109,7 @@ export function ReceiptList() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="text-destructive">{error}</div>
+        <div className="text-destructive">{error.message}</div>
       </div>
     )
   }

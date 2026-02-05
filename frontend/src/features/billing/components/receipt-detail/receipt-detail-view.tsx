@@ -59,7 +59,7 @@ interface ReceiptDetailViewProps {
 
 export function ReceiptDetailView({ receiptId }: ReceiptDetailViewProps) {
   const navigate = useNavigate()
-  const { receipt, loading, error, refetch } = useReceiptDetail(receiptId)
+  const { data: receipt, isLoading: loading, error, refetch } = useReceiptDetail(receiptId)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [cancelReason, setCancelReason] = React.useState("")
   const [actionLoading, setActionLoading] = React.useState(false)
@@ -133,7 +133,7 @@ export function ReceiptDetailView({ receiptId }: ReceiptDetailViewProps) {
         </div>
         <Card>
           <CardContent className="flex items-center justify-center h-32 text-destructive">
-            {error || "The requested receipt could not be found."}
+            {error?.message || "The requested receipt could not be found."}
           </CardContent>
         </Card>
       </div>
