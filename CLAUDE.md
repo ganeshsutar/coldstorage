@@ -47,6 +47,7 @@ frontend/src/
 ├── routes/              # Page components organized by route
 │   ├── auth/            # /auth/* pages
 │   └── app/             # /app/* pages (protected)
+├── features/            # Feature modules (auth, billing, inventory, warehouse, masters, etc.)
 ├── services/            # API service functions
 ├── stores/              # React context providers (auth-store, ui-store)
 ├── hooks/               # Custom hooks (useAuth, useTheme, useDebounce)
@@ -73,37 +74,16 @@ backend/
 └── manage.py            # Django CLI entry point
 ```
 
-### Frontend Features
-
-```
-frontend/src/features/
-├── auth/                # Authentication flows
-├── dashboard/           # Dashboard widgets and views
-├── parties/             # Party (customer/vendor) management
-├── stock/               # Stock entry and tracking
-├── warehouse/           # Warehouse and room management
-├── inventory/           # Inventory views
-├── accounting/          # Financial accounting
-├── billing/             # Billing and invoices
-├── masters/             # Master data management
-├── system/              # System settings
-├── trading/             # Trading operations
-├── reports/             # Reporting views
-└── settings/            # User/org settings
-```
-
 ### API Communication
 
-- Frontend uses session-based auth with CSRF protection
-- API client at `frontend/src/lib/api-client.ts` handles CSRF tokens and credentials
-- Backend API routes prefixed with `/api/` (e.g., `/api/auth/login/`)
+- Session-based auth with CSRF protection
+- API client handles CSRF tokens automatically via cookies
+- Backend API routes prefixed with `/api/` (e.g., `/api/auth/login/`, `/api/billing/`, `/api/masters/`)
 - CORS configured for `localhost:5173` (Vite dev server)
 
 ## Design System
 
 Full specification at `docs/src/ui-ux-specification.md`.
-
-### Configuration
 
 | Setting | Value |
 |---------|-------|
@@ -115,36 +95,13 @@ Full specification at `docs/src/ui-ux-specification.md`.
 
 ### Layout Dimensions
 
-| Element | Value |
-|---------|-------|
-| Header height | 56px |
-| Sidebar (expanded) | 256px |
-| Sidebar (collapsed) | 64px |
-| Content padding | 24px |
-| Content max-width | 1440px |
-
-### Breakpoints
-
-| Name | Width | Layout |
-|------|-------|--------|
-| Mobile | < 640px | Single column, bottom nav |
-| Tablet | 640-1023px | Collapsible sidebar |
-| Desktop | 1024-1279px | Full sidebar |
-| Large | ≥ 1280px | Max-width container |
-
-### Component Defaults
-
-- **Button:** h-9 (36px), px-2.5, radius-md
-- **Input:** h-9 (36px), px-2.5, 1px border
-- **Card:** px-6, gap-6, shadow-sm
-- **Focus ring:** 2px width, 2px offset
+- Header height: 56px
+- Sidebar expanded: 256px, collapsed: 64px
+- Content padding: 24px, max-width: 1440px
 
 ### Semantic Colors
 
-Use CSS variables for theming (light/dark mode support):
-- `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`
-- `--background`, `--foreground`, `--border`, `--input`, `--ring`
-- Status: Success (green #22c55e), Warning (amber #f59e0b), Error (red #ef4444), Info (blue #3b82f6)
+Use CSS variables for theming: `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--background`, `--foreground`, `--border`, `--input`, `--ring`
 
 ## Verification
 
