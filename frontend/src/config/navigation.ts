@@ -118,7 +118,33 @@ export const operationsNavItems: NavItem[] = [
     id: "bardana",
     label: "Bardana",
     icon: "package",
-    to: "/app/bardana",
+    children: [
+      {
+        id: "bardana-stock",
+        label: "Stock Summary",
+        to: "/app/bardana",
+      },
+      {
+        id: "bardana-issues",
+        label: "Issues",
+        to: "/app/bardana/issues",
+      },
+      {
+        id: "bardana-returns",
+        label: "Returns",
+        to: "/app/bardana/returns",
+      },
+      {
+        id: "bardana-outstanding",
+        label: "Outstanding",
+        to: "/app/bardana/outstanding",
+      },
+      {
+        id: "bardana-types",
+        label: "Bardana Types",
+        to: "/app/bardana/types",
+      },
+    ],
   },
   {
     id: "loans",
@@ -176,5 +202,12 @@ export const quickCreateItems: QuickCreateItem[] = [
     icon: "plus",
     description: "Create a new accounting voucher",
     to: "/app/accounts/vouchers/new",
+  },
+  {
+    id: "new-bardana-issue",
+    label: "Issue Bardana",
+    icon: "plus",
+    description: "Issue bardana to a party",
+    to: "/app/bardana/issues/new",
   },
 ]

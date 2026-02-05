@@ -38,6 +38,16 @@ import { BillDetailPage } from "@/routes/app/billing/$id"
 import { ReceiptsPage } from "@/routes/app/billing/receipts"
 import { NewReceiptPage } from "@/routes/app/billing/receipts/new"
 import { ReceiptDetailPage } from "@/routes/app/billing/receipts/$id"
+// Bardana routes
+import { BardanaStockPage } from "@/routes/app/bardana/index"
+import { BardanaTypesPage } from "@/routes/app/bardana/types"
+import { BardanaIssuesPage } from "@/routes/app/bardana/issues"
+import { NewBardanaIssuePage } from "@/routes/app/bardana/issues.new"
+import { BardanaIssueDetailPage } from "@/routes/app/bardana/issues.$id"
+import { BardanaReturnsPage } from "@/routes/app/bardana/returns"
+import { NewBardanaReturnPage } from "@/routes/app/bardana/returns.new"
+import { BardanaReturnDetailPage } from "@/routes/app/bardana/returns.$id"
+import { BardanaOutstandingPage } from "@/routes/app/bardana/outstanding"
 // Trading routes
 import { TradingPage } from "@/routes/app/trading/index"
 import { NewDealPage } from "@/routes/app/trading/deals.new"
@@ -241,6 +251,59 @@ const billingReceiptsDetailRoute = createRoute({
   component: ReceiptDetailPage,
 })
 
+// Bardana routes
+const bardanaStockRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana",
+  component: BardanaStockPage,
+})
+
+const bardanaTypesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/types",
+  component: BardanaTypesPage,
+})
+
+const bardanaIssuesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/issues",
+  component: BardanaIssuesPage,
+})
+
+const bardanaIssuesNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/issues/new",
+  component: NewBardanaIssuePage,
+})
+
+const bardanaIssueDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/issues/$id",
+  component: BardanaIssueDetailPage,
+})
+
+const bardanaReturnsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/returns",
+  component: BardanaReturnsPage,
+})
+
+const bardanaReturnsNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/returns/new",
+  component: NewBardanaReturnPage,
+})
+
+const bardanaReturnDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/returns/$id",
+  component: BardanaReturnDetailPage,
+})
+
+const bardanaOutstandingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/bardana/outstanding",
+  component: BardanaOutstandingPage,
 // Trading routes
 const tradingRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -327,6 +390,16 @@ const routeTree = rootRoute.addChildren([
   billingReceiptsRoute,
   billingReceiptsNewRoute,
   billingReceiptsDetailRoute,
+  // Bardana routes
+  bardanaStockRoute,
+  bardanaTypesRoute,
+  bardanaIssuesRoute,
+  bardanaIssuesNewRoute,
+  bardanaIssueDetailRoute,
+  bardanaReturnsRoute,
+  bardanaReturnsNewRoute,
+  bardanaReturnDetailRoute,
+  bardanaOutstandingRoute,
   // Masters routes
   mastersRoute,
   // System routes

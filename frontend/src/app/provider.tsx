@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthProvider } from "@/features/auth";
 import { UIProvider } from "@/stores/ui-store";
@@ -26,7 +25,7 @@ export function AppProvider({ children }: AppProviderProps) {
           {children}
         </UIProvider>
       </AuthProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+
     </QueryClientProvider>
   );
 }
