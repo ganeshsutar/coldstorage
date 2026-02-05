@@ -39,11 +39,7 @@ import { ReceiptsPage } from "@/routes/app/billing/receipts"
 import { NewReceiptPage } from "@/routes/app/billing/receipts/new"
 import { ReceiptDetailPage } from "@/routes/app/billing/receipts/$id"
 // Masters routes
-import { GstRatesPage } from "@/routes/app/masters/gst-rates"
-import { BanksPage } from "@/routes/app/masters/banks"
-import { LaborRatesPage } from "@/routes/app/masters/labor-rates"
-import { CommoditiesPage } from "@/routes/app/masters/commodities"
-import { VillagesPage } from "@/routes/app/masters/villages"
+import { MastersPage } from "@/routes/app/masters/index"
 // System routes
 import { SystemSettingsPage } from "@/routes/app/system/settings"
 
@@ -240,34 +236,10 @@ const billingReceiptsDetailRoute = createRoute({
 })
 
 // Masters routes
-const mastersGstRatesRoute = createRoute({
+const mastersRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/app/masters/gst-rates",
-  component: GstRatesPage,
-})
-
-const mastersBanksRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/app/masters/banks",
-  component: BanksPage,
-})
-
-const mastersLaborRatesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/app/masters/labor-rates",
-  component: LaborRatesPage,
-})
-
-const mastersCommoditiesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/app/masters/commodities",
-  component: CommoditiesPage,
-})
-
-const mastersVillagesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/app/masters/villages",
-  component: VillagesPage,
+  path: "/app/masters",
+  component: MastersPage,
 })
 
 // System routes
@@ -313,11 +285,7 @@ const routeTree = rootRoute.addChildren([
   billingReceiptsNewRoute,
   billingReceiptsDetailRoute,
   // Masters routes
-  mastersGstRatesRoute,
-  mastersBanksRoute,
-  mastersLaborRatesRoute,
-  mastersCommoditiesRoute,
-  mastersVillagesRoute,
+  mastersRoute,
   // System routes
   systemSettingsRoute,
 ])
