@@ -142,33 +142,7 @@ export const systemNavItems: NavItem[] = [
     id: "masters",
     label: "Masters",
     icon: "database",
-    children: [
-      {
-        id: "commodities",
-        label: "Commodities",
-        to: "/app/masters/commodities",
-      },
-      {
-        id: "villages",
-        label: "Villages",
-        to: "/app/masters/villages",
-      },
-      {
-        id: "banks",
-        label: "Banks",
-        to: "/app/masters/banks",
-      },
-      {
-        id: "gst-rates",
-        label: "GST Rates",
-        to: "/app/masters/gst-rates",
-      },
-      {
-        id: "labor-rates",
-        label: "Labor Rates",
-        to: "/app/masters/labor-rates",
-      },
-    ],
+    to: "/app/masters",
   },
   {
     id: "reports",
