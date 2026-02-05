@@ -311,6 +311,8 @@ const bardanaOutstandingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/bardana/outstanding",
   component: BardanaOutstandingPage,
+})
+
 // Trading routes
 const tradingRoute = createRoute({
   getParentRoute: () => rootRoute,
