@@ -13,5 +13,6 @@ urlpatterns = [
     path("api/warehouse/", include("apps.warehouse.urls")),
     path("api/masters/", include("apps.masters.urls")),
     path("api/billing/", include("apps.billing.urls")),
+    path("api/bardana/", include("apps.bardana.urls")),
     path("api/system/", include("apps.system.urls")),
 ]
