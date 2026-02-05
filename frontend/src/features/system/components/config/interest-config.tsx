@@ -19,8 +19,8 @@ import {
 import { useInterestConfig } from "../../hooks"
 
 const schema = z.object({
-  interest_rate: z.coerce.number().min(0).max(100),
-  days_in_year: z.coerce.number().min(1).max(366),
+  interest_rate: z.number().min(0).max(100),
+  days_in_year: z.number().min(1).max(366),
   calculate_interest: z.boolean(),
   interest_on_rent: z.boolean(),
   interest_on_loan: z.boolean(),

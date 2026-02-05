@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   LineChart,
   Line,
@@ -90,7 +89,7 @@ export function TempTrendChart({
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "var(--radius)",
               }}
-              formatter={(value: number) => [`${value.toFixed(1)}°C`, ""]}
+              formatter={(value: number | undefined) => [`${(value ?? 0).toFixed(1)}°C`, ""]}
               labelFormatter={(label) => `Date: ${label}`}
             />
             <Legend />

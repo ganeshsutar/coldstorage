@@ -28,11 +28,11 @@ import { usePacketsConfig } from "../../hooks"
 
 const schema = z.object({
   pkt1_name: z.string().min(1, "Required"),
-  pkt1_weight: z.coerce.number().min(0),
+  pkt1_weight: z.number().min(0),
   pkt2_name: z.string().min(1, "Required"),
-  pkt2_weight: z.coerce.number().min(0),
+  pkt2_weight: z.number().min(0),
   pkt3_name: z.string().min(1, "Required"),
-  pkt3_weight: z.coerce.number().min(0),
+  pkt3_weight: z.number().min(0),
   mix_packets: z.boolean(),
 })
 

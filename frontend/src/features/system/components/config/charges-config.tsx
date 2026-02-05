@@ -24,18 +24,18 @@ import {
 import { useChargesConfig } from "../../hooks"
 
 const schema = z.object({
-  katai1: z.coerce.number().min(0),
-  katai2: z.coerce.number().min(0),
-  katai3: z.coerce.number().min(0),
-  load1: z.coerce.number().min(0),
-  load2: z.coerce.number().min(0),
-  load3: z.coerce.number().min(0),
-  unload1: z.coerce.number().min(0),
-  unload2: z.coerce.number().min(0),
-  unload3: z.coerce.number().min(0),
-  reload1: z.coerce.number().min(0),
-  reload2: z.coerce.number().min(0),
-  reload3: z.coerce.number().min(0),
+  katai1: z.number().min(0),
+  katai2: z.number().min(0),
+  katai3: z.number().min(0),
+  load1: z.number().min(0),
+  load2: z.number().min(0),
+  load3: z.number().min(0),
+  unload1: z.number().min(0),
+  unload2: z.number().min(0),
+  unload3: z.number().min(0),
+  reload1: z.number().min(0),
+  reload2: z.number().min(0),
+  reload3: z.number().min(0),
 })
 
 type FormData = z.infer<typeof schema>

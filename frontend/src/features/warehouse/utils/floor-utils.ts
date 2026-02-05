@@ -1,11 +1,5 @@
 import type { Room } from "@/features/inventory/types/masters"
-
-export interface FloorConfig {
-  floor_number: number
-  from_rack: number
-  to_rack: number
-  rack_count: number
-}
+import type { FloorConfig } from "../types/room-map"
 
 /**
  * Auto-generate floor configurations based on chamber settings.

@@ -30,9 +30,9 @@ const schema = z.object({
   print_gate_pass: z.boolean(),
   print_receipt: z.boolean(),
   auto_print_rent_bill: z.boolean(),
-  default_date_range: z.coerce.number().min(1).max(365),
-  auto_refresh_interval: z.coerce.number().min(1).max(60),
-  default_page_size: z.coerce.number().min(10).max(100),
+  default_date_range: z.number().min(1).max(365),
+  auto_refresh_interval: z.number().min(1).max(60),
+  default_page_size: z.number().min(10).max(100),
 })
 
 type FormData = z.infer<typeof schema>

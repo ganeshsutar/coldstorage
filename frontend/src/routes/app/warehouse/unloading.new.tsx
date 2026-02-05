@@ -44,7 +44,7 @@ export function NewUnloadingPage() {
   const [quantity, setQuantity] = React.useState("")
 
   // Fetch data
-  const { amads, loading: amadsLoading } = useAmads({ is_fully_dispatched: "false" })
+  const { amads, loading: amadsLoading } = useAmads({ is_fully_dispatched: false })
   const { locations, loading: locationsLoading } = useAmadLocations(amadId || null)
 
   const selectedAmad = amads.find((a) => a.id === amadId)

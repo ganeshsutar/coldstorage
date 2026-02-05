@@ -40,7 +40,7 @@ export function NewLoadingPage() {
 
   // Fetch data
   const { rooms, loading: roomsLoading } = useRooms(true)
-  const { amads, loading: amadsLoading } = useAmads({ is_fully_dispatched: "false" })
+  const { amads, loading: amadsLoading } = useAmads({ is_fully_dispatched: false })
   const { floors } = useRoomFloorsByRoom(roomId)
 
   const selectedAmad = amads.find((a) => a.id === amadId)
