@@ -22,6 +22,7 @@ export function useShiftHeaders(filters?: ShiftFilters) {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters?.from_room_id, filters?.to_room_id, filters?.from_date, filters?.to_date])
 
   React.useEffect(() => {
