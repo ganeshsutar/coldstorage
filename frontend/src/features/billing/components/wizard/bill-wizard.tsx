@@ -50,10 +50,10 @@ export function BillWizard({ onSuccess, onCancel }: BillWizardProps) {
   const [billDate] = React.useState(new Date().toISOString().split("T")[0])
 
   // Fetch billable amads
-  const { amads } = useBillableAmads(partyId || undefined)
+  const { data: amads = [] } = useBillableAmads(partyId || undefined)
 
   // Get selected amads data
-  const selectedAmads = amads.filter((a) => selectedAmadIds.includes(a.id))
+  const selectedAmads = amads.filter((a: { id: string }) => selectedAmadIds.includes(a.id))
 
   // Get party info from first amad (all should have same party)
   const partyInfo = selectedAmads.length > 0 ? selectedAmads[0] : null

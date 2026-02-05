@@ -17,6 +17,7 @@ export {
   StepAddCharges,
   StepPreview,
   BillWizard,
+  BillWizardSheet,
 } from "./wizard"
 export type { ChargesFormData } from "./wizard"
 

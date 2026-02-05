@@ -18,13 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,6 +35,7 @@ import { rentBillService } from "../../api/rent-bills"
 import { formatIndianRupees } from "../../utils/amount-to-words"
 import type { RentBillHeader, BillStatus } from "../../types"
 import { BillingKpiCards } from "./kpi-cards"
+import { BillWizardSheet } from "../wizard/bill-wizard-sheet"
 
 const statusColors: Record<BillStatus, "default" | "secondary" | "destructive" | "outline"> = {
   DRAFT: "secondary",
@@ -62,12 +57,13 @@ const statusOptions = [
 export function RentBillList() {
   const navigate = useNavigate()
   const [statusFilter, setStatusFilter] = React.useState<string>("ALL")
-  const { bills, loading, error, refetch } = useRentBills(
+  const { data: bills = [], isLoading: loading, error, refetch } = useRentBills(
     statusFilter === "ALL" ? undefined : { status: statusFilter as BillStatus }
   )
   const [cancelBill, setCancelBill] = React.useState<RentBillHeader | null>(null)
   const [cancelReason, setCancelReason] = React.useState("")
   const [cancelling, setCancelling] = React.useState(false)
+  const [wizardOpen, setWizardOpen] = React.useState(false)
 
   const handleCancel = async () => {
     if (!cancelBill || !cancelReason.trim()) return
@@ -105,7 +101,7 @@ export function RentBillList() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="text-destructive">{error}</div>
+        <div className="text-destructive">{error.message}</div>
       </div>
     )
   }
@@ -121,26 +117,21 @@ export function RentBillList() {
             Manage rent bills and collections
           </p>
         </div>
-        <Button onClick={() => navigate({ to: "/app/billing/new" })}>
+        <Button onClick={() => setWizardOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
           New Bill
         </Button>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            {statusOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <Tabs value={statusFilter} onValueChange={setStatusFilter}>
+        <TabsList>
+          {statusOptions.map((option) => (
+            <TabsTrigger key={option.value} value={option.value}>
+              {option.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
       <div className="rounded-md border">
         <Table>
@@ -291,6 +282,12 @@ export function RentBillList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <BillWizardSheet
+        open={wizardOpen}
+        onOpenChange={setWizardOpen}
+        onSuccess={() => refetch()}
+      />
     </div>
   )
 }

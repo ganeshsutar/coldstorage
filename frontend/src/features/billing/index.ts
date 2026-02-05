@@ -24,23 +24,37 @@ export type { RentBillFilters, ReceiptFilters } from "./api"
 
 // Hooks
 export {
+  // Query keys
+  rentBillKeys,
+  receiptKeys,
+  // Rent bill hooks
   useRentBills,
   useRentBillDetail,
   useBillableAmads,
+  useCreateRentBill,
+  useConfirmRentBill,
+  useCancelRentBill,
+  // Receipt hooks
   useReceipts,
   useReceiptDetail,
   useUnpaidBills,
+  useCreateReceipt,
+  useConfirmReceipt,
+  useCancelReceipt,
+  // Stats hooks
   useBillingStats,
   usePartyOutstanding,
 } from "./hooks"
 
 // Utils
 export {
+  // GST calculation
   calculateGst,
   determineGstType,
   validateGstin,
   getStateCodeFromGstin,
   calculateTotalCharges,
+  // Rent calculation
   calculateStorageDays,
   calculateBillableDays,
   calculateRentByWeight,
@@ -49,10 +63,21 @@ export {
   roundBillAmount,
   kgToQuintals,
   quintalsToKg,
+  // Amount formatting
   convertAmountToWords,
   formatIndianNumber,
   formatIndianRupees,
   formatCompactRupees,
+  // Bill number utilities
+  BILL_PREFIXES,
+  getCurrentFinancialYear,
+  getFinancialYearStart,
+  generateBillNo,
+  generateReceiptNo,
+  parseBillNo,
+  getNextBillNo,
+  getNextReceiptNo,
+  validateBillNo,
 } from "./utils"
 
 // Components
@@ -73,6 +98,7 @@ export {
   StepAddCharges,
   StepPreview,
   BillWizard,
+  BillWizardSheet,
   // Bill detail components
   BillDetailView,
   InvoicePreviewCard,

@@ -19,10 +19,10 @@ export function StepSelectAmads({
   onPartyChange,
   onAmadSelectionChange,
 }: StepSelectAmadsProps) {
-  const { amads, loading: amadsLoading } = useBillableAmads(
+  const { data: amads = [], isLoading: amadsLoading } = useBillableAmads(
     partyId || undefined
   )
-  const { outstanding } = usePartyOutstanding(partyId || null)
+  const { data: outstanding } = usePartyOutstanding(partyId || null)
 
   // Filter amads for the selected party
   const partyAmads = partyId

@@ -18,13 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -66,7 +60,7 @@ const statusOptions = [
 export function ReceiptList() {
   const navigate = useNavigate()
   const [statusFilter, setStatusFilter] = React.useState<string>("ALL")
-  const { receipts, loading, error, refetch } = useReceipts(
+  const { data: receipts = [], isLoading: loading, error, refetch } = useReceipts(
     statusFilter === "ALL" ? undefined : { status: statusFilter as BillStatus }
   )
   const [cancelReceipt, setCancelReceipt] = React.useState<Receipt | null>(null)
@@ -109,7 +103,7 @@ export function ReceiptList() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="text-destructive">{error}</div>
+        <div className="text-destructive">{error.message}</div>
       </div>
     )
   }
@@ -129,20 +123,15 @@ export function ReceiptList() {
         </Button>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            {statusOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <Tabs value={statusFilter} onValueChange={setStatusFilter}>
+        <TabsList>
+          {statusOptions.map((option) => (
+            <TabsTrigger key={option.value} value={option.value}>
+              {option.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
       <div className="rounded-md border">
         <Table>

@@ -4,7 +4,7 @@ import { useBillingStats } from "../../hooks/use-billing-stats"
 import { formatCompactRupees } from "../../utils/amount-to-words"
 
 export function BillingKpiCards() {
-  const { stats, loading } = useBillingStats()
+  const { data: stats, isLoading: loading } = useBillingStats()
 
   if (loading) {
     return (
