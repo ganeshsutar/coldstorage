@@ -32,7 +32,7 @@ const schema = z.object({
   map_required: z.boolean(),
   separate_voucher_numbers: z.boolean(),
   marka_on: z.enum(["L", "P"]),
-  rack_quantity: z.coerce.number().min(0),
+  rack_quantity: z.number().min(0),
 })
 
 type FormData = z.infer<typeof schema>

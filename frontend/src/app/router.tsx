@@ -54,6 +54,13 @@ import { NewDealPage } from "@/routes/app/trading/deals.new"
 import { DealDetailPage } from "@/routes/app/trading/deals.$id"
 import { NewGatePassPage } from "@/routes/app/trading/gate-passes.new"
 import { NewGradingPage } from "@/routes/app/trading/grading.new"
+// Loans routes
+import { LoansPage } from "@/routes/app/loans/index"
+import { NewAdvancePage } from "@/routes/app/loans/advances.new"
+import { AdvanceDetailPage } from "@/routes/app/loans/advances.$id"
+import { NewLoanPage } from "@/routes/app/loans/loans.new"
+import { LoanDetailPage } from "@/routes/app/loans/loans.$id"
+import { LoanLedgerPage } from "@/routes/app/loans/ledger"
 // Masters routes
 import { MastersPage } from "@/routes/app/masters/index"
 // System routes
@@ -304,6 +311,8 @@ const bardanaOutstandingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/bardana/outstanding",
   component: BardanaOutstandingPage,
+})
+
 // Trading routes
 const tradingRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -333,6 +342,43 @@ const tradingNewGradingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/trading/grading/new",
   component: NewGradingPage,
+})
+
+// Loans routes
+const loansRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans",
+  component: LoansPage,
+})
+
+const loansAdvancesNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans/advances/new",
+  component: NewAdvancePage,
+})
+
+const loansAdvancesDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans/advances/$id",
+  component: AdvanceDetailPage,
+})
+
+const loansLoansNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans/loans/new",
+  component: NewLoanPage,
+})
+
+const loansLoansDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans/loans/$id",
+  component: LoanDetailPage,
+})
+
+const loansLedgerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/loans/ledger",
+  component: LoanLedgerPage,
 })
 
 // Masters routes
@@ -383,6 +429,13 @@ const routeTree = rootRoute.addChildren([
   tradingDealDetailRoute,
   tradingNewGatePassRoute,
   tradingNewGradingRoute,
+  // Loans routes
+  loansRoute,
+  loansAdvancesNewRoute,
+  loansAdvancesDetailRoute,
+  loansLoansNewRoute,
+  loansLoansDetailRoute,
+  loansLedgerRoute,
   // Billing routes
   billingRoute,
   billingNewRoute,

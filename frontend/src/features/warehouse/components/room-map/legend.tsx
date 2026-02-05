@@ -1,4 +1,3 @@
-import * as React from "react"
 
 const legendItems = [
   { label: "Empty", color: "bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700" },

@@ -40,7 +40,7 @@ const MONTHS = [
 ]
 
 const fySchema = z.object({
-  financial_year_start: z.coerce.number().min(1).max(12),
+  financial_year_start: z.number().min(1).max(12),
   current_year: z.string().optional(),
   from_date: z.string().optional(),
   to_date: z.string().optional(),

@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { PartySelectorWithBalance } from "../shared/party-selector-with-balance"

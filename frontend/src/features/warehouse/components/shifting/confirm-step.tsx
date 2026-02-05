@@ -1,4 +1,3 @@
-import * as React from "react"
 import { CheckCircle, AlertCircle, Loader2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"

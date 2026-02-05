@@ -1,4 +1,4 @@
-import * as React from "react"
+
 import { Package, Warehouse, Thermometer, TrendingUp } from "lucide-react"
 import { StatCard } from "@/components/ui/stat-card"
 import type { RoomSummary } from "../../types/room-map"

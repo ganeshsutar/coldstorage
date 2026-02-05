@@ -38,8 +38,8 @@ const createUserSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
   phone: z.string().optional(),
   role: z.enum(["ADMIN", "OPERATOR"]),
-  loan_per_bag_limit: z.coerce.number().optional().nullable(),
-  backdate_entry_limit: z.coerce.number().optional().nullable(),
+  loan_per_bag_limit: z.number().optional().nullable(),
+  backdate_entry_limit: z.number().optional().nullable(),
 })
 
 const updateUserSchema = z.object({
@@ -47,8 +47,8 @@ const updateUserSchema = z.object({
   phone: z.string().optional(),
   role: z.enum(["ADMIN", "OPERATOR"]),
   status: z.enum(["PENDING", "ACTIVE", "SUSPENDED"]),
-  loan_per_bag_limit: z.coerce.number().optional().nullable(),
-  backdate_entry_limit: z.coerce.number().optional().nullable(),
+  loan_per_bag_limit: z.number().optional().nullable(),
+  backdate_entry_limit: z.number().optional().nullable(),
 })
 
 type CreateUserFormData = z.infer<typeof createUserSchema>

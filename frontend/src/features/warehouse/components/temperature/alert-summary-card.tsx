@@ -1,4 +1,3 @@
-import * as React from "react"
 import { CheckCircle, AlertTriangle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import type { TemperatureAlert } from "../../types/temperature"

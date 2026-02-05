@@ -18,9 +18,9 @@ import {
 import { useTaxSettings } from "../../hooks"
 
 const taxSchema = z.object({
-  default_cgst: z.coerce.number().min(0).max(100),
-  default_sgst: z.coerce.number().min(0).max(100),
-  default_igst: z.coerce.number().min(0).max(100),
+  default_cgst: z.number().min(0).max(100),
+  default_sgst: z.number().min(0).max(100),
+  default_igst: z.number().min(0).max(100),
 })
 
 type TaxFormData = z.infer<typeof taxSchema>

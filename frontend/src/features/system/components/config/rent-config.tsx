@@ -21,7 +21,7 @@ import { useRentConfig } from "../../hooks"
 const schema = z.object({
   rent_on: z.enum(["Q", "P", "W"]),
   rent_through: z.enum(["L", "B"]),
-  rent_days: z.coerce.number().min(0),
+  rent_days: z.number().min(0),
 })
 
 type FormData = z.infer<typeof schema>

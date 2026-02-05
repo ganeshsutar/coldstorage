@@ -26,8 +26,8 @@ import type { RoomFloor, CreateRoomFloorRequest } from "@/features/warehouse/typ
 import {
   generateFloorConfigs,
   validateFloorConfigs,
-  type FloorConfig,
 } from "@/features/warehouse/utils/floor-utils"
+import type { FloorConfig } from "@/features/warehouse/types/room-map"
 
 interface FloorConfigDialogProps {
   open: boolean
@@ -80,8 +80,7 @@ export function FloorConfigDialog({
 
     const configs = generateFloorConfigs(
       chamber.floor_count,
-      chamber.rack_count || 0,
-      chamber.racks_per_row
+      chamber.rack_count || 0
     )
 
     setFloors(
