@@ -97,12 +97,12 @@ export function DashboardSettingsForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {saveError && (
-          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+          <div data-testid="dashboard-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
             {saveError}
           </div>
         )}
         {saveSuccess && (
-          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+          <div data-testid="dashboard-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
             Settings saved successfully
           </div>
         )}
@@ -126,6 +126,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-summary-inward-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -145,6 +146,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-bag-grading-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -164,6 +166,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-pending-dues-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -183,6 +186,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-low-stock-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -202,6 +206,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-chamber-occupancy-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -221,6 +226,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-recent-transactions-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -240,6 +246,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-show-todays-collections-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -270,6 +277,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-print-takpatti-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -289,6 +297,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-print-gate-pass-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -308,6 +317,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-print-receipt-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -327,6 +337,7 @@ export function DashboardSettingsForm() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="dashboard-auto-print-rent-bill-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -355,6 +366,7 @@ export function DashboardSettingsForm() {
                     <FormLabel>Default Date Range (days)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="dashboard-date-range-input"
                         type="number"
                         min="1"
                         max="365"
@@ -375,6 +387,7 @@ export function DashboardSettingsForm() {
                     <FormLabel>Auto-refresh (minutes)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="dashboard-refresh-interval-input"
                         type="number"
                         min="1"
                         max="60"
@@ -395,6 +408,7 @@ export function DashboardSettingsForm() {
                     <FormLabel>Default Page Size</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="dashboard-page-size-input"
                         type="number"
                         min="10"
                         max="100"
@@ -412,7 +426,7 @@ export function DashboardSettingsForm() {
         </Card>
 
         <div className="flex justify-end">
-          <Button type="submit" disabled={saving}>
+          <Button data-testid="dashboard-submit-button" type="submit" disabled={saving}>
             {saving ? "Saving..." : "Save Settings"}
           </Button>
         </div>

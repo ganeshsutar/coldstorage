@@ -171,7 +171,7 @@ export function UserDialog({
               className="space-y-4"
             >
               {error && (
-                <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                <div data-testid="user-dialog-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                   {error}
                 </div>
               )}
@@ -183,7 +183,7 @@ export function UserDialog({
                   <FormItem>
                     <FormLabel>Full Name *</FormLabel>
                     <FormControl>
-                      <Input disabled={loading} {...field} />
+                      <Input data-testid="user-dialog-edit-fullname-input" disabled={loading} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -197,7 +197,7 @@ export function UserDialog({
                   <FormItem>
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <Input disabled={loading} {...field} />
+                      <Input data-testid="user-dialog-edit-phone-input" disabled={loading} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -217,7 +217,7 @@ export function UserDialog({
                         onValueChange={field.onChange}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger data-testid="user-dialog-edit-role-select">
                             <SelectValue />
                           </SelectTrigger>
                         </FormControl>
@@ -243,7 +243,7 @@ export function UserDialog({
                         onValueChange={field.onChange}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger data-testid="user-dialog-edit-status-select">
                             <SelectValue />
                           </SelectTrigger>
                         </FormControl>
@@ -268,6 +268,7 @@ export function UserDialog({
                       <FormLabel>Loan Per Bag Limit</FormLabel>
                       <FormControl>
                         <Input
+                          data-testid="user-dialog-edit-loan-limit-input"
                           type="number"
                           placeholder="Rs"
                           disabled={loading}
@@ -289,6 +290,7 @@ export function UserDialog({
                       <FormLabel>Backdate Limit (days)</FormLabel>
                       <FormControl>
                         <Input
+                          data-testid="user-dialog-edit-backdate-limit-input"
                           type="number"
                           placeholder="Days"
                           disabled={loading}
@@ -305,6 +307,7 @@ export function UserDialog({
 
               <DialogFooter>
                 <Button
+                  data-testid="user-dialog-cancel-button"
                   type="button"
                   variant="outline"
                   onClick={() => onOpenChange(false)}
@@ -312,7 +315,7 @@ export function UserDialog({
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={loading}>
+                <Button data-testid="user-dialog-submit-button" type="submit" disabled={loading}>
                   {loading ? "Saving..." : "Update User"}
                 </Button>
               </DialogFooter>
@@ -325,7 +328,7 @@ export function UserDialog({
               className="space-y-4"
             >
               {error && (
-                <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                <div data-testid="user-dialog-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                   {error}
                 </div>
               )}
@@ -339,6 +342,7 @@ export function UserDialog({
                       <FormLabel>Email *</FormLabel>
                       <FormControl>
                         <Input
+                          data-testid="user-dialog-email-input"
                           type="email"
                           placeholder="user@example.com"
                           disabled={loading}
@@ -357,7 +361,7 @@ export function UserDialog({
                     <FormItem>
                       <FormLabel>Full Name *</FormLabel>
                       <FormControl>
-                        <Input disabled={loading} {...field} />
+                        <Input data-testid="user-dialog-fullname-input" disabled={loading} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -373,7 +377,7 @@ export function UserDialog({
                     <FormItem>
                       <FormLabel>Password *</FormLabel>
                       <FormControl>
-                        <Input type="password" disabled={loading} {...field} />
+                        <Input data-testid="user-dialog-password-input" type="password" disabled={loading} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -387,7 +391,7 @@ export function UserDialog({
                     <FormItem>
                       <FormLabel>Phone</FormLabel>
                       <FormControl>
-                        <Input disabled={loading} {...field} />
+                        <Input data-testid="user-dialog-phone-input" disabled={loading} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -407,7 +411,7 @@ export function UserDialog({
                       onValueChange={field.onChange}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger data-testid="user-dialog-role-select">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
@@ -434,6 +438,7 @@ export function UserDialog({
                       <FormLabel>Loan Per Bag Limit</FormLabel>
                       <FormControl>
                         <Input
+                          data-testid="user-dialog-loan-limit-input"
                           type="number"
                           placeholder="Rs"
                           disabled={loading}
@@ -455,6 +460,7 @@ export function UserDialog({
                       <FormLabel>Backdate Limit (days)</FormLabel>
                       <FormControl>
                         <Input
+                          data-testid="user-dialog-backdate-limit-input"
                           type="number"
                           placeholder="Days"
                           disabled={loading}
@@ -471,6 +477,7 @@ export function UserDialog({
 
               <DialogFooter>
                 <Button
+                  data-testid="user-dialog-cancel-button"
                   type="button"
                   variant="outline"
                   onClick={() => onOpenChange(false)}
@@ -478,7 +485,7 @@ export function UserDialog({
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={loading}>
+                <Button data-testid="user-dialog-submit-button" type="submit" disabled={loading}>
                   {loading ? "Creating..." : "Create User"}
                 </Button>
               </DialogFooter>

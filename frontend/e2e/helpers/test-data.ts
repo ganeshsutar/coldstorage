@@ -11,3 +11,7 @@ export const AUTH_ROUTES = {
   register: "/auth/register",
   dashboard: "/app/dashboard",
 } as const;
+
+export const SYSTEM_ROUTES = {
+  settings: "/app/system/settings",
+} as const;

@@ -108,18 +108,18 @@ export function UserList() {
               Manage users in your organization
             </CardDescription>
           </div>
-          <Button onClick={handleAddUser}>
+          <Button data-testid="user-list-add-button" onClick={handleAddUser}>
             <Plus className="mr-2 h-4 w-4" />
             Add User
           </Button>
         </CardHeader>
         <CardContent>
           {users.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
+            <div data-testid="user-list-empty" className="text-center py-8 text-muted-foreground">
               No users found. Add your first user to get started.
             </div>
           ) : (
-            <Table>
+            <Table data-testid="user-list-table">
               <TableHeader>
                 <TableRow>
                   <TableHead>User</TableHead>
@@ -130,8 +130,8 @@ export function UserList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user.id}>
+                {users.map((user, index) => (
+                  <TableRow key={user.id} data-testid={`user-row-${index}`}>
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
@@ -164,17 +164,18 @@ export function UserList() {
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
+                          <Button variant="ghost" size="icon" data-testid={`user-row-menu-${index}`}>
                             <MoreHorizontal className="h-4 w-4" />
                             <span className="sr-only">Open menu</span>
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleEditUser(user)}>
+                          <DropdownMenuItem data-testid={`user-row-edit-${index}`} onClick={() => handleEditUser(user)}>
                             Edit User
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
+                            data-testid={`user-row-delete-${index}`}
                             className="text-destructive"
                             onClick={() => handleDeleteUser(user)}
                           >

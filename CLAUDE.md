@@ -137,6 +137,13 @@ Use CSS variables for theming: `--primary`, `--secondary`, `--muted`, `--accent`
 - **Badge variants:** `"default"` | `"secondary"` | `"destructive"` | `"outline"`
 - **Python:** Managed via uv lockfile, settings loaded from environment variables
 
+## E2E Testing
+
+- **Test framework:** Playwright, tests in `frontend/e2e/`
+- **Selector strategy:** Use `data-testid` attributes to identify inputs and interactive elements in tests. Every form input, button, and error container that tests interact with must have a `data-testid` attribute.
+- **Naming convention:** `<form>-<element>-<type>` — e.g., `login-email-input`, `register-submit-button`
+- **Page objects:** Located in `frontend/e2e/page-objects/`, use `page.getByTestId()` for locators
+
 ## Verification
 
 - **Frontend:** Run `npm run lint` from `frontend/` to verify (faster than full build)

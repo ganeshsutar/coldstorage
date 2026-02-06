@@ -99,12 +99,12 @@ export function PacketsConfig() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="packets-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="packets-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Settings saved successfully
               </div>
             )}
@@ -128,6 +128,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt1-name-input"
                               placeholder="e.g., 80KG"
                               disabled={saving}
                               {...field}
@@ -146,6 +147,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt1-weight-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -169,6 +171,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt2-name-input"
                               placeholder="e.g., 70KG"
                               disabled={saving}
                               {...field}
@@ -187,6 +190,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt2-weight-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -210,6 +214,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt3-name-input"
                               placeholder="e.g., 50KG"
                               disabled={saving}
                               {...field}
@@ -228,6 +233,7 @@ export function PacketsConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="packets-pkt3-weight-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -257,6 +263,7 @@ export function PacketsConfig() {
                   </div>
                   <FormControl>
                     <Switch
+                      data-testid="packets-mix-switch"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={saving}
@@ -267,7 +274,7 @@ export function PacketsConfig() {
             />
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="packets-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
             </div>

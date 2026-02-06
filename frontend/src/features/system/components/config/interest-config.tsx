@@ -89,12 +89,12 @@ export function InterestConfig() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="interest-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="interest-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Settings saved successfully
               </div>
             )}
@@ -108,6 +108,7 @@ export function InterestConfig() {
                     <FormLabel>Interest Rate (% per month)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="interest-rate-input"
                         type="number"
                         step="0.01"
                         min="0"
@@ -130,6 +131,7 @@ export function InterestConfig() {
                     <FormLabel>Days in Year</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="interest-days-input"
                         type="number"
                         min="1"
                         max="366"
@@ -158,6 +160,7 @@ export function InterestConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="interest-calculate-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -182,6 +185,7 @@ export function InterestConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="interest-on-rent-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -204,6 +208,7 @@ export function InterestConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="interest-on-loan-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -226,6 +231,7 @@ export function InterestConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="interest-on-bardana-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -237,7 +243,7 @@ export function InterestConfig() {
             </div>
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="interest-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
             </div>
