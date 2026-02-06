@@ -1,0 +1,6 @@
+export { PayrollKpiCards } from "./dashboard"
+export { EmployeeList, EmployeeForm, EmployeeDetailView } from "./employees"
+export { AttendanceGrid } from "./attendance"
+export { SalaryProcessing, PaySlip } from "./salary"
+export { StaffLoanList, StaffLoanForm } from "./loans"
+export { PayrollDashboard } from "./payroll-dashboard"
