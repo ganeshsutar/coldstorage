@@ -81,7 +81,7 @@ export function LoginForm({
               </div>
               <FieldSeparator>Or continue with</FieldSeparator>
               {error && (
-                <div className="text-sm text-destructive text-center">
+                <div className="text-sm text-destructive text-center" data-testid="login-error-message">
                   {error}
                 </div>
               )}
@@ -95,6 +95,7 @@ export function LoginForm({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
+                  data-testid="login-email-input"
                 />
               </Field>
               <Field>
@@ -114,16 +115,17 @@ export function LoginForm({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isLoading}
+                  data-testid="login-password-input"
                 />
               </Field>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full" disabled={isLoading} data-testid="login-submit-button">
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
             </FieldGroup>
           </form>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link to="/auth/register" className="underline underline-offset-4">
+            <Link to="/auth/register" className="underline underline-offset-4" data-testid="login-signup-link">
               Sign up
             </Link>
           </div>

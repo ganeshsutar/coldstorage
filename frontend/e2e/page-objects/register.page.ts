@@ -12,13 +12,13 @@ export class RegisterPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.fullNameInput = page.getByLabel("Full Name");
-    this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password", { exact: true });
-    this.confirmPasswordInput = page.getByLabel("Confirm Password");
-    this.submitButton = page.getByRole("button", { name: /create account/i });
-    this.generalError = page.locator(".bg-destructive\\/10");
-    this.signInLink = page.getByRole("link", { name: /sign in/i });
+    this.fullNameInput = page.getByTestId("register-fullname-input");
+    this.emailInput = page.getByTestId("register-email-input");
+    this.passwordInput = page.getByTestId("register-password-input");
+    this.confirmPasswordInput = page.getByTestId("register-confirm-password-input");
+    this.submitButton = page.getByTestId("register-submit-button");
+    this.generalError = page.getByTestId("register-error-message");
+    this.signInLink = page.getByTestId("register-signin-link");
   }
 
   async goto() {
