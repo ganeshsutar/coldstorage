@@ -117,6 +117,7 @@ export function SidebarUser({ email, name, onSignOut }: SidebarUserProps) {
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              data-testid="sidebar-user-button"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={avatarUrl} alt={displayName} />
@@ -280,7 +281,7 @@ export function SidebarUser({ email, name, onSignOut }: SidebarUserProps) {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem onClick={onSignOut}>
+            <DropdownMenuItem onClick={onSignOut} data-testid="sidebar-logout-menuitem">
               <LogOut className="mr-2 size-4" />
               Log out
             </DropdownMenuItem>
