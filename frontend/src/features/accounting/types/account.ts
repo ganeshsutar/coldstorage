@@ -5,6 +5,48 @@ export type AccountCategory =
   | "trading"
   | "profit_loss"
 
+export type PartyType =
+  | "KISAN"
+  | "AARTI"
+  | "STAFF"
+  | "LOADING_CONTRACTOR"
+  | "OTHERS"
+  | "KISAN_D"
+  | "CHATAI_CONTRACTOR"
+  | "MANDI"
+  | "FINANCER"
+  | "GUARANTOR"
+
+export type GuardianRelation = "S_O" | "F_O" | "W_O" | "D_O"
+
+export type CalculateInterestOnBardana = "DEFAULT" | "YES" | "NO"
+
+export const PARTY_TYPE_LABELS: Record<PartyType, string> = {
+  KISAN: "Kisan",
+  AARTI: "Aarti",
+  STAFF: "Staff",
+  LOADING_CONTRACTOR: "Loading Contractor",
+  OTHERS: "Others",
+  KISAN_D: "Kisan D",
+  CHATAI_CONTRACTOR: "Chatai Contractor",
+  MANDI: "Mandi",
+  FINANCER: "Financer",
+  GUARANTOR: "Guarantor",
+}
+
+export const GUARDIAN_RELATION_LABELS: Record<GuardianRelation, string> = {
+  S_O: "S/O",
+  F_O: "F/O",
+  W_O: "W/O",
+  D_O: "D/O",
+}
+
+export const INTEREST_ON_BARDANA_LABELS: Record<CalculateInterestOnBardana, string> = {
+  DEFAULT: "Default",
+  YES: "Yes",
+  NO: "No",
+}
+
 export interface Account {
   id: string
   code: string
@@ -29,6 +71,19 @@ export interface PartyAccount extends Account {
   village?: string
   credit_limit: number
   component_balances: ComponentBalances
+  party_type?: PartyType
+  guardian_name?: string
+  guardian_relation?: GuardianRelation
+  village_hindi?: string
+  tin_number?: string
+  guarantor_name?: string
+  remark?: string
+  charge_interest_from?: string
+  depreciation_rate?: number
+  dr_limit?: number
+  sauda_limit?: number
+  due_days?: number
+  calculate_interest_on_bardana?: CalculateInterestOnBardana
 }
 
 export interface ComponentBalances {
@@ -66,6 +121,19 @@ export interface CreatePartyRequest extends CreateAccountRequest {
   address?: string
   village?: string
   credit_limit?: number
+  party_type?: PartyType
+  guardian_name?: string
+  guardian_relation?: GuardianRelation
+  village_hindi?: string
+  tin_number?: string
+  guarantor_name?: string
+  remark?: string
+  charge_interest_from?: string
+  depreciation_rate?: number
+  dr_limit?: number
+  sauda_limit?: number
+  due_days?: number
+  calculate_interest_on_bardana?: CalculateInterestOnBardana
 }
 
 export interface AccountSummary {

@@ -27,6 +27,7 @@ from .serializers import (
     UserActivityLogSerializer,
     UserPermissionsSerializer,
 )
+from .seed_service import SeedDataService
 from .services import ActivityLogger
 
 
@@ -731,3 +732,42 @@ class DashboardSettingsView(OrganizationMixin, APIView):
         )
 
         return self.get(request)
+
+
+class SeedDataView(OrganizationMixin, APIView):
+    """View for seeding initial reference data into an organization."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Return seed status for all data types."""
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        seed_status = SeedDataService(organization).get_status()
+        return Response(seed_status)
+
+    def post(self, request):
+        """Trigger idempotent seeding. Returns created/updated counts."""
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        result = SeedDataService(organization).seed_all()
+
+        ActivityLogger.log_create(
+            organization=organization,
+            user=request.user,
+            module="System",
+            entry_type="SeedData",
+            entry_id="",
+            details=result,
+            request=request,
+        )
+
+        return Response(result)

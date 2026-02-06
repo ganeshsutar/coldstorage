@@ -17,6 +17,7 @@ interface StatCardProps {
   trend?: TrendProps
   icon?: React.ComponentType<{ className?: string }>
   description?: string
+  subValue?: string
   secondaryDescription?: string
   descriptionIcon?: React.ComponentType<{ className?: string }>
   loading?: boolean
@@ -50,7 +51,7 @@ function TrendBadge({ trend }: { trend: TrendProps }) {
 
 function StatCardSkeleton({ className }: { className?: string }) {
   return (
-    <Card className={cn("py-0 gap-0", className)}>
+    <Card className={cn("bg-gradient-to-br from-muted to-card py-0 gap-0", className)}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <Skeleton className="h-4 w-24" />
@@ -70,6 +71,7 @@ function StatCard({
   trend,
   icon: Icon,
   description,
+  subValue,
   secondaryDescription,
   descriptionIcon: DescIcon,
   loading,
@@ -87,7 +89,7 @@ function StatCard({
   return (
     <Card
       className={cn(
-        "py-0 gap-0",
+        "bg-gradient-to-br from-muted to-card py-0 gap-0",
         onClick && "cursor-pointer hover:bg-accent/50 transition-colors",
         className
       )}
@@ -106,14 +108,18 @@ function StatCard({
         <p className={cn("text-2xl font-bold mt-1", valueClassName)}>
           {displayValue}
         </p>
-        {(description || secondaryDescription) && (
+        {(description || subValue || secondaryDescription) && (
           <div className="mt-1 space-y-0.5">
-            {description && (
+            {subValue && description ? (
+              <p className="text-xs text-muted-foreground">
+                {subValue} {description}
+              </p>
+            ) : description ? (
               <p className="text-xs text-muted-foreground flex items-center gap-1">
                 {description}
                 {DescIcon && <DescIcon className="h-3 w-3" />}
               </p>
-            )}
+            ) : null}
             {secondaryDescription && (
               <p className="text-xs text-muted-foreground">
                 {secondaryDescription}
