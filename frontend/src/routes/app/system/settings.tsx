@@ -24,6 +24,7 @@ import {
   ChargesConfig,
   AuditLogTable,
   DashboardSettingsForm,
+  SeedDataCard,
 } from "@/features/system"
 
 export function SystemSettingsPage() {
@@ -91,6 +92,7 @@ export function SystemSettingsPage() {
 
             {/* Configuration Tab */}
             <TabsContent value="configuration" className="mt-0 space-y-4">
+              <SeedDataCard />
               <Tabs defaultValue="general" className="space-y-4">
                 <TabsList>
                   <TabsTrigger value="general" data-testid="config-tab-general">General</TabsTrigger>

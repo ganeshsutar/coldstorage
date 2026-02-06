@@ -8,6 +8,7 @@ from .views import (
     DashboardSettingsView,
     FinancialYearView,
     OrganizationUserViewSet,
+    SeedDataView,
     TaxSettingsView,
     UserActivityLogViewSet,
 )
@@ -28,6 +29,8 @@ urlpatterns = [
     path("config/<str:config_type>/", ConfigurationView.as_view(), name="configuration"),
     # Dashboard settings
     path("dashboard/", DashboardSettingsView.as_view(), name="dashboard-settings"),
+    # Seed data
+    path("seed-data/", SeedDataView.as_view(), name="seed-data"),
     # Router URLs (users, audit-log)
     path("", include(router.urls)),
 ]

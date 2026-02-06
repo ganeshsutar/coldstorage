@@ -19,6 +19,7 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = [
         "code",
         "name",
+        "party_type",
         "account_type",
         "balance_nature",
         "level",
@@ -26,8 +27,10 @@ class AccountAdmin(admin.ModelAdmin):
         "is_active",
         "organization",
     ]
-    list_filter = ["account_type", "balance_nature", "is_active", "organization"]
-    search_fields = ["code", "name", "name_hindi", "pan_number", "gst_number"]
+    list_filter = ["account_type", "balance_nature", "party_type", "is_active", "organization"]
+    search_fields = [
+        "code", "name", "name_hindi", "pan_number", "gst_number", "village", "guarantor_name",
+    ]
     ordering = ["code"]
     raw_id_fields = ["parent", "organization"]
 
@@ -56,7 +59,42 @@ class AccountAdmin(admin.ModelAdmin):
             "Contact Info",
             {"fields": ["address", "city", "state", "pincode", "phone", "email"]},
         ),
-        ("Settings", {"fields": ["interest_rate", "is_active"]}),
+        (
+            "Party Classification",
+            {
+                "classes": ["collapse"],
+                "fields": ["party_type", "guardian_name", "guardian_relation"],
+            },
+        ),
+        (
+            "Location",
+            {
+                "classes": ["collapse"],
+                "fields": ["village", "village_hindi"],
+            },
+        ),
+        (
+            "Additional Info",
+            {
+                "classes": ["collapse"],
+                "fields": ["guarantor_name", "tin_number", "remark"],
+            },
+        ),
+        (
+            "Settings",
+            {
+                "fields": [
+                    "interest_rate",
+                    "charge_interest_from",
+                    "depreciation_rate",
+                    "dr_limit",
+                    "sauda_limit",
+                    "due_days",
+                    "calculate_interest_on_bardana",
+                    "is_active",
+                ],
+            },
+        ),
         ("Timestamps", {"fields": ["created_at", "updated_at"]}),
     ]
 

@@ -214,6 +214,36 @@ export interface ActivityLogFilters {
 
 // ============== Dashboard Settings Types ==============
 
+// ============== Seed Data Types ==============
+
+export interface SeedCategoryStatus {
+  seeded: boolean
+  total: number
+  existing: number
+}
+
+export interface SeedDataStatus {
+  chart_of_accounts: SeedCategoryStatus
+  banks: SeedCategoryStatus
+  bardana_types: SeedCategoryStatus
+  commodities: SeedCategoryStatus
+  all_seeded: boolean
+}
+
+export interface SeedCategoryResult {
+  created: number
+  updated: number
+}
+
+export interface SeedDataResult {
+  chart_of_accounts: SeedCategoryResult
+  banks: SeedCategoryResult
+  bardana_types: SeedCategoryResult
+  commodities: SeedCategoryResult
+}
+
+// ============== Dashboard Settings Types ==============
+
 export interface DashboardSettings {
   show_summary_inward: boolean
   show_bag_grading: boolean

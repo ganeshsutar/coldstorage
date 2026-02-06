@@ -21,3 +21,5 @@ export {
   useActivityLogDetail,
   useDashboardSettings,
 } from "./use-audit-log"
+
+export { useSeedData } from "./use-seed-data"

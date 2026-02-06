@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useForm, useFieldArray, useWatch } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Plus, Trash2 } from "lucide-react"
@@ -65,6 +65,8 @@ export function BardanaReturnForm({ accounts = [] }: BardanaReturnFormProps) {
     control: form.control,
     name: "items",
   })
+
+  const watchedItems = useWatch({ control: form.control, name: "items" })
 
   const handleTypeChange = (index: number, typeId: string) => {
     const type = bardanaTypes.find((t) => t.id === typeId)
@@ -268,8 +270,8 @@ export function BardanaReturnForm({ accounts = [] }: BardanaReturnFormProps) {
                         <p className="text-sm font-medium mb-2">Amount</p>
                       )}
                       {(
-                        (form.watch(`items.${index}.qty`) || 0) *
-                        (form.watch(`items.${index}.rate`) || 0)
+                        (watchedItems?.[index]?.qty || 0) *
+                        (watchedItems?.[index]?.rate || 0)
                       ).toFixed(2)}
                     </div>
                     <Button
