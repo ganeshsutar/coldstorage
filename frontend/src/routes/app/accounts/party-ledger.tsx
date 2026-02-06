@@ -50,9 +50,9 @@ export function PartyLedgerPage() {
     }
 
     if (filter === "debtors") {
-      result = result.filter((p) => p.balance_type === "Dr" && p.balance !== 0);
+      result = result.filter((p) => p.balance_nature === "DEBIT" && parseFloat(p.closing_balance) !== 0);
     } else if (filter === "creditors") {
-      result = result.filter((p) => p.balance_type === "Cr" && p.balance !== 0);
+      result = result.filter((p) => p.balance_nature === "CREDIT" && parseFloat(p.closing_balance) !== 0);
     }
 
     return result;

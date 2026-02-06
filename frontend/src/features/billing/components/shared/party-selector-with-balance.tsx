@@ -88,8 +88,8 @@ export function PartySelectorWithBalance({
                       <span>{party.name}</span>
                       <span className="text-xs text-muted-foreground">
                         {party.code} | Balance:{" "}
-                        {formatIndianRupees(party.balance)}{" "}
-                        {party.balance_type}
+                        {formatIndianRupees(parseFloat(party.closing_balance) || 0)}{" "}
+                        {party.balance_nature === "DEBIT" ? "Dr" : "Cr"}
                       </span>
                     </div>
                   </CommandItem>
@@ -107,12 +107,12 @@ export function PartySelectorWithBalance({
             <span
               className={cn(
                 "font-medium",
-                selectedParty.balance_type === "Dr"
+                selectedParty.balance_nature === "DEBIT"
                   ? "text-destructive"
                   : "text-green-600"
               )}
             >
-              {formatIndianRupees(selectedParty.balance)} ({selectedParty.balance_type})
+              {formatIndianRupees(parseFloat(selectedParty.closing_balance) || 0)} ({selectedParty.balance_nature === "DEBIT" ? "Dr" : "Cr"})
             </span>
           </span>
           {outstandingBillsCount !== undefined && (

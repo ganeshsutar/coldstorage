@@ -96,7 +96,7 @@ export function AccountCombobox({
                   />
                   <span className="font-mono text-sm mr-2">{account.code}</span>
                   <span className="truncate">{account.name}</span>
-                  {account.is_party && (
+                  {account.party_type && (
                     <span className="ml-auto text-xs text-blue-600">Party</span>
                   )}
                 </CommandItem>

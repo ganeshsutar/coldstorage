@@ -31,7 +31,10 @@ function PartyRow({
   onView?: () => void
 }) {
   const [expanded, setExpanded] = React.useState(false)
-  const hasBreakdown = Object.values(party.component_balances).some((v) => v !== 0)
+  const hasBreakdown = Object.values(party.component_balances ?? {}).some((v) => v !== 0)
+  const balanceType = party.balance_nature === "DEBIT" ? "Dr" as const : "Cr" as const
+  const balanceAmount = parseFloat(party.closing_balance) || 0
+  const drLimit = party.dr_limit ?? 0
 
   return (
     <>
@@ -58,20 +61,20 @@ function PartyRow({
         <TableCell
           className={cn(
             "font-mono tabular-nums text-right",
-            party.balance_type === "Dr" ? "text-red-600" : "text-green-600"
+            balanceType === "Dr" ? "text-red-600" : "text-green-600"
           )}
         >
-          {formatBalance(party.balance, party.balance_type)}
+          {formatBalance(balanceAmount, balanceType)}
         </TableCell>
         <TableCell className="text-right font-mono tabular-nums text-muted-foreground">
-          {party.credit_limit > 0
-            ? party.credit_limit.toLocaleString("en-IN")
+          {drLimit > 0
+            ? drLimit.toLocaleString("en-IN")
             : "-"}
         </TableCell>
         <TableCell>
           <BalanceProgress
-            balance={party.balance}
-            creditLimit={party.credit_limit}
+            balance={balanceAmount}
+            creditLimit={drLimit}
           />
         </TableCell>
         <TableCell>
@@ -85,7 +88,7 @@ function PartyRow({
           </Button>
         </TableCell>
       </TableRow>
-      {expanded && hasBreakdown && (
+      {expanded && hasBreakdown && party.component_balances && (
         <TableRow className="bg-muted/30">
           <TableCell colSpan={7} className="py-2 pl-12">
             <ComponentBreakdown balances={party.component_balances} />

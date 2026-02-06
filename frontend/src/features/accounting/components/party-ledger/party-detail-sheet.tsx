@@ -52,12 +52,15 @@ export function PartyDetailSheet({
                 <Badge
                   variant="outline"
                   className={cn(
-                    party.balance_type === "Dr"
+                    party.balance_nature === "DEBIT"
                       ? "border-red-200 text-red-700"
                       : "border-green-200 text-green-700"
                   )}
                 >
-                  {formatBalance(party.balance, party.balance_type)}
+                  {formatBalance(
+                    parseFloat(party.closing_balance) || 0,
+                    party.balance_nature === "DEBIT" ? "Dr" : "Cr"
+                  )}
                 </Badge>
               </div>
             </SheetHeader>
@@ -91,23 +94,25 @@ export function PartyDetailSheet({
                 </h3>
                 <div className="flex items-center justify-between">
                   <span className="font-mono">
-                    {formatCurrency(party.credit_limit)}
+                    {formatCurrency(party.dr_limit ?? 0)}
                   </span>
                   <BalanceProgress
-                    balance={party.balance}
-                    creditLimit={party.credit_limit}
+                    balance={parseFloat(party.closing_balance) || 0}
+                    creditLimit={party.dr_limit ?? 0}
                   />
                 </div>
               </div>
 
               <Separator />
 
+              {party.component_balances && (
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">
                   Balance Breakdown
                 </h3>
                 <ComponentBreakdown balances={party.component_balances} />
               </div>
+              )}
 
               <Separator />
 

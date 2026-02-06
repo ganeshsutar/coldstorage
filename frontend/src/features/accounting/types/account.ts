@@ -51,26 +51,27 @@ export interface Account {
   id: string
   code: string
   name: string
-  type: AccountType
-  category: AccountCategory
-  parent_id: string | null
-  is_party: boolean
-  is_group: boolean
-  balance: number
-  balance_type: "Dr" | "Cr"
-  credit_limit?: number
-  children?: Account[]
+  name_hindi?: string
+  account_type: "GROUP" | "ACCOUNT"
+  balance_nature: "DEBIT" | "CREDIT"
+  parent: string | null
+  parent_name?: string
+  level: number
+  closing_balance: string
+  party_type?: string
+  village?: string
+  is_active: boolean
+  children_count?: number
   created_at: string
   updated_at: string
 }
 
 export interface PartyAccount extends Account {
-  is_party: true
   phone?: string
   address?: string
   village?: string
-  credit_limit: number
-  component_balances: ComponentBalances
+  dr_limit?: number
+  component_balances?: ComponentBalances
   party_type?: PartyType
   guardian_name?: string
   guardian_relation?: GuardianRelation
@@ -80,7 +81,6 @@ export interface PartyAccount extends Account {
   remark?: string
   charge_interest_from?: string
   depreciation_rate?: number
-  dr_limit?: number
   sauda_limit?: number
   due_days?: number
   calculate_interest_on_bardana?: CalculateInterestOnBardana
@@ -98,11 +98,12 @@ export interface AccountTreeNode {
   id: string
   code: string
   name: string
-  type: AccountType
-  is_group: boolean
-  is_party: boolean
-  balance: number
-  balance_type: "Dr" | "Cr"
+  name_hindi?: string
+  level: number
+  account_type: "GROUP" | "ACCOUNT"
+  balance_nature: "DEBIT" | "CREDIT"
+  closing_balance: string
+  is_active: boolean
   children: AccountTreeNode[]
 }
 

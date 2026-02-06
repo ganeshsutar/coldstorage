@@ -86,7 +86,7 @@ export function AddAccountDialog({
     }
   }
 
-  const groupAccounts = parentAccounts.filter((a) => a.is_group)
+  const groupAccounts = parentAccounts.filter((a) => a.account_type === "GROUP")
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
