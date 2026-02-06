@@ -1,12 +1,11 @@
 import * as React from "react"
-import { useNavigate } from "@tanstack/react-router"
 import { PlusIcon, SearchIcon } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { TakpattiListTable } from "@/features/inventory/components/takpatti"
+import { TakpattiListTable, TakpattiDialog } from "@/features/inventory/components/takpatti"
 import {
   useTakpattis,
   takpattiService,
@@ -14,10 +13,10 @@ import {
 } from "@/features/inventory"
 
 export function TakpattiPage() {
-  const navigate = useNavigate()
   const { takpattis, loading, refetch } = useTakpattis()
 
   const [search, setSearch] = React.useState("")
+  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const filteredTakpattis = React.useMemo(() => {
     if (!search) return takpattis
@@ -50,9 +49,7 @@ export function TakpattiPage() {
               Weighment slips for inventory items
             </p>
           </div>
-          <Button
-            onClick={() => navigate({ to: "/app/inventory/takpatti/new" })}
-          >
+          <Button onClick={() => setDialogOpen(true)}>
             <PlusIcon className="mr-2 h-4 w-4" />
             New Takpatti
           </Button>
@@ -84,6 +81,12 @@ export function TakpattiPage() {
           </CardContent>
         </Card>
       </div>
+
+      <TakpattiDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onSuccess={refetch}
+      />
     </DashboardLayout>
   )
 }
