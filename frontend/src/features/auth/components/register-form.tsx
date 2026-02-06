@@ -117,7 +117,7 @@ export function RegisterForm({
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 {generalError && (
-                  <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                  <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive" data-testid="register-error-message">
                     {generalError}
                   </div>
                 )}
@@ -129,7 +129,7 @@ export function RegisterForm({
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" data-testid="register-fullname-input" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -145,6 +145,7 @@ export function RegisterForm({
                         <Input
                           type="email"
                           placeholder="m@example.com"
+                          data-testid="register-email-input"
                           {...field}
                         />
                       </FormControl>
@@ -159,7 +160,7 @@ export function RegisterForm({
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" data-testid="register-password-input" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -172,13 +173,13 @@ export function RegisterForm({
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" data-testid="register-confirm-password-input" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                <Button type="submit" className="w-full" disabled={isSubmitting} data-testid="register-submit-button">
                   {isSubmitting ? "Creating account..." : "Create account"}
                 </Button>
               </div>
@@ -186,7 +187,7 @@ export function RegisterForm({
           </Form>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link to="/auth/login" className="underline underline-offset-4">
+            <Link to="/auth/login" className="underline underline-offset-4" data-testid="register-signin-link">
               Sign in
             </Link>
           </div>

@@ -86,12 +86,12 @@ export function TaxSettingsForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="tax-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="tax-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Tax settings saved successfully
               </div>
             )}
@@ -105,6 +105,7 @@ export function TaxSettingsForm() {
                     <FormLabel>CGST Rate (%)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="tax-cgst-input"
                         type="number"
                         step="0.01"
                         min="0"
@@ -126,6 +127,7 @@ export function TaxSettingsForm() {
                     <FormLabel>SGST Rate (%)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="tax-sgst-input"
                         type="number"
                         step="0.01"
                         min="0"
@@ -147,6 +149,7 @@ export function TaxSettingsForm() {
                     <FormLabel>IGST Rate (%)</FormLabel>
                     <FormControl>
                       <Input
+                        data-testid="tax-igst-input"
                         type="number"
                         step="0.01"
                         min="0"
@@ -163,7 +166,7 @@ export function TaxSettingsForm() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="tax-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Tax Settings"}
               </Button>
             </div>

@@ -110,6 +110,7 @@ export function AuditLogTable() {
           <div className="flex flex-wrap gap-4">
             <div className="flex-1 min-w-[200px]">
               <Input
+                data-testid="audit-search-input"
                 placeholder="Search..."
                 value={filters.search || ""}
                 onChange={(e) => handleFilterChange("search", e.target.value)}
@@ -119,7 +120,7 @@ export function AuditLogTable() {
               value={filters.user || "all"}
               onValueChange={(value) => handleFilterChange("user", value)}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger data-testid="audit-user-filter" className="w-[180px]">
                 <SelectValue placeholder="All Users" />
               </SelectTrigger>
               <SelectContent>
@@ -135,7 +136,7 @@ export function AuditLogTable() {
               value={filters.action_type || "all"}
               onValueChange={(value) => handleFilterChange("action_type", value)}
             >
-              <SelectTrigger className="w-[150px]">
+              <SelectTrigger data-testid="audit-action-filter" className="w-[150px]">
                 <SelectValue placeholder="All Actions" />
               </SelectTrigger>
               <SelectContent>
@@ -154,7 +155,7 @@ export function AuditLogTable() {
               value={filters.module || "all"}
               onValueChange={(value) => handleFilterChange("module", value)}
             >
-              <SelectTrigger className="w-[150px]">
+              <SelectTrigger data-testid="audit-module-filter" className="w-[150px]">
                 <SelectValue placeholder="All Modules" />
               </SelectTrigger>
               <SelectContent>
@@ -168,6 +169,7 @@ export function AuditLogTable() {
               </SelectContent>
             </Select>
             <Input
+              data-testid="audit-from-date-input"
               type="date"
               placeholder="From date"
               value={filters.from_date || ""}
@@ -175,6 +177,7 @@ export function AuditLogTable() {
               className="w-[150px]"
             />
             <Input
+              data-testid="audit-to-date-input"
               type="date"
               placeholder="To date"
               value={filters.to_date || ""}
@@ -189,11 +192,11 @@ export function AuditLogTable() {
               Loading activity logs...
             </div>
           ) : logs.length === 0 ? (
-            <div className="text-muted-foreground py-8 text-center">
+            <div data-testid="audit-log-empty" className="text-muted-foreground py-8 text-center">
               No activity logs found
             </div>
           ) : (
-            <Table>
+            <Table data-testid="audit-log-table">
               <TableHeader>
                 <TableRow>
                   <TableHead>Timestamp</TableHead>
@@ -205,7 +208,7 @@ export function AuditLogTable() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {logs.map((log) => (
+                {logs.map((log, index) => (
                   <TableRow key={log.id}>
                     <TableCell className="text-muted-foreground">
                       {formatDate(log.created_at)}
@@ -240,6 +243,7 @@ export function AuditLogTable() {
                     </TableCell>
                     <TableCell>
                       <Button
+                        data-testid={`audit-view-button-${index}`}
                         variant="ghost"
                         size="icon"
                         onClick={() => setSelectedLog(log)}
@@ -258,7 +262,7 @@ export function AuditLogTable() {
 
       {/* Detail Dialog */}
       <Dialog open={!!selectedLog} onOpenChange={() => setSelectedLog(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent data-testid="audit-detail-dialog" className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Activity Detail</DialogTitle>
             <DialogDescription>

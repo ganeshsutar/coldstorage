@@ -44,27 +44,27 @@ export function SystemSettingsPage() {
         {/* Main Tabs */}
         <Tabs defaultValue="company" className="flex flex-row items-start gap-8">
           <TabsList className="flex flex-col h-auto w-52 shrink-0 bg-transparent border rounded-lg p-2 gap-1">
-            <TabsTrigger value="company" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="company" data-testid="system-tab-company" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <Building2 className="h-4 w-4" />
               Company Info
             </TabsTrigger>
-            <TabsTrigger value="users" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="users" data-testid="system-tab-users" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <Users className="h-4 w-4" />
               Users
             </TabsTrigger>
-            <TabsTrigger value="permissions" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="permissions" data-testid="system-tab-permissions" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <Shield className="h-4 w-4" />
               Permissions
             </TabsTrigger>
-            <TabsTrigger value="configuration" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="configuration" data-testid="system-tab-configuration" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <Wrench className="h-4 w-4" />
               Configuration
             </TabsTrigger>
-            <TabsTrigger value="audit" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="audit" data-testid="system-tab-audit" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <ScrollText className="h-4 w-4" />
               Audit Log
             </TabsTrigger>
-            <TabsTrigger value="dashboard" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+            <TabsTrigger value="dashboard" data-testid="system-tab-dashboard" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <LayoutDashboard className="h-4 w-4" />
               Dashboard
             </TabsTrigger>
@@ -93,11 +93,11 @@ export function SystemSettingsPage() {
             <TabsContent value="configuration" className="mt-0 space-y-4">
               <Tabs defaultValue="general" className="space-y-4">
                 <TabsList>
-                  <TabsTrigger value="general">General</TabsTrigger>
-                  <TabsTrigger value="rent">Rent</TabsTrigger>
-                  <TabsTrigger value="interest">Interest</TabsTrigger>
-                  <TabsTrigger value="packets">Packets</TabsTrigger>
-                  <TabsTrigger value="charges">Charges</TabsTrigger>
+                  <TabsTrigger value="general" data-testid="config-tab-general">General</TabsTrigger>
+                  <TabsTrigger value="rent" data-testid="config-tab-rent">Rent</TabsTrigger>
+                  <TabsTrigger value="interest" data-testid="config-tab-interest">Interest</TabsTrigger>
+                  <TabsTrigger value="packets" data-testid="config-tab-packets">Packets</TabsTrigger>
+                  <TabsTrigger value="charges" data-testid="config-tab-charges">Charges</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="general">

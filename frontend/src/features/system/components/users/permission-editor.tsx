@@ -169,24 +169,24 @@ export function PermissionEditor() {
             Configure permissions for each user in your organization
           </CardDescription>
         </div>
-        <Button onClick={handleSave} disabled={saving}>
+        <Button onClick={handleSave} disabled={saving} data-testid="permission-save-button">
           {saving ? "Saving..." : "Save Permissions"}
         </Button>
       </CardHeader>
       <CardContent>
         {saveError && (
-          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md mb-4">
+          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md mb-4" data-testid="permission-error-message">
             {saveError}
           </div>
         )}
         {saveSuccess && (
-          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md mb-4">
+          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md mb-4" data-testid="permission-success-message">
             Permissions saved successfully
           </div>
         )}
 
         <div className="overflow-x-auto">
-          <Table>
+          <Table data-testid="permission-table">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[200px]">Permission</TableHead>

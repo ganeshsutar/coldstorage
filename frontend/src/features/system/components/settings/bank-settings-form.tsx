@@ -88,12 +88,12 @@ export function BankSettingsForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="bank-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="bank-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Bank settings saved successfully
               </div>
             )}
@@ -106,7 +106,7 @@ export function BankSettingsForm() {
                   <FormItem>
                     <FormLabel>Bank Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., HDFC Bank" disabled={saving} {...field} />
+                      <Input data-testid="bank-name-input" placeholder="e.g., HDFC Bank" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -119,7 +119,7 @@ export function BankSettingsForm() {
                   <FormItem>
                     <FormLabel>Branch</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., Agra Main" disabled={saving} {...field} />
+                      <Input data-testid="bank-branch-input" placeholder="e.g., Agra Main" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -135,7 +135,7 @@ export function BankSettingsForm() {
                   <FormItem>
                     <FormLabel>Account Number</FormLabel>
                     <FormControl>
-                      <Input placeholder="Account number" disabled={saving} {...field} />
+                      <Input data-testid="bank-account-input" placeholder="Account number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,7 +148,7 @@ export function BankSettingsForm() {
                   <FormItem>
                     <FormLabel>IFSC Code</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., HDFC0001234" disabled={saving} {...field} />
+                      <Input data-testid="bank-ifsc-input" placeholder="e.g., HDFC0001234" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -157,7 +157,7 @@ export function BankSettingsForm() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="bank-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Bank Details"}
               </Button>
             </div>

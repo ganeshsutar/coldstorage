@@ -98,12 +98,12 @@ export function GeneralConfig() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="general-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="general-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Settings saved successfully
               </div>
             )}
@@ -121,7 +121,7 @@ export function GeneralConfig() {
                       onValueChange={field.onChange}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger data-testid="general-software-mode-select">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
@@ -148,7 +148,7 @@ export function GeneralConfig() {
                       onValueChange={field.onChange}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger data-testid="general-marka-on-select">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
@@ -172,6 +172,7 @@ export function GeneralConfig() {
                   <FormLabel>Rack Capacity</FormLabel>
                   <FormControl>
                     <Input
+                      data-testid="general-rack-quantity-input"
                       type="number"
                       min="0"
                       disabled={saving}
@@ -198,6 +199,7 @@ export function GeneralConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="general-multi-chamber-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -220,6 +222,7 @@ export function GeneralConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="general-partial-lot-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -242,6 +245,7 @@ export function GeneralConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="general-map-required-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -264,6 +268,7 @@ export function GeneralConfig() {
                     </div>
                     <FormControl>
                       <Switch
+                        data-testid="general-separate-voucher-switch"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={saving}
@@ -275,7 +280,7 @@ export function GeneralConfig() {
             </div>
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="general-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
             </div>

@@ -11,10 +11,8 @@ test.describe("Smoke tests", () => {
   test("login page renders with form elements", async ({ page }) => {
     await page.goto("/auth/login");
 
-    await expect(page.getByLabel("Email")).toBeVisible();
-    await expect(page.getByLabel("Password")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /login/i })
-    ).toBeVisible();
+    await expect(page.getByTestId("login-email-input")).toBeVisible();
+    await expect(page.getByTestId("login-password-input")).toBeVisible();
+    await expect(page.getByTestId("login-submit-button")).toBeVisible();
   });
 });

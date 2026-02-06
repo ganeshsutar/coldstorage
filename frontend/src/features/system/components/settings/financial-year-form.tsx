@@ -115,12 +115,12 @@ export function FinancialYearForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="fy-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="fy-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Financial year settings saved successfully
               </div>
             )}
@@ -138,7 +138,7 @@ export function FinancialYearForm() {
                       onValueChange={(value) => field.onChange(Number(value))}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger data-testid="fy-start-month-select">
                           <SelectValue placeholder="Select month" />
                         </SelectTrigger>
                       </FormControl>
@@ -162,7 +162,7 @@ export function FinancialYearForm() {
                   <FormItem>
                     <FormLabel>Current Year Label</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 2024-25" disabled={saving} {...field} />
+                      <Input data-testid="fy-current-year-input" placeholder="e.g., 2024-25" disabled={saving} {...field} />
                     </FormControl>
                     <FormDescription>Display label for current FY</FormDescription>
                     <FormMessage />
@@ -179,7 +179,7 @@ export function FinancialYearForm() {
                   <FormItem>
                     <FormLabel>From Date</FormLabel>
                     <FormControl>
-                      <Input type="date" disabled={saving} {...field} />
+                      <Input data-testid="fy-from-date-input" type="date" disabled={saving} {...field} />
                     </FormControl>
                     <FormDescription>Start date of current FY</FormDescription>
                     <FormMessage />
@@ -193,7 +193,7 @@ export function FinancialYearForm() {
                   <FormItem>
                     <FormLabel>To Date</FormLabel>
                     <FormControl>
-                      <Input type="date" disabled={saving} {...field} />
+                      <Input data-testid="fy-to-date-input" type="date" disabled={saving} {...field} />
                     </FormControl>
                     <FormDescription>End date of current FY</FormDescription>
                     <FormMessage />
@@ -203,7 +203,7 @@ export function FinancialYearForm() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="fy-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Financial Year Settings"}
               </Button>
             </div>

@@ -106,12 +106,12 @@ export function ChargesConfig() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="charges-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="charges-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Settings saved successfully
               </div>
             )}
@@ -136,6 +136,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-katai1-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -157,6 +158,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-katai2-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -178,6 +180,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-katai3-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -202,6 +205,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-load1-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -223,6 +227,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-load2-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -244,6 +249,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-load3-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -268,6 +274,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-unload1-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -289,6 +296,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-unload2-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -310,6 +318,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-unload3-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -334,6 +343,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-reload1-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -355,6 +365,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-reload2-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -376,6 +387,7 @@ export function ChargesConfig() {
                         <FormItem>
                           <FormControl>
                             <Input
+                              data-testid="charges-reload3-input"
                               type="number"
                               step="0.01"
                               min="0"
@@ -394,7 +406,7 @@ export function ChargesConfig() {
             </Table>
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="charges-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
             </div>

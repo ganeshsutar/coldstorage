@@ -1,8 +1,8 @@
 export const TEST_USERS = {
   default: {
-    email: "test@example.com",
-    password: "testpass123",
-    fullName: "Test User",
+    email: "testuser@example.com",
+    password: "Test@123",
+    fullName: "Ganesh Sutar",
   },
 } as const;
 
@@ -10,4 +10,8 @@ export const AUTH_ROUTES = {
   login: "/auth/login",
   register: "/auth/register",
   dashboard: "/app/dashboard",
+} as const;
+
+export const SYSTEM_ROUTES = {
+  settings: "/app/system/settings",
 } as const;

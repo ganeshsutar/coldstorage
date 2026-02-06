@@ -11,22 +11,11 @@ test.describe("Logout & Session", () => {
     await page.goto(AUTH_ROUTES.dashboard);
     await expect(page).toHaveURL(new RegExp(AUTH_ROUTES.dashboard));
 
-    // Find and click the logout button/link
-    const logoutButton = page.getByRole("button", { name: /logout|sign out/i });
-    const logoutMenuItem = page.getByRole("menuitem", { name: /logout|sign out/i });
+    // Open user menu
+    await page.getByTestId("sidebar-user-button").click();
 
-    if (await logoutButton.isVisible().catch(() => false)) {
-      await logoutButton.click();
-    } else if (await logoutMenuItem.isVisible().catch(() => false)) {
-      await logoutMenuItem.click();
-    } else {
-      // Try opening user menu first
-      const userMenu = page.getByRole("button", { name: /user|account|profile/i });
-      if (await userMenu.isVisible().catch(() => false)) {
-        await userMenu.click();
-        await page.getByText(/logout|sign out/i).first().click();
-      }
-    }
+    // Click logout
+    await page.getByTestId("sidebar-logout-menuitem").click();
 
     await page.waitForURL(`**${AUTH_ROUTES.login}`, { timeout: 10000 });
     await expect(page).toHaveURL(new RegExp(AUTH_ROUTES.login));
@@ -42,21 +31,11 @@ test.describe("Logout & Session", () => {
     );
     expect(authBefore).toBeTruthy();
 
-    // Trigger logout via navigation or API
-    const logoutButton = page.getByRole("button", { name: /logout|sign out/i });
-    const logoutMenuItem = page.getByRole("menuitem", { name: /logout|sign out/i });
+    // Open user menu
+    await page.getByTestId("sidebar-user-button").click();
 
-    if (await logoutButton.isVisible().catch(() => false)) {
-      await logoutButton.click();
-    } else if (await logoutMenuItem.isVisible().catch(() => false)) {
-      await logoutMenuItem.click();
-    } else {
-      const userMenu = page.getByRole("button", { name: /user|account|profile/i });
-      if (await userMenu.isVisible().catch(() => false)) {
-        await userMenu.click();
-        await page.getByText(/logout|sign out/i).first().click();
-      }
-    }
+    // Click logout
+    await page.getByTestId("sidebar-logout-menuitem").click();
 
     await page.waitForURL(`**${AUTH_ROUTES.login}`, { timeout: 10000 });
 

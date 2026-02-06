@@ -10,11 +10,11 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password");
-    this.submitButton = page.getByRole("button", { name: /login/i });
-    this.errorMessage = page.locator(".text-destructive").first();
-    this.signUpLink = page.getByRole("link", { name: /sign up/i });
+    this.emailInput = page.getByTestId("login-email-input");
+    this.passwordInput = page.getByTestId("login-password-input");
+    this.submitButton = page.getByTestId("login-submit-button");
+    this.errorMessage = page.getByTestId("login-error-message");
+    this.signUpLink = page.getByTestId("login-signup-link");
   }
 
   async goto() {

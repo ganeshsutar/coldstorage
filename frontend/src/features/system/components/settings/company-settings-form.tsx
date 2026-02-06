@@ -115,12 +115,12 @@ export function CompanySettingsForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {saveError && (
-          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+          <div data-testid="company-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
             {saveError}
           </div>
         )}
         {saveSuccess && (
-          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+          <div data-testid="company-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
             Settings saved successfully
           </div>
         )}
@@ -139,7 +139,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Company Name *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Company Name" disabled={saving} {...field} />
+                      <Input data-testid="company-name-input" placeholder="Company Name" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -152,7 +152,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Company Name (Hindi)</FormLabel>
                     <FormControl>
-                      <Input placeholder="कंपनी का नाम" disabled={saving} {...field} />
+                      <Input data-testid="company-name-hindi-input" placeholder="कंपनी का नाम" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,7 +167,7 @@ export function CompanySettingsForm() {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Full address" disabled={saving} {...field} />
+                    <Textarea data-testid="company-address-input" placeholder="Full address" disabled={saving} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -182,7 +182,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>City</FormLabel>
                     <FormControl>
-                      <Input placeholder="City" disabled={saving} {...field} />
+                      <Input data-testid="company-city-input" placeholder="City" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -195,7 +195,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>State</FormLabel>
                     <FormControl>
-                      <Input placeholder="State" disabled={saving} {...field} />
+                      <Input data-testid="company-state-input" placeholder="State" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -211,7 +211,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <Input placeholder="Phone number" disabled={saving} {...field} />
+                      <Input data-testid="company-phone-input" placeholder="Phone number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -224,7 +224,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Fax</FormLabel>
                     <FormControl>
-                      <Input placeholder="Fax number" disabled={saving} {...field} />
+                      <Input data-testid="company-fax-input" placeholder="Fax number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -237,7 +237,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="company@example.com" disabled={saving} {...field} />
+                      <Input data-testid="company-email-input" type="email" placeholder="company@example.com" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -261,7 +261,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>GSTIN</FormLabel>
                     <FormControl>
-                      <Input placeholder="GST Number" disabled={saving} {...field} />
+                      <Input data-testid="company-gst-input" placeholder="GST Number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -274,7 +274,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>PAN Number</FormLabel>
                     <FormControl>
-                      <Input placeholder="PAN Number" disabled={saving} {...field} />
+                      <Input data-testid="company-pan-input" placeholder="PAN Number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -289,7 +289,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>TAN Number</FormLabel>
                     <FormControl>
-                      <Input placeholder="TAN Number" disabled={saving} {...field} />
+                      <Input data-testid="company-tan-input" placeholder="TAN Number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -302,7 +302,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>CIN Number</FormLabel>
                     <FormControl>
-                      <Input placeholder="CIN Number" disabled={saving} {...field} />
+                      <Input data-testid="company-cin-input" placeholder="CIN Number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -326,7 +326,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Owner Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Owner/Proprietor name" disabled={saving} {...field} />
+                      <Input data-testid="company-owner-name-input" placeholder="Owner/Proprietor name" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -339,7 +339,7 @@ export function CompanySettingsForm() {
                   <FormItem>
                     <FormLabel>Owner Aadhar</FormLabel>
                     <FormControl>
-                      <Input placeholder="Aadhar number" disabled={saving} {...field} />
+                      <Input data-testid="company-owner-aadhar-input" placeholder="Aadhar number" disabled={saving} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -353,7 +353,7 @@ export function CompanySettingsForm() {
                 <FormItem>
                   <FormLabel>UPI ID</FormLabel>
                   <FormControl>
-                    <Input placeholder="payment@upi" disabled={saving} {...field} />
+                    <Input data-testid="company-upi-input" placeholder="payment@upi" disabled={saving} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -363,7 +363,7 @@ export function CompanySettingsForm() {
         </Card>
 
         <div className="flex justify-end">
-          <Button type="submit" disabled={saving}>
+          <Button data-testid="company-submit-button" type="submit" disabled={saving}>
             {saving ? "Saving..." : "Save Changes"}
           </Button>
         </div>

@@ -83,12 +83,12 @@ export function RentConfig() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {saveError && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+              <div data-testid="rent-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}
               </div>
             )}
             {saveSuccess && (
-              <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="rent-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 Settings saved successfully
               </div>
             )}
@@ -101,6 +101,7 @@ export function RentConfig() {
                   <FormLabel>Rent Calculation Basis</FormLabel>
                   <FormControl>
                     <RadioGroup
+                      data-testid="rent-on-radio"
                       onValueChange={field.onChange}
                       value={field.value}
                       className="flex flex-col space-y-2"
@@ -108,7 +109,7 @@ export function RentConfig() {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="Q" />
+                          <RadioGroupItem data-testid="rent-on-Q" value="Q" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           Per Quintal (Q) - Calculate rent based on weight in quintals
@@ -116,7 +117,7 @@ export function RentConfig() {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="P" />
+                          <RadioGroupItem data-testid="rent-on-P" value="P" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           Per Packet (P) - Calculate rent based on number of packets
@@ -124,7 +125,7 @@ export function RentConfig() {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="W" />
+                          <RadioGroupItem data-testid="rent-on-W" value="W" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           Per Weight (W) - Calculate rent based on exact weight
@@ -145,6 +146,7 @@ export function RentConfig() {
                   <FormLabel>Rent Processing Mode</FormLabel>
                   <FormControl>
                     <RadioGroup
+                      data-testid="rent-through-radio"
                       onValueChange={field.onChange}
                       value={field.value}
                       className="flex flex-col space-y-2"
@@ -152,7 +154,7 @@ export function RentConfig() {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="L" />
+                          <RadioGroupItem data-testid="rent-through-L" value="L" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           Through Ledger (L) - Post rent directly to party ledger
@@ -160,7 +162,7 @@ export function RentConfig() {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="B" />
+                          <RadioGroupItem data-testid="rent-through-B" value="B" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           Through Bill (B) - Generate rent bills for collection
@@ -181,6 +183,7 @@ export function RentConfig() {
                   <FormLabel>Additional Rent Days</FormLabel>
                   <FormControl>
                     <Input
+                      data-testid="rent-days-input"
                       type="number"
                       min="0"
                       disabled={saving}
@@ -197,7 +200,7 @@ export function RentConfig() {
             />
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={saving}>
+              <Button data-testid="rent-submit-button" type="submit" disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
             </div>
