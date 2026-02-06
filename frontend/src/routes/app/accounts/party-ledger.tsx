@@ -1,63 +1,67 @@
-import * as React from "react"
-import { SearchIcon, FilterIcon, UserPlusIcon } from "lucide-react"
+import * as React from "react";
+import { SearchIcon, FilterIcon, UserPlusIcon } from "lucide-react";
 
-import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   KPICards,
   PartyListTable,
   PartyDetailSheet,
-} from "@/features/accounting/components/party-ledger"
-import { AddPartyDialog } from "@/features/accounting/components/accounts"
+} from "@/features/accounting/components/party-ledger";
+import { AddPartyDialog } from "@/features/accounting/components/accounts";
 import {
   usePartyAccounts,
   useAccountSummary,
   type PartyAccount,
-} from "@/features/accounting"
+} from "@/features/accounting";
 
 export function PartyLedgerPage() {
-  const { parties, loading: partiesLoading, refetch } = usePartyAccounts()
-  const { summary, loading: summaryLoading } = useAccountSummary()
-  const [search, setSearch] = React.useState("")
-  const [filter, setFilter] = React.useState<"all" | "debtors" | "creditors">("all")
-  const [selectedParty, setSelectedParty] = React.useState<PartyAccount | null>(null)
-  const [detailSheetOpen, setDetailSheetOpen] = React.useState(false)
-  const [addPartyOpen, setAddPartyOpen] = React.useState(false)
+  const { parties, loading: partiesLoading, refetch } = usePartyAccounts();
+  const { summary, loading: summaryLoading } = useAccountSummary();
+  const [search, setSearch] = React.useState("");
+  const [filter, setFilter] = React.useState<"all" | "debtors" | "creditors">(
+    "all",
+  );
+  const [selectedParty, setSelectedParty] = React.useState<PartyAccount | null>(
+    null,
+  );
+  const [detailSheetOpen, setDetailSheetOpen] = React.useState(false);
+  const [addPartyOpen, setAddPartyOpen] = React.useState(false);
 
   const filteredParties = React.useMemo(() => {
-    let result = parties
+    let result = parties;
 
     if (search) {
-      const lowerSearch = search.toLowerCase()
+      const lowerSearch = search.toLowerCase();
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(lowerSearch) ||
-          p.code.toLowerCase().includes(lowerSearch)
-      )
+          p.code.toLowerCase().includes(lowerSearch),
+      );
     }
 
     if (filter === "debtors") {
-      result = result.filter((p) => p.balance_type === "Dr" && p.balance !== 0)
+      result = result.filter((p) => p.balance_type === "Dr" && p.balance !== 0);
     } else if (filter === "creditors") {
-      result = result.filter((p) => p.balance_type === "Cr" && p.balance !== 0)
+      result = result.filter((p) => p.balance_type === "Cr" && p.balance !== 0);
     }
 
-    return result
-  }, [parties, search, filter])
+    return result;
+  }, [parties, search, filter]);
 
   const handleViewParty = (party: PartyAccount) => {
-    setSelectedParty(party)
-    setDetailSheetOpen(true)
-  }
+    setSelectedParty(party);
+    setDetailSheetOpen(true);
+  };
 
   return (
     <DashboardLayout activeNavItemId="party-ledger">
@@ -97,7 +101,7 @@ export function PartyLedgerPage() {
                   value={filter}
                   onValueChange={(v) => setFilter(v as typeof filter)}
                 >
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-56">
                     <FilterIcon className="h-4 w-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
@@ -132,5 +136,5 @@ export function PartyLedgerPage() {
         onSuccess={refetch}
       />
     </DashboardLayout>
-  )
+  );
 }

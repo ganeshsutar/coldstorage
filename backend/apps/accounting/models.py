@@ -30,6 +30,38 @@ class VoucherType(models.TextChoices):
     BH = "BH", "Bank"
 
 
+class PartyType(models.TextChoices):
+    """Classification of party accounts."""
+
+    KISAN = "KISAN", "Kisan"
+    AARTI = "AARTI", "Aarti"
+    STAFF = "STAFF", "Staff"
+    LOADING_CONTRACTOR = "LOADING_CONTRACTOR", "Loading Contractor"
+    OTHERS = "OTHERS", "Others"
+    KISAN_D = "KISAN_D", "Kisan D"
+    CHATAI_CONTRACTOR = "CHATAI_CONTRACTOR", "Chatai Contractor"
+    MANDI = "MANDI", "Mandi"
+    FINANCER = "FINANCER", "Financer"
+    GUARANTOR = "GUARANTOR", "Guarantor"
+
+
+class GuardianRelation(models.TextChoices):
+    """Relation type for guardian."""
+
+    S_O = "S_O", "S/O"
+    F_O = "F_O", "F/O"
+    W_O = "W_O", "W/O"
+    D_O = "D_O", "D/O"
+
+
+class CalculateInterestOnBardana(models.TextChoices):
+    """Whether to calculate interest on bardana for this party."""
+
+    DEFAULT = "DEFAULT", "Default"
+    YES = "YES", "Yes"
+    NO = "NO", "No"
+
+
 class AccountManager(models.Manager):
     """Custom manager for Account model with recursive CTE methods."""
 
@@ -159,8 +191,36 @@ class Account(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
+    # Party classification
+    party_type = models.CharField(
+        max_length=20, choices=PartyType.choices, blank=True, null=True
+    )
+    guardian_name = models.CharField(max_length=255, blank=True, null=True)
+    guardian_relation = models.CharField(
+        max_length=5, choices=GuardianRelation.choices, blank=True, null=True
+    )
+    village = models.CharField(max_length=100, blank=True, null=True)
+    village_hindi = models.CharField(max_length=255, blank=True, null=True)
+    tin_number = models.CharField(max_length=20, blank=True, null=True)
+    guarantor_name = models.CharField(max_length=255, blank=True, null=True)
+    remark = models.TextField(blank=True, null=True)
+
     # Interest rate for party accounts
     interest_rate = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal("0.00"))
+    charge_interest_from = models.DateField(blank=True, null=True)
+    depreciation_rate = models.DecimalField(
+        max_digits=5, decimal_places=2, default=Decimal("0.00")
+    )
+    dr_limit = models.DecimalField(
+        max_digits=15, decimal_places=2, default=Decimal("0.00")
+    )
+    sauda_limit = models.IntegerField(default=0)
+    due_days = models.IntegerField(default=0)
+    calculate_interest_on_bardana = models.CharField(
+        max_length=10,
+        choices=CalculateInterestOnBardana.choices,
+        default=CalculateInterestOnBardana.DEFAULT,
+    )
 
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -182,6 +242,7 @@ class Account(models.Model):
         indexes = [
             models.Index(fields=["organization", "account_type"]),
             models.Index(fields=["organization", "parent"]),
+            models.Index(fields=["organization", "party_type"]),
         ]
 
     def __str__(self):
