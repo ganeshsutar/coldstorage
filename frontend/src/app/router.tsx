@@ -24,6 +24,7 @@ import { NikasiPage } from "@/routes/app/inventory/nikasi"
 import { NewNikasiPage } from "@/routes/app/inventory/nikasi.new"
 import { StockTransferPage } from "@/routes/app/inventory/stock-transfer"
 import { TakpattiPage } from "@/routes/app/inventory/takpatti"
+import { NewTakpattiPage } from "@/routes/app/inventory/takpatti.new"
 // Warehouse routes
 import { WarehouseIndexPage } from "@/routes/app/warehouse/index"
 import { NewLoadingPage } from "@/routes/app/warehouse/loading.new"
@@ -191,6 +192,12 @@ const takpattiRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/inventory/takpatti",
   component: TakpattiPage,
+})
+
+const newTakpattiRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/inventory/takpatti/new",
+  component: NewTakpattiPage,
 })
 
 // Warehouse routes
@@ -474,6 +481,7 @@ const routeTree = rootRoute.addChildren([
   newNikasiRoute,
   stockTransferRoute,
   takpattiRoute,
+  newTakpattiRoute,
   // Warehouse routes
   warehouseIndexRoute,
   warehouseLoadingNewRoute,

@@ -1,20 +1,44 @@
 import * as React from "react"
-import { ScaleIcon, PlusIcon } from "lucide-react"
+import { useNavigate } from "@tanstack/react-router"
+import { PlusIcon, SearchIcon } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { TakpattiListTable } from "@/features/inventory/components/takpatti"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+  useTakpattis,
+  takpattiService,
+  type Takpatti,
+} from "@/features/inventory"
 
 export function TakpattiPage() {
-  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const navigate = useNavigate()
+  const { takpattis, loading, refetch } = useTakpattis()
+
+  const [search, setSearch] = React.useState("")
+
+  const filteredTakpattis = React.useMemo(() => {
+    if (!search) return takpattis
+
+    const lowerSearch = search.toLowerCase()
+    return takpattis.filter(
+      (t) =>
+        t.takpatti_no.toLowerCase().includes(lowerSearch) ||
+        t.amad_no.toLowerCase().includes(lowerSearch) ||
+        (t.party_name && t.party_name.toLowerCase().includes(lowerSearch))
+    )
+  }, [takpattis, search])
+
+  const handleDelete = async (takpatti: Takpatti) => {
+    try {
+      await takpattiService.deleteTakpatti(takpatti.id)
+      refetch()
+    } catch {
+      // Error handled silently — refetch will show current state
+    }
+  }
 
   return (
     <DashboardLayout activeNavItemId="takpatti">
@@ -26,41 +50,37 @@ export function TakpattiPage() {
               Weighment slips for inventory items
             </p>
           </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button>
-                <PlusIcon className="h-4 w-4 mr-2" />
-                New Takpatti
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>New Takpatti</DialogTitle>
-                <DialogDescription>
-                  Create a new weighment slip for inventory items.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="py-4 text-center text-muted-foreground">
-                Takpatti form coming soon...
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={() => navigate({ to: "/app/inventory/takpatti/new" })}
+          >
+            <PlusIcon className="mr-2 h-4 w-4" />
+            New Takpatti
+          </Button>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base font-medium">
-              Weighment Records
-            </CardTitle>
+          <CardHeader className="pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <CardTitle className="text-base font-medium">
+                Weighment Records
+              </CardTitle>
+              <div className="relative">
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search takpattis..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-9 w-full sm:w-64"
+                />
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-12">
-              <ScaleIcon className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-lg font-medium mb-2">Coming Soon</h3>
-              <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                The Takpatti module for managing weighment slips is under development.
-              </p>
-            </div>
+            <TakpattiListTable
+              takpattis={filteredTakpattis}
+              loading={loading}
+              onDelete={handleDelete}
+            />
           </CardContent>
         </Card>
       </div>
