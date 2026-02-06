@@ -83,23 +83,10 @@ class PayPost(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.post_no:
-            self.post_no = self._generate_post_no()
+            from django.utils import timezone
+            from apps.system.services import SequenceService
+            self.post_no = SequenceService.get_next_number(self.organization, "PAY_POST", timezone.now().year)
         super().save(*args, **kwargs)
-
-    def _generate_post_no(self):
-        from django.utils import timezone
-        year = timezone.now().year
-        last = PayPost.objects.filter(
-            organization=self.organization,
-            post_no__startswith=f"PP/{year}-",
-        ).order_by("-post_no").first()
-        if last:
-            try:
-                last_num = int(last.post_no.split("-")[1])
-                return f"PP/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"PP/{year}-00001"
 
 
 class Employee(models.Model):
@@ -178,23 +165,10 @@ class Employee(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.employee_code:
-            self.employee_code = self._generate_employee_code()
+            from django.utils import timezone
+            from apps.system.services import SequenceService
+            self.employee_code = SequenceService.get_next_number(self.organization, "EMPLOYEE", timezone.now().year)
         super().save(*args, **kwargs)
-
-    def _generate_employee_code(self):
-        from django.utils import timezone
-        year = timezone.now().year
-        last = Employee.objects.filter(
-            organization=self.organization,
-            employee_code__startswith=f"EMP/{year}-",
-        ).order_by("-employee_code").first()
-        if last:
-            try:
-                last_num = int(last.employee_code.split("-")[1])
-                return f"EMP/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"EMP/{year}-00001"
 
 
 class Allowance(models.Model):
@@ -621,25 +595,12 @@ class StaffLoan(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.loan_no:
-            self.loan_no = self._generate_loan_no()
+            from apps.system.services import SequenceService
+            self.loan_no = SequenceService.get_next_number(self.organization, "STAFF_LOAN", self.loan_date.year)
         if self.employee:
             self.employee_name = self.employee.name
         self.balance = self.loan_amount - self.repaid_amount
         super().save(*args, **kwargs)
-
-    def _generate_loan_no(self):
-        year = self.loan_date.year
-        last = StaffLoan.objects.filter(
-            organization=self.organization,
-            loan_no__startswith=f"SL/{year}-",
-        ).order_by("-loan_no").first()
-        if last:
-            try:
-                last_num = int(last.loan_no.split("-")[1])
-                return f"SL/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"SL/{year}-00001"
 
 
 class PayrollLedger(models.Model):

@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { useNextNumber } from "@/features/system"
 import { gatePassService } from "../../api/gate-passes"
 import type { GatePassItemInput } from "../../types"
 
@@ -36,6 +37,7 @@ interface AmadDispatchRow {
 export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
   const navigate = useNavigate()
   const search = useSearch({ strict: false }) as Record<string, string>
+  const { nextNumber: nextGpNo, loading: numberLoading } = useNextNumber("GATE_PASS")
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -150,7 +152,11 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
       {onSuccess ? (
         /* Compact dialog layout — no card wrappers */
         <div className="space-y-5">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <Label>GP No</Label>
+              <Input value={numberLoading ? "..." : nextGpNo} readOnly className="bg-muted font-mono" />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="gp_date">Date *</Label>
               <Input id="gp_date" type="date" value={gpDate} onChange={(e) => setGpDate(e.target.value)} />

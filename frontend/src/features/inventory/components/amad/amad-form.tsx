@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNextNumber } from "@/features/system"
 import { PartyCombobox } from "../shared/party-combobox"
 import { CommodityCombobox } from "../shared/commodity-combobox"
 import { PacketCalculator } from "./packet-calculator"
@@ -69,6 +70,8 @@ export function AmadForm({
   loading,
   initialData,
 }: AmadFormProps) {
+  const { nextNumber: nextAmadNo, loading: numberLoading } = useNextNumber("AMAD")
+
   const form = useForm<AmadFormData>({
     resolver: zodResolver(amadSchema),
     defaultValues: {
@@ -117,6 +120,12 @@ export function AmadForm({
     <FormProvider {...form}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          {/* Auto Number */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Amad No</label>
+            <Input value={numberLoading ? "..." : nextAmadNo} readOnly className="bg-muted font-mono w-48" />
+          </div>
+
           {/* Basic Info */}
           <div className="grid gap-4 md:grid-cols-2">
             <FormField

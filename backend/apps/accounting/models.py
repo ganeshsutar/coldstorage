@@ -544,20 +544,11 @@ class DaybookTransaction(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.voucher_number:
-            last_txn = DaybookTransaction.objects.filter(
-                organization=self.organization,
-                voucher_type=self.voucher_type,
-                date__year=self.date.year,
-            ).order_by("-voucher_number").first()
-
-            if last_txn and last_txn.voucher_number:
-                try:
-                    last_num = int(last_txn.voucher_number.split("-")[-1])
-                    self.voucher_number = f"{self.voucher_type}-{last_num + 1:05d}"
-                except (ValueError, IndexError):
-                    self.voucher_number = f"{self.voucher_type}-00001"
-            else:
-                self.voucher_number = f"{self.voucher_type}-00001"
+            from apps.system.services import SequenceService
+            key = f"VOUCHER_{self.voucher_type}"
+            self.voucher_number = SequenceService.get_next_number(
+                self.organization, key, self.date.year
+            )
 
         super().save(*args, **kwargs)
 

@@ -280,24 +280,9 @@ class ShiftHeader(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.shift_no:
-            self.shift_no = self._generate_shift_no()
+            from apps.system.services import SequenceService
+            self.shift_no = SequenceService.get_next_number(self.organization, "SHIFT", self.date.year)
         super().save(*args, **kwargs)
-
-    def _generate_shift_no(self):
-        """Generate shift number in format YYYY-NNNNN."""
-        year = self.date.year
-        last_shift = ShiftHeader.objects.filter(
-            organization=self.organization,
-            shift_no__startswith=f"{year}-",
-        ).order_by("-shift_no").first()
-
-        if last_shift:
-            try:
-                last_num = int(last_shift.shift_no.split("-")[1])
-                return f"{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"{year}-00001"
 
 
 class Shifting(models.Model):

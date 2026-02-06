@@ -212,7 +212,31 @@ export interface ActivityLogFilters {
   search?: string
 }
 
-// ============== Dashboard Settings Types ==============
+// ============== Sequence Config Types ==============
+
+export interface SequenceConfig {
+  id: string
+  key: string
+  label: string
+  prefix: string
+  separator: string
+  include_year: boolean
+  padding: number
+  next_preview: string
+}
+
+export interface UpdateSequenceConfigRequest {
+  prefix?: string
+  separator?: string
+  include_year?: boolean
+  padding?: number
+}
+
+export interface NextNumberPreview {
+  next_number: string
+  key: string
+  year: number
+}
 
 // ============== Seed Data Types ==============
 

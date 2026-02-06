@@ -141,7 +141,7 @@ export function CommodityList() {
                   <TableCell>{commodity.name}</TableCell>
                   <TableCell>{commodity.variety || "-"}</TableCell>
                   <TableCell className="text-right">{commodity.grace_days}</TableCell>
-                  <TableCell className="text-right">{commodity.default_rent_rate.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">{Number(commodity.default_rent_rate).toFixed(2)}</TableCell>
                   <TableCell>
                     <Badge variant={commodity.is_active ? "default" : "secondary"}>
                       {commodity.is_active ? "Active" : "Inactive"}

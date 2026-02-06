@@ -11,6 +11,7 @@ import { SourceStep } from "./source-step"
 import { DestinationStep } from "./destination-step"
 import { QuantityStep } from "./quantity-step"
 import { ConfirmStep } from "./confirm-step"
+import { useNextNumber } from "@/features/system"
 import type { AmadSummary } from "@/features/inventory"
 
 export interface ShiftingWizardState {
@@ -67,6 +68,7 @@ export function ShiftingWizard({
   onOpenChange,
   onSuccess,
 }: ShiftingWizardProps) {
+  const { nextNumber: nextShiftNo } = useNextNumber("SHIFT")
   const [state, setState] = React.useState<ShiftingWizardState>(initialState)
 
   // Reset state when dialog closes
@@ -107,7 +109,7 @@ export function ShiftingWizard({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>New Shift - {stepTitles[state.step]}</DialogTitle>
+          <DialogTitle>New Shift - {stepTitles[state.step]} {nextShiftNo && <span className="text-muted-foreground font-mono text-sm ml-2">({nextShiftNo})</span>}</DialogTitle>
           <DialogDescription>{stepDescriptions[state.step]}</DialogDescription>
         </DialogHeader>
 

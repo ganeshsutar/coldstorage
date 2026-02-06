@@ -23,12 +23,14 @@ import {
   type VoucherLine,
   type PaymentDetails as PaymentDetailsType,
 } from "@/features/accounting"
+import { useNextNumber } from "@/features/system"
 
 export function NewVoucherPage() {
   const navigate = useNavigate()
   const { accounts } = useAccounts()
   const [voucherType, setVoucherType] = React.useState<VoucherType>("CR")
-  const [voucherNo, setVoucherNo] = React.useState("")
+  const voucherKey = `VOUCHER_${voucherType}` as const
+  const { nextNumber: voucherNo } = useNextNumber(voucherKey)
   const [date, setDate] = React.useState<Date>(new Date())
   const [lines, setLines] = React.useState<VoucherLine[]>([
     { account_id: "", debit: null, credit: null },
@@ -44,18 +46,6 @@ export function NewVoucherPage() {
   const totalCredit = lines.reduce((sum, l) => sum + (l.credit || 0), 0)
   const totalAmount = Math.max(totalDebit, totalCredit)
   const isBalanced = Math.abs(totalDebit - totalCredit) < 0.01
-
-  React.useEffect(() => {
-    const fetchNextNumber = async () => {
-      try {
-        const { voucher_no } = await vouchersService.getNextVoucherNumber(voucherType)
-        setVoucherNo(voucher_no)
-      } catch {
-        setVoucherNo(`${voucherType}-0001`)
-      }
-    }
-    fetchNextNumber()
-  }, [voucherType])
 
   const handleSave = async () => {
     if (!isBalanced || totalAmount === 0) return

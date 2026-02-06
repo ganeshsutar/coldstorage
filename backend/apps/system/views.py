@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from apps.accounting.views import OrganizationMixin
 from apps.authentication.models import OrganizationMembership, User
 
-from .models import UserActivityLog
+from .models import SequenceConfig, UserActivityLog
 from .serializers import (
     BankSettingsSerializer,
     ChargesConfigSerializer,
@@ -23,12 +23,14 @@ from .serializers import (
     OrganizationUserUpdateSerializer,
     PacketsConfigSerializer,
     RentConfigSerializer,
+    SequenceConfigListSerializer,
+    SequenceConfigUpdateSerializer,
     TaxSettingsSerializer,
     UserActivityLogSerializer,
     UserPermissionsSerializer,
 )
 from .seed_service import SeedDataService
-from .services import ActivityLogger
+from .services import ActivityLogger, SequenceService
 
 
 class CompanySettingsView(OrganizationMixin, APIView):
@@ -771,3 +773,100 @@ class SeedDataView(OrganizationMixin, APIView):
         )
 
         return Response(result)
+
+
+class SequenceConfigViewSet(OrganizationMixin, viewsets.ModelViewSet):
+    """ViewSet for managing number-series sequence configurations."""
+
+    permission_classes = [IsAuthenticated]
+    http_method_names = ["get", "patch", "head", "options"]
+
+    def get_serializer_class(self):
+        if self.action == "partial_update":
+            return SequenceConfigUpdateSerializer
+        return SequenceConfigListSerializer
+
+    def get_queryset(self):
+        organization = self.get_organization()
+        if not organization:
+            return SequenceConfig.objects.none()
+        return SequenceConfig.objects.filter(organization=organization).order_by("key")
+
+    def list(self, request):
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Auto-initialize defaults if no configs exist yet
+        if not SequenceConfig.objects.filter(organization=organization).exists():
+            SequenceService.initialize_defaults(organization)
+
+        queryset = self.get_queryset()
+        serializer = SequenceConfigListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            config = SequenceConfig.objects.get(id=pk, organization=organization)
+        except SequenceConfig.DoesNotExist:
+            return Response(
+                {"error": "Sequence config not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = SequenceConfigUpdateSerializer(config, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        # Return full detail with preview
+        response_serializer = SequenceConfigListSerializer(config)
+        return Response(response_serializer.data)
+
+    @action(detail=True, methods=["get"], url_path="next-number")
+    def next_number(self, request, pk=None):
+        """Preview the next number for a sequence config."""
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            config = SequenceConfig.objects.get(id=pk, organization=organization)
+        except SequenceConfig.DoesNotExist:
+            return Response(
+                {"error": "Sequence config not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        year = int(request.query_params.get("year", timezone.now().year))
+        preview = SequenceService.preview_next_number(organization, config.key, year)
+        return Response({"next_number": preview, "key": config.key, "year": year})
+
+    @action(detail=False, methods=["get"], url_path="preview-by-key")
+    def preview_by_key(self, request):
+        """Preview the next number by sequence key (for forms).
+
+        Usage: GET /api/system/sequences/preview-by-key/?key=SAUDA&year=2025
+        """
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        key = request.query_params.get("key")
+        if not key:
+            return Response(
+                {"error": "key parameter is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        year = int(request.query_params.get("year", timezone.now().year))
+        preview = SequenceService.preview_next_number(organization, key, year)
+        return Response({"next_number": preview, "key": key, "year": year})

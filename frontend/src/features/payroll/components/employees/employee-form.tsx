@@ -16,11 +16,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import { useNextNumber } from "@/features/system"
 import { useCreateEmployee } from "../../hooks"
 import { usePayPosts } from "../../hooks"
 
 export function EmployeeForm() {
   const navigate = useNavigate()
+  const { nextNumber: nextEmpCode, loading: numberLoading } = useNextNumber("EMPLOYEE")
   const createEmployee = useCreateEmployee()
   const { data: payPosts } = usePayPosts()
 
@@ -80,6 +82,10 @@ export function EmployeeForm() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">New Employee</h2>
           <p className="text-muted-foreground">Add a new employee to payroll</p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Code:</span>
+          <Input value={numberLoading ? "..." : nextEmpCode} readOnly className="bg-muted font-mono w-40 h-9" />
         </div>
       </div>
 

@@ -21,3 +21,6 @@ export {
 
 // Audit components
 export { AuditLogTable, DashboardSettingsForm } from "./audit"
+
+// Sequence components
+export { NumberSeriesSettings } from "./sequences"

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useNextNumber } from "@/features/system"
 import { PartySelectorWithBalance } from "../shared/party-selector-with-balance"
 import { PaymentModeSelector } from "./payment-mode-selector"
 import { ChequeDetailsPanel, type ChequeDetails } from "./cheque-details-panel"
@@ -43,6 +44,7 @@ export function ReceiptEntryForm({
   onCancel,
 }: ReceiptEntryFormProps) {
   const navigate = useNavigate()
+  const { nextNumber: nextReceiptNo, loading: numberLoading } = useNextNumber("RECEIPT")
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -169,6 +171,10 @@ export function ReceiptEntryForm({
           <p className="text-muted-foreground">
             Record payment received from party
           </p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Receipt No:</span>
+          <Input value={numberLoading ? "..." : nextReceiptNo} readOnly className="bg-muted font-mono w-40 h-9" />
         </div>
       </div>
 

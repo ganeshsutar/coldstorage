@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNextNumber } from "@/features/system"
 import { useCreateBardanaReturn, useBardanaTypes } from "../hooks"
 import type { BardanaCondition } from "../types"
 
@@ -48,6 +49,7 @@ interface BardanaReturnFormProps {
 
 export function BardanaReturnForm({ accounts = [] }: BardanaReturnFormProps) {
   const navigate = useNavigate()
+  const { nextNumber: nextReturnNo, loading: numberLoading } = useNextNumber("BARDANA_RETURN")
   const createMutation = useCreateBardanaReturn()
   const { data: bardanaTypes = [] } = useBardanaTypes()
 
@@ -96,9 +98,15 @@ export function BardanaReturnForm({ accounts = [] }: BardanaReturnFormProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">New Bardana Return</h2>
-        <p className="text-muted-foreground">Record bardana returned by a party</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">New Bardana Return</h2>
+          <p className="text-muted-foreground">Record bardana returned by a party</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Voucher No:</span>
+          <Input value={numberLoading ? "..." : nextReturnNo} readOnly className="bg-muted font-mono w-40 h-9" />
+        </div>
       </div>
 
       <Form {...form}>

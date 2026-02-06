@@ -15,11 +15,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import { useNextNumber } from "@/features/system"
 import { advanceService } from "../../api/advances"
 import { formatCurrency } from "../../utils"
 
 export function AdvanceForm() {
   const navigate = useNavigate()
+  const { nextNumber: nextAdvanceNo, loading: numberLoading } = useNextNumber("ADVANCE")
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -97,6 +99,10 @@ export function AdvanceForm() {
             <CardTitle className="text-base">Advance Info</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>Advance No</Label>
+              <Input value={numberLoading ? "..." : nextAdvanceNo} readOnly className="bg-muted font-mono w-48" />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="date">Date *</Label>

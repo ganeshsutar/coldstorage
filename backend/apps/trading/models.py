@@ -161,7 +161,8 @@ class Sauda(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate deal number if not set
         if not self.deal_no:
-            self.deal_no = self._generate_deal_no()
+            from apps.system.services import SequenceService
+            self.deal_no = SequenceService.get_next_number(self.organization, "SAUDA", self.deal_date.year)
 
         # Calculate amount
         self.amount = (self.quantity * self.rate).quantize(Decimal("0.01"))
@@ -171,21 +172,6 @@ class Sauda(models.Model):
 
         super().save(*args, **kwargs)
 
-    def _generate_deal_no(self):
-        """Generate deal number in format S/YYYY-NNNNN."""
-        year = self.deal_date.year
-        last_deal = Sauda.objects.filter(
-            organization=self.organization,
-            deal_no__startswith=f"S/{year}-",
-        ).order_by("-deal_no").first()
-
-        if last_deal:
-            try:
-                last_num = int(last_deal.deal_no.split("-")[1])
-                return f"S/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"S/{year}-00001"
 
 
 class GatePass(models.Model):
@@ -306,25 +292,11 @@ class GatePass(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate GP number if not set
         if not self.gp_no:
-            self.gp_no = self._generate_gp_no()
+            from apps.system.services import SequenceService
+            self.gp_no = SequenceService.get_next_number(self.organization, "GATE_PASS", self.gp_date.year)
 
         super().save(*args, **kwargs)
 
-    def _generate_gp_no(self):
-        """Generate gate pass number in format GP/YYYY-NNNNN."""
-        year = self.gp_date.year
-        last_gp = GatePass.objects.filter(
-            organization=self.organization,
-            gp_no__startswith=f"GP/{year}-",
-        ).order_by("-gp_no").first()
-
-        if last_gp:
-            try:
-                last_num = int(last_gp.gp_no.split("-")[1])
-                return f"GP/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"GP/{year}-00001"
 
 
 class GatePassItem(models.Model):
@@ -483,25 +455,11 @@ class Katai(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate katai number if not set
         if not self.katai_no:
-            self.katai_no = self._generate_katai_no()
+            from apps.system.services import SequenceService
+            self.katai_no = SequenceService.get_next_number(self.organization, "KATAI", self.katai_date.year)
 
         # Calculate total charges
         self.total_charges = (self.bags_graded * self.charge_per_bag).quantize(Decimal("0.01"))
 
         super().save(*args, **kwargs)
 
-    def _generate_katai_no(self):
-        """Generate katai number in format KT/YYYY-NNNNN."""
-        year = self.katai_date.year
-        last_katai = Katai.objects.filter(
-            organization=self.organization,
-            katai_no__startswith=f"KT/{year}-",
-        ).order_by("-katai_no").first()
-
-        if last_katai:
-            try:
-                last_num = int(last_katai.katai_no.split("-")[1])
-                return f"KT/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"KT/{year}-00001"
