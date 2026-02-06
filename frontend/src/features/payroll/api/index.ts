@@ -1,0 +1,5 @@
+export { employeeService } from "./employees"
+export { attendanceService } from "./attendance"
+export { staffLoanService } from "./staff-loans"
+export { payrollLedgerService } from "./payroll-ledger"
+export { payPostService, allowanceService, deductionService, payrollStatsService, dailyWageService } from "./masters"

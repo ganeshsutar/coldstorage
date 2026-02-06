@@ -61,6 +61,15 @@ import { AdvanceDetailPage } from "@/routes/app/loans/advances.$id"
 import { NewLoanPage } from "@/routes/app/loans/loans.new"
 import { LoanDetailPage } from "@/routes/app/loans/loans.$id"
 import { LoanLedgerPage } from "@/routes/app/loans/ledger"
+// Payroll routes
+import { PayrollPage } from "@/routes/app/payroll/index"
+import { NewEmployeePage } from "@/routes/app/payroll/employees.new"
+import { EmployeeDetailPage } from "@/routes/app/payroll/employees.$id"
+import { AttendancePage } from "@/routes/app/payroll/attendance"
+import { SalaryProcessingPage } from "@/routes/app/payroll/salary"
+import { PaySlipPage } from "@/routes/app/payroll/salary.$id"
+import { NewStaffLoanPage } from "@/routes/app/payroll/staff-loans.new"
+import { PayrollLedgerPage } from "@/routes/app/payroll/ledger"
 // Masters routes
 import { MastersPage } from "@/routes/app/masters/index"
 // System routes
@@ -381,6 +390,55 @@ const loansLedgerRoute = createRoute({
   component: LoanLedgerPage,
 })
 
+// Payroll routes
+const payrollRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll",
+  component: PayrollPage,
+})
+
+const payrollEmployeesNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/employees/new",
+  component: NewEmployeePage,
+})
+
+const payrollEmployeeDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/employees/$id",
+  component: EmployeeDetailPage,
+})
+
+const payrollAttendanceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/attendance",
+  component: AttendancePage,
+})
+
+const payrollSalaryRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/salary",
+  component: SalaryProcessingPage,
+})
+
+const payrollPaySlipRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/salary/$id",
+  component: PaySlipPage,
+})
+
+const payrollStaffLoansNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/staff-loans/new",
+  component: NewStaffLoanPage,
+})
+
+const payrollLedgerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/payroll/ledger",
+  component: PayrollLedgerPage,
+})
+
 // Masters routes
 const mastersRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -436,6 +494,15 @@ const routeTree = rootRoute.addChildren([
   loansLoansNewRoute,
   loansLoansDetailRoute,
   loansLedgerRoute,
+  // Payroll routes
+  payrollRoute,
+  payrollEmployeesNewRoute,
+  payrollEmployeeDetailRoute,
+  payrollAttendanceRoute,
+  payrollSalaryRoute,
+  payrollPaySlipRoute,
+  payrollStaffLoansNewRoute,
+  payrollLedgerRoute,
   // Billing routes
   billingRoute,
   billingNewRoute,
