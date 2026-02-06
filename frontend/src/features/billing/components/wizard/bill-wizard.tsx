@@ -3,6 +3,8 @@ import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useNextNumber } from "@/features/system"
 import { WizardStepIndicator } from "./wizard-step-indicator"
 import { StepSelectAmads } from "./step-select-amads"
 import { StepAddCharges, type ChargesFormData } from "./step-add-charges"
@@ -39,6 +41,7 @@ interface BillWizardProps {
 
 export function BillWizard({ onSuccess, onCancel }: BillWizardProps) {
   const navigate = useNavigate()
+  const { nextNumber: nextBillNo, loading: numberLoading } = useNextNumber("RENT_BILL")
   const [step, setStep] = React.useState<Step>(1)
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
@@ -154,6 +157,10 @@ export function BillWizard({ onSuccess, onCancel }: BillWizardProps) {
           <p className="text-muted-foreground">
             Create a new rent bill for dispatched amads
           </p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Bill No:</span>
+          <Input value={numberLoading ? "..." : nextBillNo} readOnly className="bg-muted font-mono w-40 h-9" />
         </div>
       </div>
 

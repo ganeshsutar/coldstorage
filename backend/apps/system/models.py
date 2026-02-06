@@ -57,3 +57,71 @@ class UserActivityLog(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.action_type} - {self.module} - {self.created_at}"
+
+
+class SequenceConfig(models.Model):
+    """Configurable number-series format per organization.
+
+    One row per (organization, key). Stores formatting configuration
+    such as prefix, separator, whether to include year, and zero-padding width.
+    """
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name="sequence_configs",
+    )
+    key = models.CharField(max_length=30)
+    label = models.CharField(max_length=100)
+    prefix = models.CharField(max_length=10, blank=True, default="")
+    separator = models.CharField(max_length=5, default="/")
+    include_year = models.BooleanField(default=True)
+    padding = models.PositiveIntegerField(default=5)
+
+    class Meta:
+        db_table = "system_sequence_config"
+        verbose_name = "sequence config"
+        verbose_name_plural = "sequence configs"
+        ordering = ["key"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["organization", "key"],
+                name="unique_sequence_config_per_org",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.key} ({self.label})"
+
+
+class SequenceCounter(models.Model):
+    """Atomic counter per (organization, key, year).
+
+    Stores the last-used number. Incremented under select_for_update()
+    to guarantee uniqueness under concurrent requests.
+    """
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name="sequence_counters",
+    )
+    key = models.CharField(max_length=30)
+    year = models.PositiveIntegerField()
+    last_number = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = "system_sequence_counter"
+        verbose_name = "sequence counter"
+        verbose_name_plural = "sequence counters"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["organization", "key", "year"],
+                name="unique_sequence_counter_per_org_key_year",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.key} / {self.year} = {self.last_number}"

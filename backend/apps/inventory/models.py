@@ -367,7 +367,8 @@ class Amad(models.Model):
 
         # Auto-generate amad number if not set
         if not self.amad_no:
-            self.amad_no = self._generate_amad_no()
+            from apps.system.services import SequenceService
+            self.amad_no = SequenceService.get_next_number(self.organization, "AMAD", self.date.year)
 
         # Copy commodity defaults if not set
         if self.commodity and not self.grace_days:
@@ -376,22 +377,6 @@ class Amad(models.Model):
             self.rent_rate = self.commodity.default_rent_rate
 
         super().save(*args, **kwargs)
-
-    def _generate_amad_no(self):
-        """Generate amad number in format YYYY-NNNNN."""
-        year = self.date.year
-        last_amad = Amad.objects.filter(
-            organization=self.organization,
-            amad_no__startswith=f"{year}-",
-        ).order_by("-amad_no").first()
-
-        if last_amad:
-            try:
-                last_num = int(last_amad.amad_no.split("-")[1])
-                return f"{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"{year}-00001"
 
     def update_remaining(self):
         """Update remaining packets and weight after dispatch."""
@@ -544,28 +529,14 @@ class Rent(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate serial number if not set
         if not self.serial_no:
-            self.serial_no = self._generate_serial_no()
+            from apps.system.services import SequenceService
+            self.serial_no = SequenceService.get_next_number(self.organization, "NIKASI", self.date.year)
 
         # Calculate totals
         self.total_amount = self.rent_amount + self.gst_amount
 
         super().save(*args, **kwargs)
 
-    def _generate_serial_no(self):
-        """Generate serial number in format YYYY-NNNNN."""
-        year = self.date.year
-        last_rent = Rent.objects.filter(
-            organization=self.organization,
-            serial_no__startswith=f"{year}-",
-        ).order_by("-serial_no").first()
-
-        if last_rent:
-            try:
-                last_num = int(last_rent.serial_no.split("-")[1])
-                return f"{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"{year}-00001"
 
 
 class Takpatti(models.Model):
@@ -650,28 +621,14 @@ class Takpatti(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate takpatti number if not set
         if not self.takpatti_no:
-            self.takpatti_no = self._generate_takpatti_no()
+            from apps.system.services import SequenceService
+            self.takpatti_no = SequenceService.get_next_number(self.organization, "TAKPATTI", self.date.year)
 
         # Calculate net weight
         self.net_weight = self.gross_weight - self.tare_weight
 
         super().save(*args, **kwargs)
 
-    def _generate_takpatti_no(self):
-        """Generate takpatti number in format YYYY-NNNNN."""
-        year = self.date.year
-        last_takpatti = Takpatti.objects.filter(
-            organization=self.organization,
-            takpatti_no__startswith=f"{year}-",
-        ).order_by("-takpatti_no").first()
-
-        if last_takpatti:
-            try:
-                last_num = int(last_takpatti.takpatti_no.split("-")[1])
-                return f"{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"{year}-00001"
 
 
 class AmadNikasi(models.Model):

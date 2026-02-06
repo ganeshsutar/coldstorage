@@ -79,7 +79,7 @@ export function PartyCombobox({
                   <div className="flex flex-col">
                     <span>{party.name}</span>
                     <span className="text-xs text-muted-foreground">
-                      {party.code} | Balance: {party.balance.toLocaleString("en-IN")} {party.balance_type}
+                      {party.code} | Balance: {(parseFloat(party.closing_balance) || 0).toLocaleString("en-IN")} {party.balance_nature === "DEBIT" ? "Dr" : "Cr"}
                     </span>
                   </div>
                 </CommandItem>

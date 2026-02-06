@@ -8,11 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
+import { useNextNumber } from "@/features/system"
 import { saudaService } from "../../api/saudas"
 import { formatCurrency } from "../../utils"
 
 export function DealForm() {
   const navigate = useNavigate()
+  const { nextNumber: nextDealNo, loading: numberLoading } = useNextNumber("SAUDA")
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -95,7 +97,11 @@ export function DealForm() {
           <CardTitle className="text-base">Deal Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label>Deal No</Label>
+              <Input value={numberLoading ? "..." : nextDealNo} readOnly className="bg-muted font-mono" />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="deal_date">Deal Date *</Label>
               <Input

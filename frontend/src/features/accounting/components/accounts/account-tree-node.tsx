@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChevronRightIcon, FolderIcon, UserIcon, FileTextIcon } from "lucide-react"
+import { ChevronRightIcon, FolderIcon, FileTextIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type { AccountTreeNode as AccountTreeNodeType } from "../../types/account"
@@ -31,10 +31,7 @@ export function AccountTreeNode({
   }
 
   const getIcon = () => {
-    if (node.is_party) {
-      return <UserIcon className="h-4 w-4 text-blue-500" />
-    }
-    if (node.is_group) {
+    if (node.account_type === "GROUP") {
       return <FolderIcon className="h-4 w-4 text-amber-500" />
     }
     return <FileTextIcon className="h-4 w-4 text-muted-foreground" />
@@ -74,21 +71,21 @@ export function AccountTreeNode({
         <span
           className={cn(
             "flex-1 text-sm truncate",
-            node.is_group && "font-medium"
+            node.account_type === "GROUP" && "font-medium"
           )}
           onClick={handleSelect}
         >
           {node.name}
         </span>
 
-        {node.balance !== 0 && (
+        {parseFloat(node.closing_balance) !== 0 && (
           <span
             className={cn(
               "text-sm font-mono tabular-nums shrink-0",
-              node.balance_type === "Dr" ? "text-red-600" : "text-green-600"
+              node.balance_nature === "DEBIT" ? "text-red-600" : "text-green-600"
             )}
           >
-            {formatBalance(node.balance, node.balance_type)}
+            {formatBalance(parseFloat(node.closing_balance), node.balance_nature === "DEBIT" ? "Dr" : "Cr")}
           </span>
         )}
       </div>

@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNextNumber } from "@/features/system"
 import { AmadCombobox } from "../shared/amad-combobox"
 import type { AmadSummary } from "../../types/amad"
 import type { Room } from "../../types/masters"
@@ -56,6 +57,8 @@ export function TakpattiForm({
   onCancel,
   loading,
 }: TakpattiFormProps) {
+  const { nextNumber: nextTakpattiNo, loading: numberLoading } = useNextNumber("TAKPATTI")
+
   const form = useForm<TakpattiFormData>({
     resolver: zodResolver(takpattiSchema),
     defaultValues: {
@@ -95,6 +98,12 @@ export function TakpattiForm({
     <FormProvider {...form}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          {/* Auto Number */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Takpatti No</label>
+            <Input value={numberLoading ? "..." : nextTakpattiNo} readOnly className="bg-muted font-mono w-48" />
+          </div>
+
           {/* Date and Amad */}
           <div className="grid gap-4 md:grid-cols-2">
             <FormField

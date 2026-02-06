@@ -72,6 +72,13 @@ class AccountViewSet(OrganizationMixin, viewsets.ModelViewSet):
     queryset = Account.objects.all()
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        is_party = self.request.query_params.get("is_party")
+        if is_party and is_party.lower() == "true":
+            queryset = queryset.filter(party_type__isnull=False)
+        return queryset
+
     def get_serializer_class(self):
         if self.action == "list":
             return AccountListSerializer
@@ -85,6 +92,43 @@ class AccountViewSet(OrganizationMixin, viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context["organization"] = self.get_organization()
         return context
+
+    # Mapping of party_type to parent account code and balance nature
+    PARTY_TYPE_CONFIG = {
+        "KISAN": {"parent_code": "9", "balance_nature": "DEBIT"},  # SUNDRY DEBTERS
+        "AARTI": {"parent_code": "9", "balance_nature": "DEBIT"},
+        "KISAN_D": {"parent_code": "9", "balance_nature": "DEBIT"},
+        "MANDI": {"parent_code": "9", "balance_nature": "DEBIT"},
+        "OTHERS": {"parent_code": "9", "balance_nature": "DEBIT"},
+        "GUARANTOR": {"parent_code": "9", "balance_nature": "DEBIT"},
+        "STAFF": {"parent_code": "21", "balance_nature": "CREDIT"},  # STAFF
+        "LOADING_CONTRACTOR": {"parent_code": "20", "balance_nature": "CREDIT"},  # SUNDRY CREDITERS
+        "CHATAI_CONTRACTOR": {"parent_code": "20", "balance_nature": "CREDIT"},
+        "FINANCER": {"parent_code": "13", "balance_nature": "CREDIT"},  # UNSECURED LOAN
+    }
+
+    def perform_create(self, serializer):
+        organization = self.get_organization()
+        party_type = serializer.validated_data.get("party_type")
+
+        extra_kwargs = {"organization": organization}
+
+        if party_type and party_type in self.PARTY_TYPE_CONFIG:
+            config = self.PARTY_TYPE_CONFIG[party_type]
+            # Auto-assign parent if not explicitly provided
+            if not serializer.validated_data.get("parent"):
+                parent = Account.objects.filter(
+                    organization=organization,
+                    code=config["parent_code"],
+                ).first()
+                if parent:
+                    extra_kwargs["parent"] = parent
+            # Auto-assign balance_nature based on party type
+            extra_kwargs["balance_nature"] = config["balance_nature"]
+            # Party accounts are always ACCOUNT type (not GROUP)
+            extra_kwargs["account_type"] = "ACCOUNT"
+
+        serializer.save(**extra_kwargs)
 
     @action(detail=False, methods=["get"])
     def tree(self, request):

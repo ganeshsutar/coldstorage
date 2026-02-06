@@ -1,8 +1,9 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from apps.authentication.models import Organization, OrganizationMembership, User
 
-from .models import UserActivityLog
+from .models import SequenceConfig, UserActivityLog
 
 
 # ============== Company Settings Serializers ==============
@@ -292,3 +293,39 @@ class DashboardSettingsSerializer(serializers.Serializer):
     default_date_range = serializers.IntegerField(min_value=1, max_value=365, required=False)
     auto_refresh_interval = serializers.IntegerField(min_value=1, max_value=60, required=False)
     default_page_size = serializers.IntegerField(min_value=10, max_value=100, required=False)
+
+
+# ============== Sequence Config Serializers ==============
+
+
+class SequenceConfigListSerializer(serializers.ModelSerializer):
+    """Serializer for listing sequence configs with a next-number preview."""
+
+    next_preview = serializers.SerializerMethodField()
+
+    class Meta:
+        model = SequenceConfig
+        fields = [
+            "id",
+            "key",
+            "label",
+            "prefix",
+            "separator",
+            "include_year",
+            "padding",
+            "next_preview",
+        ]
+
+    def get_next_preview(self, obj):
+        from .services import SequenceService
+
+        year = timezone.now().year
+        return SequenceService.preview_next_number(obj.organization, obj.key, year)
+
+
+class SequenceConfigUpdateSerializer(serializers.ModelSerializer):
+    """Serializer for updating sequence config formatting."""
+
+    class Meta:
+        model = SequenceConfig
+        fields = ["prefix", "separator", "include_year", "padding"]

@@ -28,7 +28,7 @@ export function ComponentBreakdown({
   balances,
   className,
 }: ComponentBreakdownProps) {
-  const components = Object.entries(balances).filter(
+  const components = Object.entries(balances ?? {}).filter(
     ([, value]) => value !== 0
   )
 

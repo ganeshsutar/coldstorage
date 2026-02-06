@@ -25,6 +25,9 @@ export type {
   SeedDataStatus,
   SeedCategoryResult,
   SeedDataResult,
+  SequenceConfig,
+  UpdateSequenceConfigRequest,
+  NextNumberPreview,
 } from "./types"
 
 // API Services
@@ -35,6 +38,7 @@ export {
   auditLogService,
   dashboardSettingsService,
   seedDataService,
+  sequencesService,
 } from "./api"
 
 // Hooks
@@ -56,6 +60,8 @@ export {
   useActivityLogDetail,
   useDashboardSettings,
   useSeedData,
+  useSequences,
+  useNextNumber,
 } from "./hooks"
 
 // Components
@@ -75,4 +81,5 @@ export {
   AuditLogTable,
   DashboardSettingsForm,
   SeedDataCard,
+  NumberSeriesSettings,
 } from "./components"

@@ -9,6 +9,7 @@ from .views import (
     FinancialYearView,
     OrganizationUserViewSet,
     SeedDataView,
+    SequenceConfigViewSet,
     TaxSettingsView,
     UserActivityLogViewSet,
 )
@@ -18,6 +19,7 @@ app_name = "system"
 router = DefaultRouter()
 router.register(r"users", OrganizationUserViewSet, basename="users")
 router.register(r"audit-log", UserActivityLogViewSet, basename="audit-log")
+router.register(r"sequences", SequenceConfigViewSet, basename="sequences")
 
 urlpatterns = [
     # Settings endpoints

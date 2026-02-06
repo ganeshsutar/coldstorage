@@ -299,7 +299,8 @@ class RentBillHeader(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate bill number if not set
         if not self.bill_no:
-            self.bill_no = self._generate_bill_no()
+            from apps.system.services import SequenceService
+            self.bill_no = SequenceService.get_next_number(self.organization, "RENT_BILL", self.bill_date.year)
 
         # Denormalize party info
         if self.party:
@@ -355,22 +356,6 @@ class RentBillHeader(models.Model):
                 self.status = BillStatus.PARTIAL_PAID
 
         super().save(*args, **kwargs)
-
-    def _generate_bill_no(self):
-        """Generate bill number in format KB/YYYY-NNNNN."""
-        year = self.bill_date.year
-        last_bill = RentBillHeader.objects.filter(
-            organization=self.organization,
-            bill_no__startswith=f"KB/{year}-",
-        ).order_by("-bill_no").first()
-
-        if last_bill:
-            try:
-                last_num = int(last_bill.bill_no.split("-")[1])
-                return f"KB/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"KB/{year}-00001"
 
     def apply_gst_rate(self, gst_rate):
         """Apply a GST rate to this bill."""
@@ -665,25 +650,11 @@ class Receipt(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate receipt number if not set
         if not self.receipt_no:
-            self.receipt_no = self._generate_receipt_no()
+            from apps.system.services import SequenceService
+            self.receipt_no = SequenceService.get_next_number(self.organization, "RECEIPT", self.receipt_date.year)
 
         super().save(*args, **kwargs)
 
-    def _generate_receipt_no(self):
-        """Generate receipt number in format RV/YYYY-NNNNN."""
-        year = self.receipt_date.year
-        last_receipt = Receipt.objects.filter(
-            organization=self.organization,
-            receipt_no__startswith=f"RV/{year}-",
-        ).order_by("-receipt_no").first()
-
-        if last_receipt:
-            try:
-                last_num = int(last_receipt.receipt_no.split("-")[1])
-                return f"RV/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"RV/{year}-00001"
 
 
 class ReceiptAllocation(models.Model):

@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNextNumber } from "@/features/system"
 import { PartyCombobox } from "../shared/party-combobox"
 import { AmadCombobox } from "../shared/amad-combobox"
 import { RentCalculationCard } from "./rent-calculation-card"
@@ -58,6 +59,7 @@ export function RentForm({
   loading,
   selectedPartyId,
 }: RentFormProps) {
+  const { nextNumber: nextNikasiNo, loading: numberLoading } = useNextNumber("NIKASI")
   const [calculation, setCalculation] = React.useState<RentCalculation | null>(null)
   const [calculating, setCalculating] = React.useState(false)
 
@@ -138,6 +140,12 @@ export function RentForm({
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Form Section */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Auto Number */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Nikasi No</label>
+              <Input value={numberLoading ? "..." : nextNikasiNo} readOnly className="bg-muted font-mono w-48" />
+            </div>
+
             {/* Basic Info */}
             <div className="grid gap-4 md:grid-cols-2">
               <FormField

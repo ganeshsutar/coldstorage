@@ -169,7 +169,8 @@ class Advance(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate advance number if not set
         if not self.advance_no:
-            self.advance_no = self._generate_advance_no()
+            from apps.system.services import SequenceService
+            self.advance_no = SequenceService.get_next_number(self.organization, "ADVANCE", self.date.year)
 
         # Denormalize party name
         if self.party_id and not self.party_name:
@@ -180,21 +181,6 @@ class Advance(models.Model):
 
         super().save(*args, **kwargs)
 
-    def _generate_advance_no(self):
-        """Generate advance number in format ADV/YYYY-NNNNN."""
-        year = self.date.year
-        last_advance = Advance.objects.filter(
-            organization=self.organization,
-            advance_no__startswith=f"ADV/{year}-",
-        ).order_by("-advance_no").first()
-
-        if last_advance:
-            try:
-                last_num = int(last_advance.advance_no.split("-")[1])
-                return f"ADV/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"ADV/{year}-00001"
 
 
 class LoanAgainstGoods(models.Model):
@@ -336,7 +322,8 @@ class LoanAgainstGoods(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate loan number if not set
         if not self.loan_no:
-            self.loan_no = self._generate_loan_no()
+            from apps.system.services import SequenceService
+            self.loan_no = SequenceService.get_next_number(self.organization, "LOAN", self.date.year)
 
         # Denormalize
         if self.party_id and not self.party_name:
@@ -349,21 +336,6 @@ class LoanAgainstGoods(models.Model):
 
         super().save(*args, **kwargs)
 
-    def _generate_loan_no(self):
-        """Generate loan number in format LN/YYYY-NNNNN."""
-        year = self.date.year
-        last_loan = LoanAgainstGoods.objects.filter(
-            organization=self.organization,
-            loan_no__startswith=f"LN/{year}-",
-        ).order_by("-loan_no").first()
-
-        if last_loan:
-            try:
-                last_num = int(last_loan.loan_no.split("-")[1])
-                return f"LN/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"LN/{year}-00001"
 
 
 class LoanLedger(models.Model):

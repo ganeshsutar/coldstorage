@@ -6,6 +6,7 @@ import {
   Wrench,
   ScrollText,
   LayoutDashboard,
+  Hash,
 } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
@@ -25,6 +26,7 @@ import {
   AuditLogTable,
   DashboardSettingsForm,
   SeedDataCard,
+  NumberSeriesSettings,
 } from "@/features/system"
 
 export function SystemSettingsPage() {
@@ -60,6 +62,10 @@ export function SystemSettingsPage() {
             <TabsTrigger value="configuration" data-testid="system-tab-configuration" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <Wrench className="h-4 w-4" />
               Configuration
+            </TabsTrigger>
+            <TabsTrigger value="sequences" data-testid="system-tab-sequences" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
+              <Hash className="h-4 w-4" />
+              Number Series
             </TabsTrigger>
             <TabsTrigger value="audit" data-testid="system-tab-audit" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
               <ScrollText className="h-4 w-4" />
@@ -118,6 +124,11 @@ export function SystemSettingsPage() {
                   <ChargesConfig />
                 </TabsContent>
               </Tabs>
+            </TabsContent>
+
+            {/* Number Series Tab */}
+            <TabsContent value="sequences" className="mt-0">
+              <NumberSeriesSettings />
             </TabsContent>
 
             {/* Audit Log Tab */}

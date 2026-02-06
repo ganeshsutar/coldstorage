@@ -15,10 +15,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import { useNextNumber } from "@/features/system"
 import { useCreateStaffLoan, useEmployees } from "../../hooks"
 
 export function StaffLoanForm() {
   const navigate = useNavigate()
+  const { nextNumber: nextLoanNo, loading: numberLoading } = useNextNumber("STAFF_LOAN")
   const createLoan = useCreateStaffLoan()
   const { data: employees } = useEmployees({ status: "ACTIVE" })
 
@@ -60,6 +62,10 @@ export function StaffLoanForm() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">New Staff Loan</h2>
           <p className="text-muted-foreground">Issue a loan to an employee</p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Loan No:</span>
+          <Input value={numberLoading ? "..." : nextLoanNo} readOnly className="bg-muted font-mono w-40 h-9" />
         </div>
       </div>
 

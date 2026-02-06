@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNextNumber } from "@/features/system"
 import { useCreateBardanaIssue, useBardanaTypes } from "../hooks"
 
 const itemSchema = z.object({
@@ -52,6 +53,7 @@ interface BardanaIssueFormProps {
 
 export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
   const navigate = useNavigate()
+  const { nextNumber: nextIssueNo, loading: numberLoading } = useNextNumber("BARDANA_ISSUE")
   const createMutation = useCreateBardanaIssue()
   const { data: bardanaTypes = [] } = useBardanaTypes()
 
@@ -111,9 +113,15 @@ export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">New Bardana Issue</h2>
-        <p className="text-muted-foreground">Issue bardana to a party</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">New Bardana Issue</h2>
+          <p className="text-muted-foreground">Issue bardana to a party</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Voucher No:</span>
+          <Input value={numberLoading ? "..." : nextIssueNo} readOnly className="bg-muted font-mono w-40 h-9" />
+        </div>
       </div>
 
       <Form {...form}>

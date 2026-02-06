@@ -170,7 +170,8 @@ class BardanaIssueHeader(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate voucher number if not set
         if not self.voucher_no:
-            self.voucher_no = self._generate_voucher_no()
+            from apps.system.services import SequenceService
+            self.voucher_no = SequenceService.get_next_number(self.organization, "BARDANA_ISSUE", self.date.year)
 
         # Denormalize party name
         if self.party:
@@ -183,22 +184,6 @@ class BardanaIssueHeader(models.Model):
             self.total_amount = sum(item.amount for item in items)
 
         super().save(*args, **kwargs)
-
-    def _generate_voucher_no(self):
-        """Generate voucher number in format BI/YYYY-NNNNN."""
-        year = self.date.year
-        last = BardanaIssueHeader.objects.filter(
-            organization=self.organization,
-            voucher_no__startswith=f"BI/{year}-",
-        ).order_by("-voucher_no").first()
-
-        if last:
-            try:
-                last_num = int(last.voucher_no.split("-")[1])
-                return f"BI/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"BI/{year}-00001"
 
 
 class BardanaIssueItem(models.Model):
@@ -342,7 +327,8 @@ class BardanaReturnHeader(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate voucher number if not set
         if not self.voucher_no:
-            self.voucher_no = self._generate_voucher_no()
+            from apps.system.services import SequenceService
+            self.voucher_no = SequenceService.get_next_number(self.organization, "BARDANA_RETURN", self.date.year)
 
         # Denormalize party name
         if self.party:
@@ -355,22 +341,6 @@ class BardanaReturnHeader(models.Model):
             self.total_amount = sum(item.amount for item in items)
 
         super().save(*args, **kwargs)
-
-    def _generate_voucher_no(self):
-        """Generate voucher number in format BR/YYYY-NNNNN."""
-        year = self.date.year
-        last = BardanaReturnHeader.objects.filter(
-            organization=self.organization,
-            voucher_no__startswith=f"BR/{year}-",
-        ).order_by("-voucher_no").first()
-
-        if last:
-            try:
-                last_num = int(last.voucher_no.split("-")[1])
-                return f"BR/{year}-{last_num + 1:05d}"
-            except (ValueError, IndexError):
-                pass
-        return f"BR/{year}-00001"
 
 
 class BardanaReturnItem(models.Model):

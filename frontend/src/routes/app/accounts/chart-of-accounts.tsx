@@ -89,30 +89,22 @@ export function ChartOfAccountsPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Type</p>
-                    <p className="capitalize">{selectedAccount.type}</p>
+                    <p className="capitalize">{selectedAccount.account_type === "GROUP" ? "Group" : "Account"}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Balance</p>
                     <p
                       className={`font-mono ${
-                        selectedAccount.balance_type === "Dr"
+                        selectedAccount.balance_nature === "DEBIT"
                           ? "text-red-600"
                           : "text-green-600"
                       }`}
                     >
-                      {selectedAccount.balance_type}{" "}
-                      {Math.abs(selectedAccount.balance).toLocaleString("en-IN")}
+                      {selectedAccount.balance_nature === "DEBIT" ? "Dr" : "Cr"}{" "}
+                      {parseFloat(selectedAccount.closing_balance).toLocaleString("en-IN")}
                     </p>
                   </div>
-                  {selectedAccount.is_party && (
-                    <div>
-                      <p className="text-sm text-muted-foreground">
-                        Account Type
-                      </p>
-                      <p className="text-blue-600">Party Account</p>
-                    </div>
-                  )}
-                  {selectedAccount.is_group && (
+                  {selectedAccount.account_type === "GROUP" && (
                     <div>
                       <p className="text-sm text-muted-foreground">
                         Sub-accounts

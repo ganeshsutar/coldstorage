@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserActivityLog
+from .models import SequenceConfig, SequenceCounter, UserActivityLog
 
 
 @admin.register(UserActivityLog)
@@ -39,3 +39,17 @@ class UserActivityLogAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(SequenceConfig)
+class SequenceConfigAdmin(admin.ModelAdmin):
+    list_display = ["key", "label", "prefix", "separator", "include_year", "padding", "organization"]
+    list_filter = ["organization", "include_year"]
+    search_fields = ["key", "label"]
+
+
+@admin.register(SequenceCounter)
+class SequenceCounterAdmin(admin.ModelAdmin):
+    list_display = ["key", "year", "last_number", "organization"]
+    list_filter = ["organization", "year"]
+    search_fields = ["key"]

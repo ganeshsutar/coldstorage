@@ -23,12 +23,14 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { useNextNumber } from "@/features/system"
 import { loanService } from "../../api/loans"
 import { useCollateralAmads } from "../../hooks/use-loans"
 import { formatCurrency, formatNumber } from "../../utils"
 
 export function LoanForm() {
   const navigate = useNavigate()
+  const { nextNumber: nextLoanNo, loading: numberLoading } = useNextNumber("LOAN")
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -106,6 +108,10 @@ export function LoanForm() {
             <CardTitle className="text-base">Loan Info</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>Loan No</Label>
+              <Input value={numberLoading ? "..." : nextLoanNo} readOnly className="bg-muted font-mono w-48" />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="date">Date *</Label>
