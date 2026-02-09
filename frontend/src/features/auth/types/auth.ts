@@ -16,6 +16,15 @@ export interface Organization {
   slug: string;
 }
 
+export interface OrganizationMembership {
+  id: string;
+  organization: Organization;
+  role: string;
+  is_default: boolean;
+  status: string;
+  joined_at: string;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -24,5 +33,5 @@ export interface User {
 }
 
 export interface UserWithOrganizations extends User {
-  organizations: Organization[];
+  organizations: OrganizationMembership[];
 }

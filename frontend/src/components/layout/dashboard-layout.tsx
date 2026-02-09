@@ -31,7 +31,7 @@ export function DashboardLayout({
 
   const userName = user?.full_name || "User"
   const userEmail = user?.email || ""
-  const organizationName = user?.organizations?.[0]?.name || "ColdVault Inc"
+  const organizationName = user?.organizations?.[0]?.organization?.name || "ColdVault"
 
   return (
     <AppShell
