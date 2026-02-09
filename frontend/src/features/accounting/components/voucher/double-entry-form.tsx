@@ -66,8 +66,8 @@ export function DoubleEntryForm({
   const isBalanced = Math.abs(totalDebit - totalCredit) < 0.01
 
   return (
-    <div data-slot="double-entry-form" className="space-y-4">
-      <Table>
+    <div data-slot="double-entry-form" data-testid="double-entry-form" className="space-y-4">
+      <Table data-testid="double-entry-table">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[40%]">Account</TableHead>
@@ -85,10 +85,12 @@ export function DoubleEntryForm({
                   value={line.account_id || null}
                   onChange={(id) => updateLine(index, { account_id: id || "" })}
                   placeholder="Select account..."
+                  data-testid={`voucher-line-account-${index}`}
                 />
               </TableCell>
               <TableCell>
                 <Input
+                  data-testid={`voucher-line-debit-${index}`}
                   type="number"
                   value={line.debit || ""}
                   onChange={(e) => handleDebitChange(index, e.target.value)}
@@ -99,6 +101,7 @@ export function DoubleEntryForm({
               </TableCell>
               <TableCell>
                 <Input
+                  data-testid={`voucher-line-credit-${index}`}
                   type="number"
                   value={line.credit || ""}
                   onChange={(e) => handleCreditChange(index, e.target.value)}
@@ -109,6 +112,7 @@ export function DoubleEntryForm({
               </TableCell>
               <TableCell>
                 <Button
+                  data-testid={`voucher-line-delete-${index}`}
                   variant="ghost"
                   size="icon-xs"
                   onClick={() => removeLine(index)}
@@ -123,31 +127,33 @@ export function DoubleEntryForm({
         <TableFooter>
           <TableRow>
             <TableCell className="font-medium">Total</TableCell>
-            <TableCell className="text-right font-mono font-medium text-red-600">
+            <TableCell data-testid="voucher-total-debit" className="text-right font-mono font-medium text-red-600">
               {formatIndianNumber(totalDebit)}
             </TableCell>
-            <TableCell className="text-right font-mono font-medium text-green-600">
+            <TableCell data-testid="voucher-total-credit" className="text-right font-mono font-medium text-green-600">
               {formatIndianNumber(totalCredit)}
             </TableCell>
             <TableCell>
+              <span data-testid="voucher-balance-indicator">
               {isBalanced ? (
                 <CheckIcon className="h-4 w-4 text-green-600" />
               ) : (
                 <XIcon className="h-4 w-4 text-red-600" />
               )}
+              </span>
             </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
 
       <div className="flex items-center justify-between">
-        <Button variant="outline" size="sm" onClick={addLine}>
+        <Button data-testid="voucher-add-line-button" variant="outline" size="sm" onClick={addLine}>
           <PlusIcon className="mr-2 h-4 w-4" />
           Add Line
         </Button>
 
         {!isBalanced && (
-          <p className="text-sm text-destructive">
+          <p data-testid="voucher-difference-text" className="text-sm text-destructive">
             Difference: {formatIndianNumber(Math.abs(totalDebit - totalCredit))}
           </p>
         )}

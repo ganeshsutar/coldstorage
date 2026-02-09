@@ -74,7 +74,7 @@ export function InterestPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Interest Calculation</h1>
+            <h1 data-testid="interest-title" className="text-2xl font-semibold">Interest Calculation</h1>
             <p className="text-sm text-muted-foreground">
               Calculate and post interest on party balances
             </p>
@@ -118,6 +118,7 @@ export function InterestPage() {
 
             <div className="flex justify-end">
               <Button
+                data-testid="interest-calculate-button"
                 onClick={handleCalculate}
                 disabled={loading || components.length === 0}
               >
@@ -127,13 +128,13 @@ export function InterestPage() {
             </div>
 
             {error && (
-              <p className="text-sm text-destructive">{error}</p>
+              <p data-testid="interest-error-message" className="text-sm text-destructive">{error}</p>
             )}
           </CardContent>
         </Card>
 
         {result && (
-          <Card>
+          <Card data-testid="interest-results-card">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -147,7 +148,7 @@ export function InterestPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-muted-foreground">Total Interest</p>
-                  <p className="text-2xl font-bold font-mono text-red-600">
+                  <p data-testid="interest-total-amount" className="text-2xl font-bold font-mono text-red-600">
                     {formatCurrency(result.total_interest)}
                   </p>
                 </div>
@@ -159,11 +160,12 @@ export function InterestPage() {
               <Separator />
 
               <div className="flex justify-end gap-2">
-                <Button variant="outline">
+                <Button data-testid="interest-preview-button" variant="outline">
                   <EyeIcon className="mr-2 h-4 w-4" />
                   Preview
                 </Button>
                 <Button
+                  data-testid="interest-post-button"
                   onClick={handlePost}
                   disabled={posting}
                 >

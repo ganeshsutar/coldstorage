@@ -17,9 +17,9 @@ interface SummaryItemProps {
   type: "neutral" | "positive" | "negative"
 }
 
-function SummaryItem({ label, value, type }: SummaryItemProps) {
+function SummaryItem({ label, value, type, "data-testid": testId }: SummaryItemProps & { "data-testid"?: string }) {
   return (
-    <div className="flex justify-between items-center py-1">
+    <div data-testid={testId} className="flex justify-between items-center py-1">
       <span className="text-sm text-muted-foreground">{label}:</span>
       <span
         className={cn(
@@ -61,8 +61,8 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
   }
 
   return (
-    <div className="grid md:grid-cols-2 gap-4">
-      <Card>
+    <div data-testid="daily-summary-cards" className="grid md:grid-cols-2 gap-4">
+      <Card data-testid="daily-summary-cash-card">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-medium flex items-center gap-2">
             <BanknoteIcon className="h-4 w-4 text-green-600" />
@@ -74,19 +74,22 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
             label="Opening"
             value={summary.cash.opening}
             type="neutral"
+            data-testid="daily-summary-cash-opening"
           />
           <SummaryItem
             label="Receipts"
             value={summary.cash.receipts}
             type="positive"
+            data-testid="daily-summary-cash-receipts"
           />
           <SummaryItem
             label="Payments"
             value={summary.cash.payments}
             type="negative"
+            data-testid="daily-summary-cash-payments"
           />
           <div className="border-t pt-1 mt-1">
-            <div className="flex justify-between items-center">
+            <div data-testid="daily-summary-cash-closing" className="flex justify-between items-center">
               <span className="text-sm font-medium">Closing:</span>
               <span className="font-mono tabular-nums font-medium">
                 Dr {formatIndianNumber(summary.cash.closing)}
@@ -96,7 +99,7 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
         </CardContent>
       </Card>
 
-      <Card>
+      <Card data-testid="daily-summary-bank-card">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-medium flex items-center gap-2">
             <BuildingIcon className="h-4 w-4 text-blue-600" />
@@ -108,19 +111,22 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
             label="Opening"
             value={summary.bank.opening}
             type="neutral"
+            data-testid="daily-summary-bank-opening"
           />
           <SummaryItem
             label="Receipts"
             value={summary.bank.receipts}
             type="positive"
+            data-testid="daily-summary-bank-receipts"
           />
           <SummaryItem
             label="Payments"
             value={summary.bank.payments}
             type="negative"
+            data-testid="daily-summary-bank-payments"
           />
           <div className="border-t pt-1 mt-1">
-            <div className="flex justify-between items-center">
+            <div data-testid="daily-summary-bank-closing" className="flex justify-between items-center">
               <span className="text-sm font-medium">Closing:</span>
               <span className="font-mono tabular-nums font-medium">
                 Dr {formatIndianNumber(summary.bank.closing)}

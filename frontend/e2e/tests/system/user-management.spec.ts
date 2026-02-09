@@ -1,7 +1,50 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("User Management", () => {
-  test.beforeEach(async ({ systemSettingsPage }) => {
+  test.beforeEach(async ({ systemSettingsPage, page }) => {
+    // Mock users API endpoints
+    await page.route(/\/api\/system\/users\//, async (route) => {
+      const method = route.request().method();
+
+      if (method === "GET") {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify([]),
+        });
+      } else if (method === "POST") {
+        const postData = JSON.parse(route.request().postData() || "{}");
+        await route.fulfill({
+          status: 201,
+          contentType: "application/json",
+          body: JSON.stringify({
+            id: "new-user-1",
+            user: {
+              id: "u-new-1",
+              email: postData.email || "new@example.com",
+              full_name: postData.full_name || "New User",
+              phone: postData.phone || null,
+              avatar_url: null,
+              is_active: true,
+              last_login_at: null,
+              created_at: new Date().toISOString(),
+            },
+            role: postData.role || "OPERATOR",
+            role_display: postData.role === "ADMIN" ? "Admin" : "Operator",
+            status: "ACTIVE",
+            status_display: "Active",
+            is_default: false,
+            permissions: {},
+            loan_per_bag_limit: postData.loan_per_bag_limit || null,
+            backdate_entry_limit: postData.backdate_entry_limit || null,
+            joined_at: new Date().toISOString(),
+            created_at: new Date().toISOString(),
+          }),
+        });
+      } else {
+        await route.continue();
+      }
+    });
     await systemSettingsPage.goto();
     await systemSettingsPage.switchToTab("users");
   });

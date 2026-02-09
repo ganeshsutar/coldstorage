@@ -43,12 +43,12 @@ export function VouchersPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Vouchers</h1>
+            <h1 data-testid="vouchers-title" className="text-2xl font-semibold">Vouchers</h1>
             <p className="text-sm text-muted-foreground">
               Manage accounting vouchers and transactions
             </p>
           </div>
-          <Button asChild>
+          <Button asChild data-testid="vouchers-new-button">
             <Link to="/app/accounts/vouchers/new">
               <PlusIcon className="mr-2 h-4 w-4" />
               New Voucher
@@ -65,16 +65,16 @@ export function VouchersPage() {
                 onValueChange={(v) => setActiveTab(v as VoucherTab)}
               >
                 <TabsList>
-                  <TabsTrigger value="all">
+                  <TabsTrigger value="all" data-testid="vouchers-tab-all">
                     All ({counts.all})
                   </TabsTrigger>
-                  <TabsTrigger value="receipts">
+                  <TabsTrigger value="receipts" data-testid="vouchers-tab-receipts">
                     Receipts ({counts.receipts})
                   </TabsTrigger>
-                  <TabsTrigger value="payments">
+                  <TabsTrigger value="payments" data-testid="vouchers-tab-payments">
                     Payments ({counts.payments})
                   </TabsTrigger>
-                  <TabsTrigger value="journal">
+                  <TabsTrigger value="journal" data-testid="vouchers-tab-journal">
                     Journal ({counts.journal})
                   </TabsTrigger>
                 </TabsList>

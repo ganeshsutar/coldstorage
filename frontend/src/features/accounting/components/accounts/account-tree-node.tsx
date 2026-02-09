@@ -38,7 +38,7 @@ export function AccountTreeNode({
   }
 
   return (
-    <div data-slot="account-tree-node">
+    <div data-slot="account-tree-node" data-testid={`account-tree-node-${node.id}`}>
       <div
         className={cn(
           "flex items-center gap-2 py-1.5 px-2 rounded-md hover:bg-muted/50 cursor-pointer group",
@@ -49,6 +49,7 @@ export function AccountTreeNode({
       >
         <button
           type="button"
+          data-testid={`account-tree-toggle-${node.id}`}
           className={cn(
             "h-4 w-4 flex items-center justify-center shrink-0",
             !hasChildren && "invisible"
@@ -69,6 +70,7 @@ export function AccountTreeNode({
         {getIcon()}
 
         <span
+          data-testid={`account-tree-name-${node.id}`}
           className={cn(
             "flex-1 text-sm truncate",
             node.account_type === "GROUP" && "font-medium"

@@ -31,13 +31,14 @@ export function CalculationParams({
   onDaysInYearChange,
 }: CalculationParamsProps) {
   return (
-    <div data-slot="calculation-params" className="space-y-4">
+    <div data-slot="calculation-params" data-testid="calculation-params" className="space-y-4">
       <h3 className="font-medium">Calculation Parameters</h3>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div className="space-y-2">
           <Label>From Date</Label>
           <DatePicker
+            data-testid="interest-from-date-picker"
             date={fromDate}
             onDateChange={(d) => d && onFromDateChange(d)}
           />
@@ -46,6 +47,7 @@ export function CalculationParams({
         <div className="space-y-2">
           <Label>To Date</Label>
           <DatePicker
+            data-testid="interest-to-date-picker"
             date={toDate}
             onDateChange={(d) => d && onToDateChange(d)}
           />
@@ -55,6 +57,7 @@ export function CalculationParams({
           <Label htmlFor="rate">Rate (% per month)</Label>
           <Input
             id="rate"
+            data-testid="interest-rate-input"
             type="number"
             step="0.1"
             value={rate}
@@ -69,7 +72,7 @@ export function CalculationParams({
             value={String(daysInYear)}
             onValueChange={(v) => onDaysInYearChange(parseInt(v) as 360 | 365)}
           >
-            <SelectTrigger>
+            <SelectTrigger data-testid="interest-days-in-year-select">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

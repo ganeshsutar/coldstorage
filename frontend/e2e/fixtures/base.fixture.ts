@@ -5,6 +5,15 @@ import {
   CompanySettingsSection,
   UserManagementSection,
   ConfigurationSection,
+  VoucherListPage,
+  NewVoucherPage,
+  DaybookPage,
+  ChartOfAccountsPage,
+  AddAccountDialog,
+  PartyLedgerPage,
+  PartyDetailSheet,
+  AddPartyDialog,
+  InterestCalculationPage,
 } from "../page-objects";
 
 type Fixtures = {
@@ -13,6 +22,15 @@ type Fixtures = {
   companySettings: CompanySettingsSection;
   userManagement: UserManagementSection;
   configuration: ConfigurationSection;
+  voucherListPage: VoucherListPage;
+  newVoucherPage: NewVoucherPage;
+  daybookPage: DaybookPage;
+  chartOfAccountsPage: ChartOfAccountsPage;
+  addAccountDialog: AddAccountDialog;
+  partyLedgerPage: PartyLedgerPage;
+  partyDetailSheet: PartyDetailSheet;
+  addPartyDialog: AddPartyDialog;
+  interestCalculationPage: InterestCalculationPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -36,6 +54,33 @@ export const test = base.extend<Fixtures>({
   configuration: async ({ page }, use) => {
     const configuration = new ConfigurationSection(page);
     await use(configuration);
+  },
+  voucherListPage: async ({ page }, use) => {
+    await use(new VoucherListPage(page));
+  },
+  newVoucherPage: async ({ page }, use) => {
+    await use(new NewVoucherPage(page));
+  },
+  daybookPage: async ({ page }, use) => {
+    await use(new DaybookPage(page));
+  },
+  chartOfAccountsPage: async ({ page }, use) => {
+    await use(new ChartOfAccountsPage(page));
+  },
+  addAccountDialog: async ({ page }, use) => {
+    await use(new AddAccountDialog(page));
+  },
+  partyLedgerPage: async ({ page }, use) => {
+    await use(new PartyLedgerPage(page));
+  },
+  partyDetailSheet: async ({ page }, use) => {
+    await use(new PartyDetailSheet(page));
+  },
+  addPartyDialog: async ({ page }, use) => {
+    await use(new AddPartyDialog(page));
+  },
+  interestCalculationPage: async ({ page }, use) => {
+    await use(new InterestCalculationPage(page));
   },
 });
 

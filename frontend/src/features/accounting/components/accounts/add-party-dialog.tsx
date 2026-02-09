@@ -151,7 +151,7 @@ export function AddPartyDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent data-testid="add-party-dialog" className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Add Party</DialogTitle>
           <DialogDescription>
@@ -163,9 +163,9 @@ export function AddPartyDialog({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Tabs defaultValue="basic" className="w-full gap-4">
             <TabsList className="grid h-auto w-full grid-cols-3 p-1">
-              <TabsTrigger value="basic">Basic Info</TabsTrigger>
-              <TabsTrigger value="details">Identity & Details</TabsTrigger>
-              <TabsTrigger value="financial">Financial Settings</TabsTrigger>
+              <TabsTrigger data-testid="add-party-tab-basic" value="basic">Basic Info</TabsTrigger>
+              <TabsTrigger data-testid="add-party-tab-details" value="details">Identity & Details</TabsTrigger>
+              <TabsTrigger data-testid="add-party-tab-financial" value="financial">Financial Settings</TabsTrigger>
             </TabsList>
 
             <TabsContent value="basic" className="space-y-4">
@@ -174,11 +174,12 @@ export function AddPartyDialog({
                   <Label htmlFor="code">Party Code</Label>
                   <Input
                     id="code"
+                    data-testid="add-party-code-input"
                     {...register("code")}
                     placeholder="e.g., 5001"
                   />
                   {errors.code && (
-                    <p className="text-sm text-destructive">{errors.code.message}</p>
+                    <p data-testid="add-party-code-error" className="text-sm text-destructive">{errors.code.message}</p>
                   )}
                 </div>
 
@@ -188,7 +189,7 @@ export function AddPartyDialog({
                     value={watch("party_type") || ""}
                     onValueChange={(value) => setValue("party_type", value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger data-testid="add-party-type-select">
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -208,11 +209,12 @@ export function AddPartyDialog({
                 <Label htmlFor="name">Party Name</Label>
                 <Input
                   id="name"
+                  data-testid="add-party-name-input"
                   {...register("name")}
                   placeholder="e.g., Ram Singh"
                 />
                 {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                  <p data-testid="add-party-name-error" className="text-sm text-destructive">{errors.name.message}</p>
                 )}
               </div>
 
@@ -221,6 +223,7 @@ export function AddPartyDialog({
                   <Label htmlFor="phone">Phone</Label>
                   <Input
                     id="phone"
+                    data-testid="add-party-phone-input"
                     {...register("phone")}
                     placeholder="e.g., 9876543210"
                   />
@@ -230,6 +233,7 @@ export function AddPartyDialog({
                   <Label htmlFor="village">Village</Label>
                   <Input
                     id="village"
+                    data-testid="add-party-village-input"
                     {...register("village")}
                     placeholder="e.g., Jhajjar"
                   />
@@ -241,6 +245,7 @@ export function AddPartyDialog({
                   <Label htmlFor="guardian_name">Guardian Name</Label>
                   <Input
                     id="guardian_name"
+                    data-testid="add-party-guardian-name-input"
                     {...register("guardian_name")}
                     placeholder="e.g., Shyam Singh"
                   />
@@ -252,7 +257,7 @@ export function AddPartyDialog({
                     value={watch("guardian_relation") || ""}
                     onValueChange={(value) => setValue("guardian_relation", value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger data-testid="add-party-guardian-relation-select">
                       <SelectValue placeholder="Select relation" />
                     </SelectTrigger>
                     <SelectContent>
@@ -272,6 +277,7 @@ export function AddPartyDialog({
                 <Label htmlFor="address">Address</Label>
                 <Input
                   id="address"
+                  data-testid="add-party-address-input"
                   {...register("address")}
                   placeholder="Full address"
                 />
@@ -284,6 +290,7 @@ export function AddPartyDialog({
                   <Label htmlFor="tin_number">TIN Number</Label>
                   <Input
                     id="tin_number"
+                    data-testid="add-party-tin-input"
                     {...register("tin_number")}
                     placeholder="TIN number"
                   />
@@ -293,6 +300,7 @@ export function AddPartyDialog({
                   <Label htmlFor="guarantor_name">Guarantor Name</Label>
                   <Input
                     id="guarantor_name"
+                    data-testid="add-party-guarantor-input"
                     {...register("guarantor_name")}
                     placeholder="Guarantor name"
                   />
@@ -303,6 +311,7 @@ export function AddPartyDialog({
                 <Label htmlFor="village_hindi">Village (Hindi)</Label>
                 <Input
                   id="village_hindi"
+                  data-testid="add-party-village-hindi-input"
                   {...register("village_hindi")}
                   placeholder="Village name in Hindi"
                 />
@@ -312,6 +321,7 @@ export function AddPartyDialog({
                 <Label htmlFor="remark">Remark</Label>
                 <Textarea
                   id="remark"
+                  data-testid="add-party-remark-input"
                   {...register("remark")}
                   placeholder="Any additional notes"
                   rows={3}
@@ -325,6 +335,7 @@ export function AddPartyDialog({
                   <Label htmlFor="credit_limit">Credit Limit</Label>
                   <Input
                     id="credit_limit"
+                    data-testid="add-party-credit-limit-input"
                     type="number"
                     {...register("credit_limit", { valueAsNumber: true })}
                     placeholder="0"
@@ -335,6 +346,7 @@ export function AddPartyDialog({
                   <Label htmlFor="dr_limit">DR Limit</Label>
                   <Input
                     id="dr_limit"
+                    data-testid="add-party-dr-limit-input"
                     type="number"
                     {...register("dr_limit", { valueAsNumber: true })}
                     placeholder="0"
@@ -347,6 +359,7 @@ export function AddPartyDialog({
                   <Label htmlFor="depreciation_rate">Depreciation Rate (%)</Label>
                   <Input
                     id="depreciation_rate"
+                    data-testid="add-party-depreciation-rate-input"
                     type="number"
                     step="0.01"
                     {...register("depreciation_rate", { valueAsNumber: true })}
@@ -360,7 +373,7 @@ export function AddPartyDialog({
                     value={watch("calculate_interest_on_bardana") || ""}
                     onValueChange={(value) => setValue("calculate_interest_on_bardana", value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger data-testid="add-party-interest-bardana-select">
                       <SelectValue placeholder="Default" />
                     </SelectTrigger>
                     <SelectContent>
@@ -381,6 +394,7 @@ export function AddPartyDialog({
                   <Label htmlFor="charge_interest_from">Charge Interest From</Label>
                   <Input
                     id="charge_interest_from"
+                    data-testid="add-party-charge-interest-from-input"
                     type="date"
                     {...register("charge_interest_from")}
                   />
@@ -390,6 +404,7 @@ export function AddPartyDialog({
                   <Label htmlFor="due_days">Due Days</Label>
                   <Input
                     id="due_days"
+                    data-testid="add-party-due-days-input"
                     type="number"
                     {...register("due_days", { valueAsNumber: true })}
                     placeholder="0"
@@ -401,6 +416,7 @@ export function AddPartyDialog({
                 <Label htmlFor="sauda_limit">Sauda Limit</Label>
                 <Input
                   id="sauda_limit"
+                  data-testid="add-party-sauda-limit-input"
                   type="number"
                   {...register("sauda_limit", { valueAsNumber: true })}
                   placeholder="0"
@@ -413,11 +429,12 @@ export function AddPartyDialog({
             <Button
               type="button"
               variant="outline"
+              data-testid="add-party-cancel-button"
               onClick={() => onOpenChange(false)}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" data-testid="add-party-submit-button" disabled={loading}>
               {loading ? "Creating..." : "Create Party"}
             </Button>
           </DialogFooter>

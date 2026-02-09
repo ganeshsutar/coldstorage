@@ -113,7 +113,7 @@ export function CompanySettingsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {saveError && (
           <div data-testid="company-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
             {saveError}

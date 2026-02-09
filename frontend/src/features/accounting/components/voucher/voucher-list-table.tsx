@@ -51,14 +51,14 @@ export function VoucherListTable({
 
   if (vouchers.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div data-testid="voucher-list-empty" className="text-center py-8 text-muted-foreground">
         No vouchers found
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="voucher-list-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-24">V.No</TableHead>
@@ -71,8 +71,8 @@ export function VoucherListTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {vouchers.map((voucher) => (
-          <TableRow key={voucher.id}>
+        {vouchers.map((voucher, index) => (
+          <TableRow key={voucher.id} data-testid={`voucher-row-${index}`}>
             <TableCell className="font-mono">{voucher.voucher_no}</TableCell>
             <TableCell>
               <Badge

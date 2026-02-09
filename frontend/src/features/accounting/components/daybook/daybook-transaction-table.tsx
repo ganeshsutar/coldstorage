@@ -41,14 +41,14 @@ export function DaybookTransactionTable({
 
   if (transactions.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div data-testid="daybook-transaction-empty" className="text-center py-8 text-muted-foreground">
         No transactions for this date
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="daybook-transaction-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-24">V.No</TableHead>
@@ -60,8 +60,8 @@ export function DaybookTransactionTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {transactions.map((txn) => (
-          <TableRow key={txn.id}>
+        {transactions.map((txn, index) => (
+          <TableRow key={txn.id} data-testid={`daybook-transaction-row-${index}`}>
             <TableCell className="font-mono">{txn.voucher_no}</TableCell>
             <TableCell>
               <Badge

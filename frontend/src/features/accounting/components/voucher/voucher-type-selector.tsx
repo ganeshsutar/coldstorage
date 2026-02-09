@@ -33,7 +33,7 @@ export function VoucherTypeSelector({
   }, [onChange, disabled])
 
   return (
-    <div data-slot="voucher-type-selector" className="space-y-2">
+    <div data-slot="voucher-type-selector" data-testid="voucher-type-selector" className="space-y-2">
       <ToggleGroup
         type="single"
         value={value}
@@ -50,6 +50,7 @@ export function VoucherTypeSelector({
             <ToggleGroupItem
               key={type}
               value={type}
+              data-testid={`voucher-type-${type}`}
               aria-label={VOUCHER_TYPE_LABELS[type]}
               className={cn(
                 "px-4 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
@@ -63,7 +64,7 @@ export function VoucherTypeSelector({
           )
         })}
       </ToggleGroup>
-      <p className="text-xs text-muted-foreground">
+      <p data-testid="voucher-type-label" className="text-xs text-muted-foreground">
         {VOUCHER_TYPE_LABELS[value]}
       </p>
     </div>

@@ -90,7 +90,7 @@ export function AddAccountDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent data-testid="add-account-dialog" className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Account</DialogTitle>
           <DialogDescription>
@@ -103,11 +103,12 @@ export function AddAccountDialog({
             <Label htmlFor="code">Account Code</Label>
             <Input
               id="code"
+              data-testid="add-account-code-input"
               {...register("code")}
               placeholder="e.g., 1001"
             />
             {errors.code && (
-              <p className="text-sm text-destructive">{errors.code.message}</p>
+              <p data-testid="add-account-code-error" className="text-sm text-destructive">{errors.code.message}</p>
             )}
           </div>
 
@@ -115,11 +116,12 @@ export function AddAccountDialog({
             <Label htmlFor="name">Account Name</Label>
             <Input
               id="name"
+              data-testid="add-account-name-input"
               {...register("name")}
               placeholder="e.g., Cash in Hand"
             />
             {errors.name && (
-              <p className="text-sm text-destructive">{errors.name.message}</p>
+              <p data-testid="add-account-name-error" className="text-sm text-destructive">{errors.name.message}</p>
             )}
           </div>
 
@@ -129,7 +131,7 @@ export function AddAccountDialog({
               value={accountType}
               onValueChange={(value: AccountType) => setValue("type", value)}
             >
-              <SelectTrigger>
+              <SelectTrigger data-testid="add-account-type-select">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -150,7 +152,7 @@ export function AddAccountDialog({
                 setValue("category", value)
               }
             >
-              <SelectTrigger>
+              <SelectTrigger data-testid="add-account-category-select">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -169,7 +171,7 @@ export function AddAccountDialog({
                 setValue("parent_id", value === "none" ? null : value)
               }
             >
-              <SelectTrigger>
+              <SelectTrigger data-testid="add-account-parent-select">
                 <SelectValue placeholder="Select parent account" />
               </SelectTrigger>
               <SelectContent>
@@ -187,11 +189,12 @@ export function AddAccountDialog({
             <Button
               type="button"
               variant="outline"
+              data-testid="add-account-cancel-button"
               onClick={() => onOpenChange(false)}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" data-testid="add-account-submit-button" disabled={loading}>
               {loading ? "Creating..." : "Create Account"}
             </Button>
           </DialogFooter>
