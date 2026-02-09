@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "geist/dist/fonts/geist-sans/style.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -492,13 +493,13 @@
 
 /* Vega - Classic (default) */
 [data-style="vega"] {
-  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Nova - Compact */
 [data-style="nova"] {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
 }
 
 [data-style="nova"] [data-slot="sidebar-menu-button"],
