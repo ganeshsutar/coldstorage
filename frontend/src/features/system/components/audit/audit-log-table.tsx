@@ -27,6 +27,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useAuditLog, useUsers } from "../../hooks"
 import type { ActionType, ActivityLog, ActivityLogFilters } from "../../types"
 
@@ -83,6 +85,19 @@ export function AuditLogTable() {
   const [filters, setFilters] = React.useState<ActivityLogFilters>({})
   const { logs, loading, error } = useAuditLog(filters)
   const { users } = useUsers()
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(logs)
   const [selectedLog, setSelectedLog] = React.useState<ActivityLog | null>(null)
 
   const handleFilterChange = (key: keyof ActivityLogFilters, value: string) => {
@@ -208,7 +223,7 @@ export function AuditLogTable() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {logs.map((log, index) => (
+                {paginatedItems.map((log, index) => (
                   <TableRow key={log.id}>
                     <TableCell className="text-muted-foreground">
                       {formatDate(log.created_at)}
@@ -257,6 +272,18 @@ export function AuditLogTable() {
               </TableBody>
             </Table>
           )}
+          <TablePagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalItems}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+            onNextPage={goToNextPage}
+            onPreviousPage={goToPreviousPage}
+            onFirstPage={goToFirstPage}
+            onLastPage={goToLastPage}
+          />
         </CardContent>
       </Card>
 

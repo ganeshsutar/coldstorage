@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "geist/dist/fonts/geist-sans/style.css";
+@import "@fontsource-variable/nunito";
+@import "@fontsource-variable/ibm-plex-sans";
+
+@font-face {
+  font-family: "Geist";
+  src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -510,7 +519,7 @@
 
 /* Maia - Rounded */
 [data-style="maia"] {
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Nunito Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 [data-style="maia"] {
@@ -528,7 +537,7 @@
 
 /* Mira - Dense */
 [data-style="mira"] {
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 [data-style="mira"] [data-slot="sidebar-menu-button"] {

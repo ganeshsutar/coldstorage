@@ -16,6 +16,8 @@
     "test:e2e:codegen": "playwright codegen http://localhost:5173"
   },
   "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource-variable/nunito": "^5.2.7",
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-query": "^5.90.20",
