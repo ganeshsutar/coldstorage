@@ -97,7 +97,7 @@ export function PacketsConfig() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {saveError && (
               <div data-testid="packets-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 {saveError}

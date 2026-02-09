@@ -19,6 +19,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useUsers } from "../../hooks"
 import type { OrganizationUser } from "../../types"
 import { UserDialog } from "./user-dialog"
@@ -60,6 +62,19 @@ function formatDate(dateString: string | null) {
 
 export function UserList() {
   const { users, loading, error, refetch, deleteUser } = useUsers()
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(users)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [editUser, setEditUser] = React.useState<OrganizationUser | undefined>()
 
@@ -130,7 +145,7 @@ export function UserList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user, index) => (
+                {paginatedItems.map((user, index) => (
                   <TableRow key={user.id} data-testid={`user-row-${index}`}>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -189,6 +204,18 @@ export function UserList() {
               </TableBody>
             </Table>
           )}
+          <TablePagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalItems}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+            onNextPage={goToNextPage}
+            onPreviousPage={goToPreviousPage}
+            onFirstPage={goToFirstPage}
+            onLastPage={goToLastPage}
+          />
         </CardContent>
       </Card>
 
