@@ -22,7 +22,7 @@ import {
 
 export function SystemSettingsPage() {
   return (
-    <DashboardLayout>
+    <DashboardLayout breadcrumbs={[{ label: "Settings" }]} activeNavItemId="settings">
       <div className="space-y-6">
         {/* Header */}
         <div>
@@ -36,7 +36,7 @@ export function SystemSettingsPage() {
         </div>
 
         {/* Main Tabs */}
-        <Tabs defaultValue="company">
+        <Tabs defaultValue="company" className="gap-4">
           <TabsList>
             <TabsTrigger value="company" data-testid="system-tab-company">Company Info</TabsTrigger>
             <TabsTrigger value="users" data-testid="system-tab-users">Users</TabsTrigger>
@@ -63,14 +63,14 @@ export function SystemSettingsPage() {
           </TabsContent>
 
           <TabsContent value="configuration" className="space-y-4">
-            <SeedDataCard />
-            <Tabs defaultValue="general" className="space-y-4">
+            <Tabs defaultValue="general" className="gap-4">
               <TabsList>
                 <TabsTrigger value="general" data-testid="config-tab-general">General</TabsTrigger>
                 <TabsTrigger value="rent" data-testid="config-tab-rent">Rent</TabsTrigger>
                 <TabsTrigger value="interest" data-testid="config-tab-interest">Interest</TabsTrigger>
                 <TabsTrigger value="packets" data-testid="config-tab-packets">Packets</TabsTrigger>
                 <TabsTrigger value="charges" data-testid="config-tab-charges">Charges</TabsTrigger>
+                <TabsTrigger value="seed-data" data-testid="config-tab-seed-data">Seed Data</TabsTrigger>
               </TabsList>
 
               <TabsContent value="general">
@@ -87,6 +87,9 @@ export function SystemSettingsPage() {
               </TabsContent>
               <TabsContent value="charges">
                 <ChargesConfig />
+              </TabsContent>
+              <TabsContent value="seed-data">
+                <SeedDataCard />
               </TabsContent>
             </Tabs>
           </TabsContent>

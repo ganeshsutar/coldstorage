@@ -14,11 +14,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useSequences } from "../../hooks"
 import type { SequenceConfig } from "../../types"
 
 export function NumberSeriesSettings() {
   const { sequences, loading, error, refetch, updateSequence } = useSequences()
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(sequences)
   const [editingId, setEditingId] = React.useState<string | null>(null)
   const [editValues, setEditValues] = React.useState<{
     prefix: string
@@ -117,7 +132,7 @@ export function NumberSeriesSettings() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sequences.map((seq) => (
+              {paginatedItems.map((seq) => (
                 <TableRow key={seq.id}>
                   <TableCell className="font-medium">{seq.label}</TableCell>
 
@@ -237,6 +252,18 @@ export function NumberSeriesSettings() {
             </TableBody>
           </Table>
         </div>
+        <TablePagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+          onPageSizeChange={setPageSize}
+          onNextPage={goToNextPage}
+          onPreviousPage={goToPreviousPage}
+          onFirstPage={goToFirstPage}
+          onLastPage={goToLastPage}
+        />
       </CardContent>
     </Card>
   )
