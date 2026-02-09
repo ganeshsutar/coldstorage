@@ -1,13 +1,4 @@
-import {
-  Settings,
-  Building2,
-  Users,
-  Shield,
-  Wrench,
-  ScrollText,
-  LayoutDashboard,
-  Hash,
-} from "lucide-react"
+import { Settings } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -45,102 +36,72 @@ export function SystemSettingsPage() {
         </div>
 
         {/* Main Tabs */}
-        <Tabs defaultValue="company" className="flex flex-row items-start gap-8">
-          <TabsList className="flex flex-col h-auto w-52 shrink-0 bg-transparent border rounded-lg p-2 gap-1">
-            <TabsTrigger value="company" data-testid="system-tab-company" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <Building2 className="h-4 w-4" />
-              Company Info
-            </TabsTrigger>
-            <TabsTrigger value="users" data-testid="system-tab-users" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <Users className="h-4 w-4" />
-              Users
-            </TabsTrigger>
-            <TabsTrigger value="permissions" data-testid="system-tab-permissions" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <Shield className="h-4 w-4" />
-              Permissions
-            </TabsTrigger>
-            <TabsTrigger value="configuration" data-testid="system-tab-configuration" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <Wrench className="h-4 w-4" />
-              Configuration
-            </TabsTrigger>
-            <TabsTrigger value="sequences" data-testid="system-tab-sequences" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <Hash className="h-4 w-4" />
-              Number Series
-            </TabsTrigger>
-            <TabsTrigger value="audit" data-testid="system-tab-audit" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <ScrollText className="h-4 w-4" />
-              Audit Log
-            </TabsTrigger>
-            <TabsTrigger value="dashboard" data-testid="system-tab-dashboard" className="w-full justify-start gap-2 px-3 data-[state=active]:bg-muted">
-              <LayoutDashboard className="h-4 w-4" />
-              Dashboard
-            </TabsTrigger>
+        <Tabs defaultValue="company">
+          <TabsList>
+            <TabsTrigger value="company" data-testid="system-tab-company">Company Info</TabsTrigger>
+            <TabsTrigger value="users" data-testid="system-tab-users">Users</TabsTrigger>
+            <TabsTrigger value="permissions" data-testid="system-tab-permissions">Permissions</TabsTrigger>
+            <TabsTrigger value="configuration" data-testid="system-tab-configuration">Configuration</TabsTrigger>
+            <TabsTrigger value="sequences" data-testid="system-tab-sequences">Number Series</TabsTrigger>
+            <TabsTrigger value="audit" data-testid="system-tab-audit">Audit Log</TabsTrigger>
+            <TabsTrigger value="dashboard" data-testid="system-tab-dashboard">Dashboard</TabsTrigger>
           </TabsList>
 
-          <div className="flex-1 min-w-0">
-            {/* Company Info Tab */}
-            <TabsContent value="company" className="mt-0 space-y-6">
-              <CompanySettingsForm />
-              <TaxSettingsForm />
-              <BankSettingsForm />
-              <FinancialYearForm />
-            </TabsContent>
+          <TabsContent value="company" className="space-y-6">
+            <CompanySettingsForm />
+            <TaxSettingsForm />
+            <BankSettingsForm />
+            <FinancialYearForm />
+          </TabsContent>
 
-            {/* Users Tab */}
-            <TabsContent value="users" className="mt-0">
-              <UserList />
-            </TabsContent>
+          <TabsContent value="users">
+            <UserList />
+          </TabsContent>
 
-            {/* Permissions Tab */}
-            <TabsContent value="permissions" className="mt-0">
-              <PermissionEditor />
-            </TabsContent>
+          <TabsContent value="permissions">
+            <PermissionEditor />
+          </TabsContent>
 
-            {/* Configuration Tab */}
-            <TabsContent value="configuration" className="mt-0 space-y-4">
-              <SeedDataCard />
-              <Tabs defaultValue="general" className="space-y-4">
-                <TabsList>
-                  <TabsTrigger value="general" data-testid="config-tab-general">General</TabsTrigger>
-                  <TabsTrigger value="rent" data-testid="config-tab-rent">Rent</TabsTrigger>
-                  <TabsTrigger value="interest" data-testid="config-tab-interest">Interest</TabsTrigger>
-                  <TabsTrigger value="packets" data-testid="config-tab-packets">Packets</TabsTrigger>
-                  <TabsTrigger value="charges" data-testid="config-tab-charges">Charges</TabsTrigger>
-                </TabsList>
+          <TabsContent value="configuration" className="space-y-4">
+            <SeedDataCard />
+            <Tabs defaultValue="general" className="space-y-4">
+              <TabsList>
+                <TabsTrigger value="general" data-testid="config-tab-general">General</TabsTrigger>
+                <TabsTrigger value="rent" data-testid="config-tab-rent">Rent</TabsTrigger>
+                <TabsTrigger value="interest" data-testid="config-tab-interest">Interest</TabsTrigger>
+                <TabsTrigger value="packets" data-testid="config-tab-packets">Packets</TabsTrigger>
+                <TabsTrigger value="charges" data-testid="config-tab-charges">Charges</TabsTrigger>
+              </TabsList>
 
-                <TabsContent value="general">
-                  <GeneralConfig />
-                </TabsContent>
-                <TabsContent value="rent">
-                  <RentConfig />
-                </TabsContent>
-                <TabsContent value="interest">
-                  <InterestConfig />
-                </TabsContent>
-                <TabsContent value="packets">
-                  <PacketsConfig />
-                </TabsContent>
-                <TabsContent value="charges">
-                  <ChargesConfig />
-                </TabsContent>
-              </Tabs>
-            </TabsContent>
+              <TabsContent value="general">
+                <GeneralConfig />
+              </TabsContent>
+              <TabsContent value="rent">
+                <RentConfig />
+              </TabsContent>
+              <TabsContent value="interest">
+                <InterestConfig />
+              </TabsContent>
+              <TabsContent value="packets">
+                <PacketsConfig />
+              </TabsContent>
+              <TabsContent value="charges">
+                <ChargesConfig />
+              </TabsContent>
+            </Tabs>
+          </TabsContent>
 
-            {/* Number Series Tab */}
-            <TabsContent value="sequences" className="mt-0">
-              <NumberSeriesSettings />
-            </TabsContent>
+          <TabsContent value="sequences">
+            <NumberSeriesSettings />
+          </TabsContent>
 
-            {/* Audit Log Tab */}
-            <TabsContent value="audit" className="mt-0">
-              <AuditLogTable />
-            </TabsContent>
+          <TabsContent value="audit">
+            <AuditLogTable />
+          </TabsContent>
 
-            {/* Dashboard Settings Tab */}
-            <TabsContent value="dashboard" className="mt-0">
-              <DashboardSettingsForm />
-            </TabsContent>
-          </div>
+          <TabsContent value="dashboard">
+            <DashboardSettingsForm />
+          </TabsContent>
         </Tabs>
       </div>
     </DashboardLayout>

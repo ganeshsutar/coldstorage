@@ -22,6 +22,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { VillageDialog } from "@/features/inventory/components/masters"
 import { useVillages } from "@/features/inventory/hooks/use-masters"
 import { villageService } from "@/features/inventory/api/masters"
@@ -46,6 +48,20 @@ export function VillageList() {
         (v.state && v.state.toLowerCase().includes(searchLower))
     )
   }, [villages, search])
+
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(filteredVillages)
 
   const handleEdit = (village: Village) => {
     setEditVillage(village)
@@ -90,20 +106,7 @@ export function VillageList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-medium">Villages</h3>
-          <p className="text-sm text-muted-foreground">
-            Manage village/location master for party addresses
-          </p>
-        </div>
-        <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Village
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -113,6 +116,10 @@ export function VillageList() {
             className="pl-8"
           />
         </div>
+        <Button onClick={handleAdd}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Village
+        </Button>
       </div>
 
       <div className="rounded-md border">
@@ -129,14 +136,14 @@ export function VillageList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredVillages.length === 0 ? (
+            {paginatedItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center text-muted-foreground">
                   {search ? "No villages match your search." : "No villages found."}
                 </TableCell>
               </TableRow>
             ) : (
-              filteredVillages.map((village) => (
+              paginatedItems.map((village) => (
                 <TableRow key={village.id}>
                   <TableCell className="font-medium">{village.code}</TableCell>
                   <TableCell>{village.name}</TableCell>
@@ -172,6 +179,19 @@ export function VillageList() {
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        onFirstPage={goToFirstPage}
+        onLastPage={goToLastPage}
+      />
 
       <VillageDialog
         open={dialogOpen}

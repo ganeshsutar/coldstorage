@@ -28,6 +28,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useLaborRates } from "../../hooks/use-labor-rates"
 import { laborRateService } from "../../api/labor-rates"
 import { LaborRateDialog } from "./labor-rate-dialog"
@@ -49,6 +51,19 @@ export function LaborRateGrid() {
     undefined,
     selectedType === "ALL" ? undefined : selectedType
   )
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(laborRates)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [editRate, setEditRate] = React.useState<LaborRate | undefined>()
   const [deleteRate, setDeleteRate] = React.useState<LaborRate | null>(null)
@@ -105,20 +120,7 @@ export function LaborRateGrid() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-medium">Labor Rates</h3>
-          <p className="text-sm text-muted-foreground">
-            Configure rates for loading, unloading, and other labor charges
-          </p>
-        </div>
-        <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Rate
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <Select
           value={selectedType}
           onValueChange={(v) => setSelectedType(v as RateType | "ALL")}
@@ -134,6 +136,10 @@ export function LaborRateGrid() {
             ))}
           </SelectContent>
         </Select>
+        <Button onClick={handleAdd}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Rate
+        </Button>
       </div>
 
       <div className="rounded-md border">
@@ -154,14 +160,14 @@ export function LaborRateGrid() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {laborRates.length === 0 ? (
+            {paginatedItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={6} className="text-center text-muted-foreground">
                   No labor rates found. Add your first rate to get started.
                 </TableCell>
               </TableRow>
             ) : (
-              laborRates.map((rate) => (
+              paginatedItems.map((rate) => (
                 <TableRow key={rate.id}>
                   <TableCell className="font-medium">
                     {rate.rate_type_display}
@@ -204,6 +210,19 @@ export function LaborRateGrid() {
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        onFirstPage={goToFirstPage}
+        onLastPage={goToLastPage}
+      />
 
       <LaborRateDialog
         open={dialogOpen}

@@ -21,6 +21,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useGstRates } from "../../hooks/use-gst-rates"
 import { gstRateService } from "../../api/gst-rates"
 import { GstRateDialog } from "./gst-rate-dialog"
@@ -28,6 +30,19 @@ import type { GstRate } from "../../types"
 
 export function GstRateList() {
   const { gstRates, loading, error, refetch } = useGstRates()
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(gstRates)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [editRate, setEditRate] = React.useState<GstRate | undefined>()
   const [deleteRate, setDeleteRate] = React.useState<GstRate | null>(null)
@@ -76,13 +91,7 @@ export function GstRateList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-medium">GST Rates</h3>
-          <p className="text-sm text-muted-foreground">
-            Configure GST rates for billing
-          </p>
-        </div>
+      <div className="flex items-center justify-end">
         <Button onClick={handleAdd}>
           <Plus className="mr-2 h-4 w-4" />
           Add GST Rate
@@ -104,14 +113,14 @@ export function GstRateList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {gstRates.length === 0 ? (
+            {paginatedItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={8} className="text-center text-muted-foreground">
                   No GST rates found. Add your first rate to get started.
                 </TableCell>
               </TableRow>
             ) : (
-              gstRates.map((rate) => (
+              paginatedItems.map((rate) => (
                 <TableRow key={rate.id}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
@@ -155,6 +164,19 @@ export function GstRateList() {
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        onFirstPage={goToFirstPage}
+        onLastPage={goToLastPage}
+      />
 
       <GstRateDialog
         open={dialogOpen}
