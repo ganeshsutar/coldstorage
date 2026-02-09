@@ -22,6 +22,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { useBanks } from "../../hooks/use-banks"
 import { bankService } from "../../api/banks"
 import { BankDialog } from "./bank-dialog"
@@ -30,6 +32,19 @@ import type { Bank } from "../../types"
 export function BankList() {
   const [search, setSearch] = React.useState("")
   const { banks, loading, error, refetch } = useBanks(undefined, search)
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(banks)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [editBank, setEditBank] = React.useState<Bank | undefined>()
   const [deleteBank, setDeleteBank] = React.useState<Bank | null>(null)
@@ -78,20 +93,7 @@ export function BankList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-medium">Banks</h3>
-          <p className="text-sm text-muted-foreground">
-            Manage bank master for receipt tracking
-          </p>
-        </div>
-        <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Bank
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -101,6 +103,10 @@ export function BankList() {
             className="pl-8"
           />
         </div>
+        <Button onClick={handleAdd}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Bank
+        </Button>
       </div>
 
       <div className="rounded-md border">
@@ -115,14 +121,14 @@ export function BankList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {banks.length === 0 ? (
+            {paginatedItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted-foreground">
                   {search ? "No banks match your search." : "No banks found."}
                 </TableCell>
               </TableRow>
             ) : (
-              banks.map((bank) => (
+              paginatedItems.map((bank) => (
                 <TableRow key={bank.id}>
                   <TableCell className="font-medium">{bank.code}</TableCell>
                   <TableCell>{bank.name}</TableCell>
@@ -156,6 +162,19 @@ export function BankList() {
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        onFirstPage={goToFirstPage}
+        onLastPage={goToLastPage}
+      />
 
       <BankDialog
         open={dialogOpen}

@@ -22,6 +22,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { useClientPagination } from "@/hooks/use-client-pagination"
+import { TablePagination } from "@/components/ui/table-pagination"
 import { CommodityDialog } from "@/features/inventory/components/masters"
 import { useCommodities } from "@/features/inventory/hooks/use-masters"
 import { commodityService } from "@/features/inventory/api/masters"
@@ -45,6 +47,20 @@ export function CommodityList() {
         (c.variety && c.variety.toLowerCase().includes(searchLower))
     )
   }, [commodities, search])
+
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    totalItems,
+    pageSize,
+    setCurrentPage,
+    setPageSize,
+    goToNextPage,
+    goToPreviousPage,
+    goToFirstPage,
+    goToLastPage,
+  } = useClientPagination(filteredCommodities)
 
   const handleEdit = (commodity: Commodity) => {
     setEditCommodity(commodity)
@@ -89,20 +105,7 @@ export function CommodityList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-medium">Commodities</h3>
-          <p className="text-sm text-muted-foreground">
-            Manage commodity master for inventory and billing
-          </p>
-        </div>
-        <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Commodity
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -112,6 +115,10 @@ export function CommodityList() {
             className="pl-8"
           />
         </div>
+        <Button onClick={handleAdd}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Commodity
+        </Button>
       </div>
 
       <div className="rounded-md border">
@@ -128,14 +135,14 @@ export function CommodityList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredCommodities.length === 0 ? (
+            {paginatedItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center text-muted-foreground">
                   {search ? "No commodities match your search." : "No commodities found."}
                 </TableCell>
               </TableRow>
             ) : (
-              filteredCommodities.map((commodity) => (
+              paginatedItems.map((commodity) => (
                 <TableRow key={commodity.id}>
                   <TableCell className="font-medium">{commodity.code}</TableCell>
                   <TableCell>{commodity.name}</TableCell>
@@ -171,6 +178,19 @@ export function CommodityList() {
           </TableBody>
         </Table>
       </div>
+
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        onFirstPage={goToFirstPage}
+        onLastPage={goToLastPage}
+      />
 
       <CommodityDialog
         open={dialogOpen}

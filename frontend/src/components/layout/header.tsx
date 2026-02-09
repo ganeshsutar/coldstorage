@@ -24,7 +24,7 @@ interface HeaderProps {
 
 export function Header({ breadcrumbs = [] }: HeaderProps) {
   return (
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+    <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background/50 backdrop-blur-md transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
       <div className="flex flex-1 items-center gap-2 px-6 group-has-data-[collapsible=icon]/sidebar-wrapper:pl-8">
         <SidebarTrigger className="-ml-1" />
         <Separator
