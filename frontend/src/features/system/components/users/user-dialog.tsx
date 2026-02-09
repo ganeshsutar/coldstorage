@@ -324,6 +324,7 @@ export function UserDialog({
         ) : (
           <Form {...createForm}>
             <form
+              noValidate
               onSubmit={createForm.handleSubmit(onCreateSubmit)}
               className="space-y-4"
             >

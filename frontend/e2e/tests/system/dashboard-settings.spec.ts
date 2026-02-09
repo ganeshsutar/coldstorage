@@ -1,7 +1,42 @@
 import { test, expect } from "../../fixtures";
 
 test.describe("Dashboard Settings", () => {
-  test.beforeEach(async ({ systemSettingsPage }) => {
+  test.beforeEach(async ({ systemSettingsPage, page }) => {
+    // Mock dashboard settings API to ensure form renders without backend
+    await page.route(/\/api\/system\/dashboard\//, async (route) => {
+      const method = route.request().method();
+
+      if (method === "GET") {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            show_summary_inward: true,
+            show_bag_grading: true,
+            show_pending_dues: true,
+            show_low_stock_alert: true,
+            show_chamber_occupancy: true,
+            show_recent_transactions: true,
+            show_todays_collections: true,
+            print_takpatti: true,
+            print_gate_pass: true,
+            print_receipt: true,
+            auto_print_rent_bill: true,
+            default_date_range: 30,
+            auto_refresh_interval: 5,
+            default_page_size: 25,
+          }),
+        });
+      } else if (method === "PATCH") {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: route.request().postData() || "{}",
+        });
+      } else {
+        await route.continue();
+      }
+    });
     await systemSettingsPage.goto();
     await systemSettingsPage.switchToTab("dashboard");
   });
@@ -65,18 +100,18 @@ test.describe("Dashboard Settings", () => {
 
   test("can toggle display switches", async ({ page }) => {
     const switchEl = page.getByTestId("dashboard-show-summary-inward-switch");
-    const initialState = await switchEl.getAttribute("data-state");
+    // Wait for API data to populate the form (mock returns true = checked)
+    await expect(switchEl).toHaveAttribute("data-state", "checked");
     await switchEl.click();
-    const newState = await switchEl.getAttribute("data-state");
-    expect(newState).not.toBe(initialState);
+    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
   });
 
   test("can toggle print switches", async ({ page }) => {
     const switchEl = page.getByTestId("dashboard-print-takpatti-switch");
-    const initialState = await switchEl.getAttribute("data-state");
+    // Wait for API data to populate the form (mock returns true = checked)
+    await expect(switchEl).toHaveAttribute("data-state", "checked");
     await switchEl.click();
-    const newState = await switchEl.getAttribute("data-state");
-    expect(newState).not.toBe(initialState);
+    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
   });
 
   test("can update default values and save", async ({ page }) => {
