@@ -57,11 +57,12 @@ export function AccountTree({ tree, loading, onSelect }: AccountTreeProps) {
   }
 
   return (
-    <div data-slot="account-tree" className="flex flex-col h-full">
+    <div data-slot="account-tree" data-testid="account-tree" className="flex flex-col h-full">
       <div className="p-4 border-b">
         <div className="relative">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
+            data-testid="account-tree-search-input"
             placeholder="Search accounts..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -73,7 +74,7 @@ export function AccountTree({ tree, loading, onSelect }: AccountTreeProps) {
       <ScrollArea className="flex-1">
         <div className="p-2">
           {filteredTree.length === 0 ? (
-            <div className="text-center text-sm text-muted-foreground py-8">
+            <div data-testid="account-tree-empty" className="text-center text-sm text-muted-foreground py-8">
               No accounts found
             </div>
           ) : (

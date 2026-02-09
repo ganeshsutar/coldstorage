@@ -34,16 +34,17 @@ const componentLabels = {
   other: "Other",
 }
 
-function PartyRow({ party }: { party: PartyInterestResult }) {
+function PartyRow({ party, index }: { party: PartyInterestResult; index: number }) {
   const [expanded, setExpanded] = React.useState(false)
   const hasBreakdown = party.breakdown.length > 0
 
   return (
     <>
-      <TableRow className="group">
+      <TableRow data-testid={`interest-result-row-${index}`} className="group">
         <TableCell className="w-8">
           {hasBreakdown && (
             <Button
+              data-testid={`interest-result-expand-${index}`}
               variant="ghost"
               size="icon-xs"
               onClick={() => setExpanded(!expanded)}
@@ -96,14 +97,14 @@ function PartyRow({ party }: { party: PartyInterestResult }) {
 export function InterestResultTable({ result }: InterestResultTableProps) {
   if (!result || result.results.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div data-testid="interest-result-empty" className="text-center py-8 text-muted-foreground">
         No results to display. Click "Calculate Interest" to compute interest.
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="interest-result-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-8" />
@@ -115,8 +116,8 @@ export function InterestResultTable({ result }: InterestResultTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {result.results.map((party) => (
-          <PartyRow key={party.party_id} party={party} />
+        {result.results.map((party, index) => (
+          <PartyRow key={party.party_id} party={party} index={index} />
         ))}
       </TableBody>
       <TableFooter>
@@ -124,11 +125,11 @@ export function InterestResultTable({ result }: InterestResultTableProps) {
           <TableCell colSpan={2} className="font-medium">
             Total
           </TableCell>
-          <TableCell className="text-right font-mono tabular-nums">
+          <TableCell data-testid="interest-result-total-principal" className="text-right font-mono tabular-nums">
             {formatIndianNumber(result.total_principal)}
           </TableCell>
           <TableCell colSpan={2} />
-          <TableCell className="text-right font-mono tabular-nums font-medium text-red-600">
+          <TableCell data-testid="interest-result-total-interest" className="text-right font-mono tabular-nums font-medium text-red-600">
             {formatIndianNumber(result.total_interest)}
           </TableCell>
         </TableRow>

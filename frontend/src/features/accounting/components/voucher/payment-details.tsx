@@ -34,7 +34,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
   }
 
   return (
-    <div data-slot="payment-details" className="space-y-4">
+    <div data-slot="payment-details" data-testid="payment-details" className="space-y-4">
       <div className="space-y-2">
         <Label>Payment Mode</Label>
         <ToggleGroup
@@ -47,6 +47,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
             <ToggleGroupItem
               key={mode.value}
               value={mode.value}
+              data-testid={`payment-mode-${mode.value}`}
               className="gap-2"
             >
               <mode.icon className="h-4 w-4" />
@@ -62,6 +63,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
             <Label htmlFor="cheque_no">Cheque Number</Label>
             <Input
               id="cheque_no"
+              data-testid="payment-cheque-no-input"
               value={value.cheque_no || ""}
               onChange={(e) => handleFieldChange("cheque_no", e.target.value)}
               placeholder="Enter cheque number"
@@ -71,6 +73,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
             <Label htmlFor="cheque_date">Cheque Date</Label>
             <Input
               id="cheque_date"
+              data-testid="payment-cheque-date-input"
               type="date"
               value={value.cheque_date || ""}
               onChange={(e) => handleFieldChange("cheque_date", e.target.value)}
@@ -84,6 +87,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
           <Label htmlFor="bank_name">Bank Name</Label>
           <Input
             id="bank_name"
+            data-testid="payment-bank-name-input"
             value={value.bank_name || ""}
             onChange={(e) => handleFieldChange("bank_name", e.target.value)}
             placeholder="Enter bank name"
@@ -96,6 +100,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
           <Label htmlFor="upi_ref">UPI Reference</Label>
           <Input
             id="upi_ref"
+            data-testid="payment-upi-ref-input"
             value={value.upi_ref || ""}
             onChange={(e) => handleFieldChange("upi_ref", e.target.value)}
             placeholder="Enter UPI reference number"

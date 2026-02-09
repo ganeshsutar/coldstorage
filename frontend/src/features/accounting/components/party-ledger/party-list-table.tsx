@@ -25,9 +25,11 @@ interface PartyListTableProps {
 
 function PartyRow({
   party,
+  index,
   onView,
 }: {
   party: PartyAccount
+  index: number
   onView?: () => void
 }) {
   const [expanded, setExpanded] = React.useState(false)
@@ -38,12 +40,13 @@ function PartyRow({
 
   return (
     <>
-      <TableRow className="group">
+      <TableRow data-testid={`party-row-${index}`} className="group">
         <TableCell className="w-8">
           {hasBreakdown && (
             <Button
               variant="ghost"
               size="icon-xs"
+              data-testid={`party-row-expand-${index}`}
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? (
@@ -81,6 +84,7 @@ function PartyRow({
           <Button
             variant="ghost"
             size="icon-xs"
+            data-testid={`party-row-view-${index}`}
             onClick={onView}
             className="opacity-0 group-hover:opacity-100"
           >
@@ -89,7 +93,7 @@ function PartyRow({
         </TableCell>
       </TableRow>
       {expanded && hasBreakdown && party.component_balances && (
-        <TableRow className="bg-muted/30">
+        <TableRow data-testid={`party-row-breakdown-${index}`} className="bg-muted/30">
           <TableCell colSpan={7} className="py-2 pl-12">
             <ComponentBreakdown balances={party.component_balances} />
           </TableCell>
@@ -116,14 +120,14 @@ export function PartyListTable({
 
   if (parties.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div data-testid="party-list-empty" className="text-center py-8 text-muted-foreground">
         No party accounts found
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="party-list-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-8" />
@@ -136,10 +140,11 @@ export function PartyListTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {parties.map((party) => (
+        {parties.map((party, index) => (
           <PartyRow
             key={party.id}
             party={party}
+            index={index}
             onView={() => onViewParty?.(party)}
           />
         ))}

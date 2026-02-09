@@ -68,12 +68,12 @@ export function PartyLedgerPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Party Ledger</h1>
+            <h1 data-testid="party-ledger-title" className="text-2xl font-semibold">Party Ledger</h1>
             <p className="text-sm text-muted-foreground">
               View and manage party accounts and balances
             </p>
           </div>
-          <Button onClick={() => setAddPartyOpen(true)}>
+          <Button data-testid="party-ledger-add-button" onClick={() => setAddPartyOpen(true)}>
             <UserPlusIcon className="mr-2 h-4 w-4" />
             Add Party
           </Button>
@@ -91,6 +91,7 @@ export function PartyLedgerPage() {
                 <div className="relative">
                   <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
+                    data-testid="party-ledger-search-input"
                     placeholder="Search parties..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -101,7 +102,7 @@ export function PartyLedgerPage() {
                   value={filter}
                   onValueChange={(v) => setFilter(v as typeof filter)}
                 >
-                  <SelectTrigger className="w-56">
+                  <SelectTrigger data-testid="party-ledger-filter-select" className="w-56">
                     <FilterIcon className="h-4 w-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>

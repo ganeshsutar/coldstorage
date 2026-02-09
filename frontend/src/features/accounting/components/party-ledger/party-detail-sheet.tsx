@@ -38,18 +38,19 @@ export function PartyDetailSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
+      <SheetContent data-testid="party-detail-sheet" className="w-full sm:max-w-xl overflow-y-auto">
         {party && (
           <>
             <SheetHeader>
               <div className="flex items-start justify-between">
                 <div>
-                  <SheetTitle className="text-xl">{party.name}</SheetTitle>
-                  <SheetDescription className="font-mono">
+                  <SheetTitle data-testid="party-detail-name" className="text-xl">{party.name}</SheetTitle>
+                  <SheetDescription data-testid="party-detail-code" className="font-mono">
                     {party.code}
                   </SheetDescription>
                 </div>
                 <Badge
+                  data-testid="party-detail-balance"
                   variant="outline"
                   className={cn(
                     party.balance_nature === "DEBIT"
@@ -66,7 +67,7 @@ export function PartyDetailSheet({
             </SheetHeader>
 
             <div className="mt-6 space-y-6">
-              <div>
+              <div data-testid="party-detail-contact">
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">
                   Contact Details
                 </h3>
@@ -88,7 +89,7 @@ export function PartyDetailSheet({
 
               <Separator />
 
-              <div>
+              <div data-testid="party-detail-credit-limit">
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">
                   Credit Limit
                 </h3>
@@ -106,7 +107,7 @@ export function PartyDetailSheet({
               <Separator />
 
               {party.component_balances && (
-              <div>
+              <div data-testid="party-detail-breakdown">
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">
                   Balance Breakdown
                 </h3>
@@ -127,11 +128,11 @@ export function PartyDetailSheet({
                     ))}
                   </div>
                 ) : entries.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">
+                  <p data-testid="party-detail-no-transactions" className="text-sm text-muted-foreground">
                     No transactions found
                   </p>
                 ) : (
-                  <Table>
+                  <Table data-testid="party-detail-transactions">
                     <TableHeader>
                       <TableRow>
                         <TableHead>Date</TableHead>

@@ -25,23 +25,26 @@ export function DateNavigator({ date, onChange }: DateNavigatorProps) {
   return (
     <div
       data-slot="date-navigator"
+      data-testid="date-navigator"
       className="flex items-center gap-2"
     >
-      <Button variant="outline" size="icon" onClick={handlePrev}>
+      <Button data-testid="date-navigator-prev-button" variant="outline" size="icon" onClick={handlePrev}>
         <ChevronLeftIcon className="h-4 w-4" />
       </Button>
 
       <DatePicker
+        data-testid="date-navigator-date-picker"
         date={date}
         onDateChange={(d) => d && onChange(d)}
         className="w-48"
       />
 
-      <Button variant="outline" size="icon" onClick={handleNext}>
+      <Button data-testid="date-navigator-next-button" variant="outline" size="icon" onClick={handleNext}>
         <ChevronRightIcon className="h-4 w-4" />
       </Button>
 
       <Button
+        data-testid="date-navigator-today-button"
         variant="ghost"
         size="sm"
         onClick={handleToday}

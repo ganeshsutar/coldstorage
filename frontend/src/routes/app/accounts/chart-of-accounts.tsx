@@ -32,20 +32,21 @@ export function ChartOfAccountsPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Chart of Accounts</h1>
+            <h1 data-testid="chart-of-accounts-title" className="text-2xl font-semibold">Chart of Accounts</h1>
             <p className="text-sm text-muted-foreground">
               Manage your account hierarchy and balances
             </p>
           </div>
           <div className="flex gap-2">
             <Button
+              data-testid="coa-add-account-button"
               variant="outline"
               onClick={() => setAddAccountOpen(true)}
             >
               <PlusIcon className="mr-2 h-4 w-4" />
               Account
             </Button>
-            <Button onClick={() => setAddPartyOpen(true)}>
+            <Button data-testid="coa-add-party-button" onClick={() => setAddPartyOpen(true)}>
               <UserPlusIcon className="mr-2 h-4 w-4" />
               Party
             </Button>
@@ -76,24 +77,25 @@ export function ChartOfAccountsPage() {
                 Account Details
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent data-testid="coa-detail-panel">
               {selectedAccount ? (
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Code</p>
-                    <p className="font-mono">{selectedAccount.code}</p>
+                    <p data-testid="coa-detail-code" className="font-mono">{selectedAccount.code}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Name</p>
-                    <p className="font-medium">{selectedAccount.name}</p>
+                    <p data-testid="coa-detail-name" className="font-medium">{selectedAccount.name}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Type</p>
-                    <p className="capitalize">{selectedAccount.account_type === "GROUP" ? "Group" : "Account"}</p>
+                    <p data-testid="coa-detail-type" className="capitalize">{selectedAccount.account_type === "GROUP" ? "Group" : "Account"}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Balance</p>
                     <p
+                      data-testid="coa-detail-balance"
                       className={`font-mono ${
                         selectedAccount.balance_nature === "DEBIT"
                           ? "text-red-600"
@@ -109,12 +111,12 @@ export function ChartOfAccountsPage() {
                       <p className="text-sm text-muted-foreground">
                         Sub-accounts
                       </p>
-                      <p>{selectedAccount.children?.length || 0} accounts</p>
+                      <p data-testid="coa-detail-children-count">{selectedAccount.children?.length || 0} accounts</p>
                     </div>
                   )}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">
+                <p data-testid="coa-detail-empty" className="text-sm text-muted-foreground">
                   Select an account to view details
                 </p>
               )}

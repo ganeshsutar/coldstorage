@@ -42,7 +42,7 @@ export function DaybookPage() {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold">Daybook</h1>
+            <h1 data-testid="daybook-title" className="text-2xl font-semibold">Daybook</h1>
             <p className="text-sm text-muted-foreground">
               Daily transaction summary and details
             </p>
@@ -50,12 +50,12 @@ export function DaybookPage() {
           <div className="flex items-center gap-4">
             <DateNavigator date={date} onChange={setDate} />
             {summary?.is_closed ? (
-              <Badge variant="secondary" className="gap-1">
+              <Badge data-testid="daybook-day-closed-badge" variant="secondary" className="gap-1">
                 <LockIcon className="h-3 w-3" />
                 Day Closed
               </Badge>
             ) : (
-              <Button variant="outline">Close Day</Button>
+              <Button data-testid="daybook-close-day-button" variant="outline">Close Day</Button>
             )}
           </div>
         </div>

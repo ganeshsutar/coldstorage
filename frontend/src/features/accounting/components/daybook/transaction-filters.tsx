@@ -23,16 +23,16 @@ export function TransactionFilters({
       onValueChange={(v) => onChange(v as DaybookTab)}
     >
       <TabsList>
-        <TabsTrigger value="all">
+        <TabsTrigger value="all" data-testid="daybook-filter-all">
           All ({counts.all})
         </TabsTrigger>
-        <TabsTrigger value="receipts">
+        <TabsTrigger value="receipts" data-testid="daybook-filter-receipts">
           Receipts ({counts.receipts})
         </TabsTrigger>
-        <TabsTrigger value="payments">
+        <TabsTrigger value="payments" data-testid="daybook-filter-payments">
           Payments ({counts.payments})
         </TabsTrigger>
-        <TabsTrigger value="journal">
+        <TabsTrigger value="journal" data-testid="daybook-filter-journal">
           Journal ({counts.journal})
         </TabsTrigger>
       </TabsList>

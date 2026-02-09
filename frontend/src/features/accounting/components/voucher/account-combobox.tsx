@@ -25,6 +25,7 @@ interface AccountComboboxProps {
   placeholder?: string
   disabled?: boolean
   className?: string
+  "data-testid"?: string
 }
 
 export function AccountCombobox({
@@ -34,6 +35,7 @@ export function AccountCombobox({
   placeholder = "Select account...",
   disabled,
   className,
+  "data-testid": testId,
 }: AccountComboboxProps) {
   const [open, setOpen] = React.useState(false)
   const [search, setSearch] = React.useState("")
@@ -58,6 +60,7 @@ export function AccountCombobox({
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
+          data-testid={testId}
           className={cn(
             "w-full justify-between font-normal",
             !value && "text-muted-foreground",
@@ -73,12 +76,13 @@ export function AccountCombobox({
       <PopoverContent className="w-[400px] p-0" align="start">
         <Command>
           <CommandInput
+            data-testid="account-combobox-search"
             placeholder="Search accounts..."
             value={search}
             onValueChange={setSearch}
           />
           <CommandList>
-            <CommandEmpty>No account found.</CommandEmpty>
+            <CommandEmpty data-testid="account-combobox-empty">No account found.</CommandEmpty>
             <CommandGroup>
               {filteredAccounts.map((account) => (
                 <CommandItem

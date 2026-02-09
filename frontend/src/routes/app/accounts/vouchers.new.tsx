@@ -77,13 +77,13 @@ export function NewVoucherPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" asChild data-testid="new-voucher-back-button">
               <Link to="/app/accounts/vouchers">
                 <ArrowLeftIcon className="h-4 w-4" />
               </Link>
             </Button>
             <div>
-              <h1 className="text-2xl font-semibold">New Voucher</h1>
+              <h1 data-testid="new-voucher-title" className="text-2xl font-semibold">New Voucher</h1>
               <p className="text-sm text-muted-foreground">
                 Create accounting vouchers with double-entry bookkeeping
               </p>
@@ -102,6 +102,7 @@ export function NewVoucherPage() {
                 <div className="flex items-center gap-2">
                   <Label className="text-sm text-muted-foreground">Date:</Label>
                   <DatePicker
+                    data-testid="new-voucher-date-picker"
                     date={date}
                     onDateChange={(d) => d && setDate(d)}
                     className="w-40"
@@ -110,6 +111,7 @@ export function NewVoucherPage() {
                 <div className="flex items-center gap-2">
                   <Label className="text-sm text-muted-foreground">V#:</Label>
                   <Input
+                    data-testid="new-voucher-number-input"
                     value={voucherNo}
                     readOnly
                     className="w-28 font-mono text-center bg-muted"
@@ -135,6 +137,7 @@ export function NewVoucherPage() {
                   <Label htmlFor="narration">Narration</Label>
                   <Input
                     id="narration"
+                    data-testid="new-voucher-narration-input"
                     value={narration}
                     onChange={(e) => setNarration(e.target.value)}
                     placeholder="Enter transaction narration..."
@@ -151,13 +154,14 @@ export function NewVoucherPage() {
                 <AmountInWords amount={totalAmount} />
 
                 <div className="flex justify-end gap-2 mt-4">
-                  <Button variant="outline" asChild>
+                  <Button variant="outline" asChild data-testid="new-voucher-cancel-button">
                     <Link to="/app/accounts/vouchers">
                       <XIcon className="mr-2 h-4 w-4" />
                       Cancel
                     </Link>
                   </Button>
                   <Button
+                    data-testid="new-voucher-save-button"
                     onClick={handleSave}
                     disabled={!isBalanced || totalAmount === 0 || saving}
                   >
@@ -165,6 +169,7 @@ export function NewVoucherPage() {
                     {saving ? "Saving..." : "Save"}
                   </Button>
                   <Button
+                    data-testid="new-voucher-save-print-button"
                     variant="secondary"
                     disabled={!isBalanced || totalAmount === 0 || saving}
                   >

@@ -22,30 +22,38 @@ export function KPICards({ summary, loading }: KPICardsProps) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <StatCard
-        title="Debtors"
-        value={summary?.total_debtors ?? 0}
-        formatter={formatCompactCurrency}
-        icon={UsersIcon}
-      />
-      <StatCard
-        title="Creditors"
-        value={summary?.total_creditors ?? 0}
-        formatter={formatCompactCurrency}
-        icon={CreditCardIcon}
-      />
-      <StatCard
-        title="Today's Receipts"
-        value={summary?.todays_receipts ?? 0}
-        formatter={formatCompactCurrency}
-        icon={ReceiptIcon}
-      />
-      <StatCard
-        title="Pending Interest"
-        value={summary?.pending_interest ?? 0}
-        formatter={formatCompactCurrency}
-        icon={PercentIcon}
-      />
+      <div data-testid="kpi-debtors">
+        <StatCard
+          title="Debtors"
+          value={summary?.total_debtors ?? 0}
+          formatter={formatCompactCurrency}
+          icon={UsersIcon}
+        />
+      </div>
+      <div data-testid="kpi-creditors">
+        <StatCard
+          title="Creditors"
+          value={summary?.total_creditors ?? 0}
+          formatter={formatCompactCurrency}
+          icon={CreditCardIcon}
+        />
+      </div>
+      <div data-testid="kpi-todays-receipts">
+        <StatCard
+          title="Today's Receipts"
+          value={summary?.todays_receipts ?? 0}
+          formatter={formatCompactCurrency}
+          icon={ReceiptIcon}
+        />
+      </div>
+      <div data-testid="kpi-pending-interest">
+        <StatCard
+          title="Pending Interest"
+          value={summary?.pending_interest ?? 0}
+          formatter={formatCompactCurrency}
+          icon={PercentIcon}
+        />
+      </div>
     </div>
   )
 }

@@ -27,7 +27,7 @@ export function ComponentCheckboxes({
   }
 
   return (
-    <div data-slot="component-checkboxes" className="space-y-4">
+    <div data-slot="component-checkboxes" data-testid="component-checkboxes" className="space-y-4">
       <h3 className="font-medium">Apply On</h3>
 
       <div className="flex flex-wrap gap-4">
@@ -35,6 +35,7 @@ export function ComponentCheckboxes({
           <div key={component.value} className="flex items-center space-x-2">
             <Checkbox
               id={`component-${component.value}`}
+              data-testid={`interest-component-${component.value}`}
               checked={selected.includes(component.value)}
               onCheckedChange={() => handleToggle(component.value)}
             />
