@@ -10,7 +10,7 @@ import {
 
 export function MastersPage() {
   return (
-    <DashboardLayout breadcrumbs={[{ label: "Masters" }]}>
+    <DashboardLayout activeNavItemId="masters" breadcrumbs={[{ label: "Masters" }]}>
       <Tabs defaultValue="commodities" className="gap-4">
         <TabsList>
           <TabsTrigger value="commodities">Commodities</TabsTrigger>
