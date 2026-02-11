@@ -16,7 +16,7 @@ export function ShiftingPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="shifting">
+    <DashboardLayout activeNavItemId="shifting" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Shifting" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">

@@ -27,7 +27,7 @@ export function StockTransferPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="stock-transfer">
+    <DashboardLayout activeNavItemId="stock-transfer" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/amad" }, { label: "Stock Transfer" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <Button

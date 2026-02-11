@@ -20,7 +20,6 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  SidebarRail,
 } from "@/components/ui/sidebar"
 import { SidebarUser } from "@/components/layout/sidebar-user"
 import { getIcon } from "@/lib/icons"
@@ -168,7 +167,6 @@ export function AppSidebar({
         <SidebarUser email={userEmail} name={userName} onSignOut={onSignOut} />
       </SidebarFooter>
 
-      <SidebarRail />
     </Sidebar>
   )
 }

@@ -32,7 +32,7 @@ export function PayrollLedgerPage() {
   const { data: entries, isLoading } = usePayrollLedger(filters)
 
   return (
-    <DashboardLayout activeNavItemId="payroll">
+    <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "Ledger" }]}>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <Button

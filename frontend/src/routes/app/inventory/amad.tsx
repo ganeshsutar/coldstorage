@@ -64,7 +64,7 @@ export function AmadPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="amad">
+    <DashboardLayout activeNavItemId="amad" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/amad" }, { label: "Amad (Receipts)" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>

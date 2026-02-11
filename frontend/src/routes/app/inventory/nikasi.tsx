@@ -70,7 +70,7 @@ export function NikasiPage() {
   const totalPackets = rents.reduce((sum, r) => sum + r.packets, 0)
 
   return (
-    <DashboardLayout activeNavItemId="nikasi">
+    <DashboardLayout activeNavItemId="nikasi" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/nikasi" }, { label: "Nikasi (Dispatch)" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>

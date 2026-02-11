@@ -90,7 +90,7 @@ export function NewUnloadingPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="room-map">
+    <DashboardLayout activeNavItemId="room-map" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "New Unloading" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4">

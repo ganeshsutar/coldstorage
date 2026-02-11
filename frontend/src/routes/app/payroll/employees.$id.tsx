@@ -6,7 +6,7 @@ export function EmployeeDetailPage() {
   const { id } = useParams({ strict: false })
 
   return (
-    <DashboardLayout activeNavItemId="payroll">
+    <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "Employee Details" }]}>
       <EmployeeDetailView employeeId={id as string} />
     </DashboardLayout>
   )

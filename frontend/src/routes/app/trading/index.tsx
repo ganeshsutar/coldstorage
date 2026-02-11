@@ -3,7 +3,7 @@ import { DealList } from "@/features/trading"
 
 export function TradingPage() {
   return (
-    <DashboardLayout activeNavItemId="trading">
+    <DashboardLayout activeNavItemId="trading" breadcrumbs={[{ label: "Trading", to: "/app/trading" }, { label: "Deals" }]}>
       <DealList />
     </DashboardLayout>
   )

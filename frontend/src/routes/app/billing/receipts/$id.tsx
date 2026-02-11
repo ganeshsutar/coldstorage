@@ -6,7 +6,7 @@ export function ReceiptDetailPage() {
   const { id } = useParams({ strict: false })
 
   return (
-    <DashboardLayout activeNavItemId="billing">
+    <DashboardLayout activeNavItemId="billing" breadcrumbs={[{ label: "Billing", to: "/app/billing" }, { label: "Receipt Details" }]}>
       <ReceiptDetailView receiptId={id || ""} />
     </DashboardLayout>
   )

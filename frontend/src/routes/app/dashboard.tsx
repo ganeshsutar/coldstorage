@@ -17,7 +17,7 @@ import { StatCard } from "@/components/ui/stat-card"
 
 export function DashboardPage() {
   return (
-    <DashboardLayout activeNavItemId="dashboard">
+    <DashboardLayout activeNavItemId="dashboard" breadcrumbs={[{ label: "Dashboard" }]}>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Total Products"

@@ -3,7 +3,7 @@ import { ChambersTab } from "@/features/warehouse/components/chambers"
 
 export function ChambersPage() {
   return (
-    <DashboardLayout activeNavItemId="chamber-management">
+    <DashboardLayout activeNavItemId="chamber-management" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Chamber Management" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div>

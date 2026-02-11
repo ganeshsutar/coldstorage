@@ -11,7 +11,7 @@ export function NewReceiptPage() {
   const search = useSearch({ strict: false }) as ReceiptSearchParams
 
   return (
-    <DashboardLayout activeNavItemId="billing">
+    <DashboardLayout activeNavItemId="billing" breadcrumbs={[{ label: "Billing", to: "/app/billing" }, { label: "New Receipt" }]}>
       <ReceiptEntryForm
         initialPartyId={search?.party_id}
         initialBillId={search?.bill_id}
