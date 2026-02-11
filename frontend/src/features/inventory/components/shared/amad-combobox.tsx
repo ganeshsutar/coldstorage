@@ -25,6 +25,7 @@ interface AmadComboboxProps {
   disabled?: boolean
   placeholder?: string
   filterByParty?: string
+  "data-testid"?: string
 }
 
 function formatDate(dateStr: string): string {
@@ -43,6 +44,7 @@ export function AmadCombobox({
   disabled,
   placeholder = "Select amad...",
   filterByParty,
+  "data-testid": dataTestId,
 }: AmadComboboxProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -65,6 +67,7 @@ export function AmadCombobox({
           aria-expanded={open}
           className="w-full justify-between"
           disabled={disabled}
+          data-testid={dataTestId}
         >
           {selectedAmad ? (
             <span className="truncate">

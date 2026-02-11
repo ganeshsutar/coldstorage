@@ -47,34 +47,42 @@ export function KPICards({ summary, todaySummary, loading }: KPICardsProps) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <StatCard
-        title="Today's Inward"
-        value={todaySummary?.arrivals.packets ?? 0}
-        formatter={formatNumber}
-        icon={TruckIcon}
-        description={todaySummary ? `${todaySummary.arrivals.count} entries` : undefined}
-      />
-      <StatCard
-        title="Total Stock"
-        value={summary?.remaining_weight ?? 0}
-        formatter={formatWeight}
-        icon={PackageIcon}
-        description={`${formatNumber(summary?.remaining_packets ?? 0)} packets`}
-      />
-      <StatCard
-        title="Active Amads"
-        value={summary?.active_amads ?? 0}
-        formatter={formatNumber}
-        icon={ScaleIcon}
-        description={`of ${summary?.total_amads ?? 0} total`}
-      />
-      <StatCard
-        title="Fully Dispatched"
-        value={summary?.fully_dispatched ?? 0}
-        formatter={formatNumber}
-        icon={AlertTriangleIcon}
-        description="completed"
-      />
+      <div data-testid="amad-kpi-today-inward">
+        <StatCard
+          title="Today's Inward"
+          value={todaySummary?.arrivals.packets ?? 0}
+          formatter={formatNumber}
+          icon={TruckIcon}
+          description={todaySummary ? `${todaySummary.arrivals.count} entries` : undefined}
+        />
+      </div>
+      <div data-testid="amad-kpi-total-stock">
+        <StatCard
+          title="Total Stock"
+          value={summary?.remaining_weight ?? 0}
+          formatter={formatWeight}
+          icon={PackageIcon}
+          description={`${formatNumber(summary?.remaining_packets ?? 0)} packets`}
+        />
+      </div>
+      <div data-testid="amad-kpi-active-amads">
+        <StatCard
+          title="Active Amads"
+          value={summary?.active_amads ?? 0}
+          formatter={formatNumber}
+          icon={ScaleIcon}
+          description={`of ${summary?.total_amads ?? 0} total`}
+        />
+      </div>
+      <div data-testid="amad-kpi-fully-dispatched">
+        <StatCard
+          title="Fully Dispatched"
+          value={summary?.fully_dispatched ?? 0}
+          formatter={formatNumber}
+          icon={AlertTriangleIcon}
+          description="completed"
+        />
+      </div>
     </div>
   )
 }

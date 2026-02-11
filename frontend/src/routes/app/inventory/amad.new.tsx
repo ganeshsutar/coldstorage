@@ -49,11 +49,12 @@ export function NewAmadPage() {
             variant="ghost"
             size="icon"
             onClick={() => navigate({ to: "/app/inventory/amad" })}
+            data-testid="new-amad-back-button"
           >
             <ArrowLeftIcon className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold">New Amad Entry</h1>
+            <h1 className="text-2xl font-semibold" data-testid="new-amad-title">New Amad Entry</h1>
             <p className="text-sm text-muted-foreground">
               Record new goods arrival at cold storage
             </p>
@@ -61,7 +62,7 @@ export function NewAmadPage() {
         </div>
 
         {error && (
-          <div className="text-sm text-destructive bg-destructive/10 p-4 rounded-md">
+          <div className="text-sm text-destructive bg-destructive/10 p-4 rounded-md" data-testid="new-amad-error">
             {error}
           </div>
         )}

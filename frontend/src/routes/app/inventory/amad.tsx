@@ -68,12 +68,12 @@ export function AmadPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Amad (Goods Arrival)</h1>
+            <h1 className="text-2xl font-semibold" data-testid="amad-title">Amad (Goods Arrival)</h1>
             <p className="text-sm text-muted-foreground">
               Record and manage incoming goods at cold storage
             </p>
           </div>
-          <Button onClick={() => navigate({ to: "/app/inventory/amad/new" })}>
+          <Button onClick={() => navigate({ to: "/app/inventory/amad/new" })} data-testid="amad-new-button">
             <PlusIcon className="mr-2 h-4 w-4" />
             New Amad
           </Button>
@@ -99,13 +99,14 @@ export function AmadPage() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-9 w-full sm:w-64"
+                    data-testid="amad-search-input"
                   />
                 </div>
                 <Select
                   value={filter}
                   onValueChange={(v) => setFilter(v as typeof filter)}
                 >
-                  <SelectTrigger className="w-36">
+                  <SelectTrigger className="w-36" data-testid="amad-filter-select">
                     <FilterIcon className="h-4 w-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>

@@ -44,12 +44,12 @@ export function TakpattiPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Takpatti</h1>
+            <h1 className="text-2xl font-semibold" data-testid="takpatti-title">Takpatti</h1>
             <p className="text-sm text-muted-foreground">
               Weighment slips for inventory items
             </p>
           </div>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} data-testid="takpatti-new-button">
             <PlusIcon className="mr-2 h-4 w-4" />
             New Takpatti
           </Button>
@@ -68,6 +68,7 @@ export function TakpattiPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="pl-9 w-full sm:w-64"
+                  data-testid="takpatti-search-input"
                 />
               </div>
             </div>

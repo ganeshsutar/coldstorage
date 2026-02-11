@@ -50,13 +50,13 @@ export function TakpattiDialog({ open, onOpenChange, onSuccess }: TakpattiDialog
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px]" data-testid="takpatti-dialog">
         <DialogHeader>
           <DialogTitle>New Takpatti</DialogTitle>
         </DialogHeader>
 
         {error && (
-          <div className="text-sm text-destructive bg-destructive/10 p-4 rounded-md">
+          <div className="text-sm text-destructive bg-destructive/10 p-4 rounded-md" data-testid="takpatti-dialog-error">
             {error}
           </div>
         )}

@@ -24,6 +24,7 @@ interface CommodityComboboxProps {
   onChange: (value: string) => void
   disabled?: boolean
   placeholder?: string
+  "data-testid"?: string
 }
 
 export function CommodityCombobox({
@@ -32,6 +33,7 @@ export function CommodityCombobox({
   onChange,
   disabled,
   placeholder = "Select commodity...",
+  "data-testid": dataTestId,
 }: CommodityComboboxProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -47,6 +49,7 @@ export function CommodityCombobox({
           aria-expanded={open}
           className="w-full justify-between"
           disabled={disabled}
+          data-testid={dataTestId}
         >
           {selectedCommodity ? (
             <span className="truncate">

@@ -52,14 +52,14 @@ export function AmadListTable({
 
   if (amads.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div className="text-center py-8 text-muted-foreground" data-testid="amad-list-empty">
         No amad entries found
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="amad-list-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-28">Amad No</TableHead>
@@ -75,8 +75,8 @@ export function AmadListTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {amads.map((amad) => (
-          <TableRow key={amad.id} className="group">
+        {amads.map((amad, index) => (
+          <TableRow key={amad.id} className="group" data-testid={`amad-row-${index}`}>
             <TableCell className="font-mono">{amad.amad_no}</TableCell>
             <TableCell className="text-muted-foreground">
               {formatDate(amad.date)}
@@ -125,6 +125,7 @@ export function AmadListTable({
                   size="icon-xs"
                   onClick={() => onView?.(amad)}
                   title="View details"
+                  data-testid={`amad-row-view-${index}`}
                 >
                   <EyeIcon className="h-4 w-4" />
                 </Button>
@@ -134,6 +135,7 @@ export function AmadListTable({
                     size="icon-xs"
                     onClick={() => onDispatch?.(amad)}
                     title="Dispatch"
+                    data-testid={`amad-row-dispatch-${index}`}
                   >
                     <TruckIcon className="h-4 w-4" />
                   </Button>

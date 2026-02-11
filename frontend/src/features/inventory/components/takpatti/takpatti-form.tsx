@@ -97,7 +97,7 @@ export function TakpattiForm({
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6" data-testid="takpatti-form">
           {/* Auto Number */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Takpatti No</label>
@@ -113,7 +113,7 @@ export function TakpattiForm({
                 <FormItem>
                   <FormLabel>Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} disabled={loading} />
+                    <Input type="date" {...field} disabled={loading} data-testid="takpatti-date-input" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,6 +132,7 @@ export function TakpattiForm({
                       onChange={field.onChange}
                       disabled={loading}
                       placeholder="Select amad..."
+                      data-testid="takpatti-amad-combobox"
                     />
                   </FormControl>
                   <FormMessage />
@@ -154,6 +155,7 @@ export function TakpattiForm({
                       min="0"
                       placeholder="0"
                       disabled={loading}
+                      data-testid="takpatti-packets-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -175,6 +177,7 @@ export function TakpattiForm({
                       step="0.01"
                       placeholder="0.00"
                       disabled={loading}
+                      data-testid="takpatti-gross-weight-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -196,6 +199,7 @@ export function TakpattiForm({
                       step="0.01"
                       placeholder="0.00"
                       disabled={loading}
+                      data-testid="takpatti-tare-weight-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -209,7 +213,7 @@ export function TakpattiForm({
           {/* Net Weight Display */}
           <div>
             <label className="text-sm font-medium">Net Weight</label>
-            <div className="mt-1.5 flex h-9 items-center rounded-md border bg-muted px-3 text-sm font-mono tabular-nums">
+            <div className="mt-1.5 flex h-9 items-center rounded-md border bg-muted px-3 text-sm font-mono tabular-nums" data-testid="takpatti-net-weight">
               {netWeight.toLocaleString("en-IN", { maximumFractionDigits: 2 })} kg
             </div>
           </div>
@@ -230,7 +234,7 @@ export function TakpattiForm({
                     value={field.value || "__none__"}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="takpatti-room-select">
                         <SelectValue placeholder="Select room" />
                       </SelectTrigger>
                     </FormControl>
@@ -262,6 +266,7 @@ export function TakpattiForm({
                       min="1"
                       placeholder="1"
                       disabled={loading}
+                      data-testid="takpatti-floor-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 1)}
                     />
@@ -279,10 +284,11 @@ export function TakpattiForm({
               variant="outline"
               onClick={onCancel}
               disabled={loading}
+              data-testid="takpatti-cancel-button"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} data-testid="takpatti-submit-button">
               {loading ? "Saving..." : "Save Takpatti"}
             </Button>
           </div>

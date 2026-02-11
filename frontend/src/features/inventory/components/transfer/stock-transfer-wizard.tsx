@@ -27,7 +27,7 @@ interface StepIndicatorProps {
 
 function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between mb-8" data-testid="transfer-step-indicator">
       {steps.map((step, index) => {
         const stepNumber = (index + 1) as Step
         const isCompleted = stepNumber < currentStep
@@ -42,6 +42,7 @@ function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
                 isCurrent && "border-primary text-primary",
                 !isCompleted && !isCurrent && "border-muted text-muted-foreground"
               )}
+              data-testid={`transfer-step-${stepNumber}`}
             >
               {isCompleted ? (
                 <CheckIcon className="h-4 w-4" />
@@ -160,11 +161,11 @@ export function StockTransferWizard({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="transfer-wizard">
       <StepIndicator currentStep={step} steps={steps} />
 
       {error && (
-        <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+        <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md" data-testid="transfer-error">
           {error}
         </div>
       )}
@@ -179,6 +180,7 @@ export function StockTransferWizard({
                 value={sourcePartyId}
                 onChange={setSourcePartyId}
                 placeholder="Filter by party..."
+                data-testid="transfer-source-party"
               />
             </div>
             <div className="space-y-2">
@@ -189,12 +191,13 @@ export function StockTransferWizard({
                 onChange={setSelectedAmadId}
                 filterByParty={sourcePartyId || undefined}
                 placeholder="Select source amad..."
+                data-testid="transfer-source-amad"
               />
             </div>
           </div>
 
           {selectedAmad && (
-            <Card>
+            <Card data-testid="transfer-source-detail">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base">Selected Amad Details</CardTitle>
               </CardHeader>
@@ -232,11 +235,12 @@ export function StockTransferWizard({
               value={destPartyId}
               onChange={setDestPartyId}
               placeholder="Select destination party..."
+              data-testid="transfer-dest-party"
             />
           </div>
 
           {destPartyId === sourcePartyId && (
-            <p className="text-sm text-destructive">
+            <p className="text-sm text-destructive" data-testid="transfer-same-party-error">
               Destination party must be different from source party
             </p>
           )}
@@ -247,6 +251,7 @@ export function StockTransferWizard({
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              data-testid="transfer-date-input"
             />
           </div>
         </div>
@@ -266,6 +271,7 @@ export function StockTransferWizard({
                 max={selectedAmad?.remaining_packets}
                 value={packets}
                 onChange={(e) => setPackets(Number(e.target.value) || 0)}
+                data-testid="transfer-packets-input"
               />
             </div>
             <div className="space-y-2">
@@ -279,6 +285,7 @@ export function StockTransferWizard({
                 max={selectedAmad?.remaining_weight}
                 value={weight}
                 onChange={(e) => setWeight(Number(e.target.value) || 0)}
+                data-testid="transfer-weight-input"
               />
             </div>
           </div>
@@ -290,6 +297,7 @@ export function StockTransferWizard({
               value={narration}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNarration(e.target.value)}
               rows={3}
+              data-testid="transfer-narration-input"
             />
           </div>
         </div>
@@ -297,7 +305,7 @@ export function StockTransferWizard({
 
       {/* Step 4: Review & Confirm */}
       {step === 4 && (
-        <Card>
+        <Card data-testid="transfer-summary">
           <CardHeader>
             <CardTitle className="text-base">Transfer Summary</CardTitle>
           </CardHeader>
@@ -353,15 +361,16 @@ export function StockTransferWizard({
           type="button"
           variant="outline"
           onClick={step === 1 ? onCancel : handleBack}
+          data-testid="transfer-prev-button"
         >
           {step === 1 ? "Cancel" : "Back"}
         </Button>
         {step < 4 ? (
-          <Button onClick={handleNext} disabled={!canProceed()}>
+          <Button onClick={handleNext} disabled={!canProceed()} data-testid="transfer-next-button">
             Next
           </Button>
         ) : (
-          <Button onClick={handleSubmit} disabled={loading || !canProceed()}>
+          <Button onClick={handleSubmit} disabled={loading || !canProceed()} data-testid="transfer-confirm-button">
             {loading ? "Transferring..." : "Confirm Transfer"}
           </Button>
         )}
