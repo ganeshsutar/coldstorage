@@ -74,12 +74,12 @@ export function NikasiPage() {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Nikasi (Goods Dispatch)</h1>
+            <h1 className="text-2xl font-semibold" data-testid="nikasi-title">Nikasi (Goods Dispatch)</h1>
             <p className="text-sm text-muted-foreground">
               Record and manage goods dispatched from cold storage
             </p>
           </div>
-          <Button onClick={() => navigate({ to: "/app/inventory/nikasi/new" })}>
+          <Button onClick={() => navigate({ to: "/app/inventory/nikasi/new" })} data-testid="nikasi-new-button">
             <PlusIcon className="mr-2 h-4 w-4" />
             New Dispatch
           </Button>
@@ -87,27 +87,33 @@ export function NikasiPage() {
 
         {/* Summary Cards */}
         <div className="grid gap-4 md:grid-cols-3">
-          <StatCard
-            title="Total Dispatches"
-            value={rents.length}
-            formatter={formatNumber}
-            icon={TruckIcon}
-            loading={loading}
-          />
-          <StatCard
-            title="Total Packets Dispatched"
-            value={totalPackets}
-            formatter={formatNumber}
-            icon={PackageIcon}
-            loading={loading}
-          />
-          <StatCard
-            title="Total Rent Collected"
-            value={totalAmount}
-            formatter={formatCurrency}
-            icon={IndianRupeeIcon}
-            loading={loading}
-          />
+          <div data-testid="nikasi-kpi-total-dispatches">
+            <StatCard
+              title="Total Dispatches"
+              value={rents.length}
+              formatter={formatNumber}
+              icon={TruckIcon}
+              loading={loading}
+            />
+          </div>
+          <div data-testid="nikasi-kpi-total-packets">
+            <StatCard
+              title="Total Packets Dispatched"
+              value={totalPackets}
+              formatter={formatNumber}
+              icon={PackageIcon}
+              loading={loading}
+            />
+          </div>
+          <div data-testid="nikasi-kpi-total-rent">
+            <StatCard
+              title="Total Rent Collected"
+              value={totalAmount}
+              formatter={formatCurrency}
+              icon={IndianRupeeIcon}
+              loading={loading}
+            />
+          </div>
         </div>
 
         <Card>
@@ -124,13 +130,14 @@ export function NikasiPage() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-9 w-full sm:w-64"
+                    data-testid="nikasi-search-input"
                   />
                 </div>
                 <Select
                   value={typeFilter}
                   onValueChange={(v) => setTypeFilter(v as typeof typeFilter)}
                 >
-                  <SelectTrigger className="w-32">
+                  <SelectTrigger className="w-32" data-testid="nikasi-filter-select">
                     <FilterIcon className="h-4 w-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>

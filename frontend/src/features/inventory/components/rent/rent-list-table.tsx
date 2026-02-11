@@ -53,14 +53,14 @@ export function RentListTable({
 
   if (rents.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div className="text-center py-8 text-muted-foreground" data-testid="nikasi-list-empty">
         No dispatch entries found
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="nikasi-list-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-28">Serial No</TableHead>
@@ -77,8 +77,8 @@ export function RentListTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {rents.map((rent) => (
-          <TableRow key={rent.id} className="group">
+        {rents.map((rent, index) => (
+          <TableRow key={rent.id} className="group" data-testid={`nikasi-row-${index}`}>
             <TableCell className="font-mono">{rent.serial_no}</TableCell>
             <TableCell className="text-muted-foreground">
               {formatDate(rent.date)}
@@ -119,6 +119,7 @@ export function RentListTable({
                 onClick={() => onView?.(rent)}
                 className="opacity-0 group-hover:opacity-100"
                 title="View details"
+                data-testid={`nikasi-row-view-${index}`}
               >
                 <EyeIcon className="h-4 w-4" />
               </Button>

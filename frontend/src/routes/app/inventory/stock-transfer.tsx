@@ -34,11 +34,12 @@ export function StockTransferPage() {
             variant="ghost"
             size="icon"
             onClick={() => navigate({ to: "/app/inventory/amad" })}
+            data-testid="transfer-back-button"
           >
             <ArrowLeftIcon className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold">Stock Transfer</h1>
+            <h1 className="text-2xl font-semibold" data-testid="transfer-title">Stock Transfer</h1>
             <p className="text-sm text-muted-foreground">
               Transfer stock between parties without rent charge
             </p>
@@ -53,7 +54,7 @@ export function StockTransferPage() {
           </CardHeader>
           <CardContent>
             {completedAmad ? (
-              <div className="text-center py-8 space-y-4">
+              <div className="text-center py-8 space-y-4" data-testid="transfer-success">
                 <div className="flex justify-center">
                   <CheckCircleIcon className="h-16 w-16 text-green-500" />
                 </div>
@@ -78,10 +79,10 @@ export function StockTransferPage() {
                   </div>
                 </div>
                 <div className="flex justify-center gap-4 pt-4">
-                  <Button variant="outline" onClick={handleNewTransfer}>
+                  <Button variant="outline" onClick={handleNewTransfer} data-testid="transfer-new-button">
                     New Transfer
                   </Button>
-                  <Button onClick={() => navigate({ to: `/app/inventory/amad/${completedAmad.id}` })}>
+                  <Button onClick={() => navigate({ to: `/app/inventory/amad/${completedAmad.id}` })} data-testid="transfer-view-amad-button">
                     View New Amad
                   </Button>
                 </div>

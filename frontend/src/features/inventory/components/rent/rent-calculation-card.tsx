@@ -48,7 +48,7 @@ export function RentCalculationCard({
           <CardTitle className="text-base">Rent Calculation</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground" data-testid="rent-calculation-empty">
             Select an amad and enter quantity to see rent calculation
           </p>
         </CardContent>
@@ -72,7 +72,7 @@ export function RentCalculationCard({
   ]
 
   return (
-    <Card>
+    <Card data-testid="rent-calculation-card">
       <CardHeader className="pb-2">
         <CardTitle className="text-base">Rent Calculation</CardTitle>
       </CardHeader>
@@ -90,7 +90,7 @@ export function RentCalculationCard({
             </div>
           ))}
           <div className="border-t pt-2 mt-2">
-            <div className="flex justify-between font-bold">
+            <div className="flex justify-between font-bold" data-testid="rent-calculation-total">
               <span>Total Amount</span>
               <span className="font-mono text-lg">
                 {formatCurrency(calculation.total_amount)}

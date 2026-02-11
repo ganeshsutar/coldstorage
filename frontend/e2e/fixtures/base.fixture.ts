@@ -14,6 +14,13 @@ import {
   PartyDetailSheet,
   AddPartyDialog,
   InterestCalculationPage,
+  AmadListPage,
+  AmadFormPage,
+  NikasiListPage,
+  NikasiFormPage,
+  TakpattiListPage,
+  TakpattiFormPage,
+  StockTransferPage,
 } from "../page-objects";
 
 type Fixtures = {
@@ -31,6 +38,13 @@ type Fixtures = {
   partyDetailSheet: PartyDetailSheet;
   addPartyDialog: AddPartyDialog;
   interestCalculationPage: InterestCalculationPage;
+  amadListPage: AmadListPage;
+  amadFormPage: AmadFormPage;
+  nikasiListPage: NikasiListPage;
+  nikasiFormPage: NikasiFormPage;
+  takpattiListPage: TakpattiListPage;
+  takpattiFormPage: TakpattiFormPage;
+  stockTransferPage: StockTransferPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -81,6 +95,27 @@ export const test = base.extend<Fixtures>({
   },
   interestCalculationPage: async ({ page }, use) => {
     await use(new InterestCalculationPage(page));
+  },
+  amadListPage: async ({ page }, use) => {
+    await use(new AmadListPage(page));
+  },
+  amadFormPage: async ({ page }, use) => {
+    await use(new AmadFormPage(page));
+  },
+  nikasiListPage: async ({ page }, use) => {
+    await use(new NikasiListPage(page));
+  },
+  nikasiFormPage: async ({ page }, use) => {
+    await use(new NikasiFormPage(page));
+  },
+  takpattiListPage: async ({ page }, use) => {
+    await use(new TakpattiListPage(page));
+  },
+  takpattiFormPage: async ({ page }, use) => {
+    await use(new TakpattiFormPage(page));
+  },
+  stockTransferPage: async ({ page }, use) => {
+    await use(new StockTransferPage(page));
   },
 });
 

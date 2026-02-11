@@ -252,3 +252,216 @@ export const MOCK_LEDGER_ENTRIES = [
 ];
 
 export const MOCK_NEXT_NUMBER = { next_number: "CR/2025-00002" };
+
+export const INVENTORY_ROUTES = {
+  amad: "/app/inventory/amad",
+  newAmad: "/app/inventory/amad/new",
+  nikasi: "/app/inventory/nikasi",
+  newNikasi: "/app/inventory/nikasi/new",
+  takpatti: "/app/inventory/takpatti",
+  stockTransfer: "/app/inventory/stock-transfer",
+} as const;
+
+export const MOCK_COMMODITIES = [
+  {
+    id: "comm-1",
+    code: "WHT",
+    name: "Wheat",
+    variety: "Sharbati",
+    is_active: true,
+    grace_days: 15,
+    default_rent_rate: 12.5,
+  },
+  {
+    id: "comm-2",
+    code: "RCE",
+    name: "Rice",
+    variety: "Basmati",
+    is_active: true,
+    grace_days: 10,
+    default_rent_rate: 15.0,
+  },
+  {
+    id: "comm-3",
+    code: "MST",
+    name: "Mustard",
+    variety: null,
+    is_active: false,
+    grace_days: 7,
+    default_rent_rate: 10.0,
+  },
+];
+
+export const MOCK_ROOMS = [
+  { id: "room-1", number: 1, name: "Main Store", is_active: true, capacity: 5000 },
+  { id: "room-2", number: 2, name: "Cold Room", is_active: true, capacity: 3000 },
+];
+
+export const MOCK_VILLAGES = [
+  { id: "village-1", code: "JHJ", name: "Jhajjar", is_active: true },
+  { id: "village-2", code: "RHT", name: "Rohtak", is_active: true },
+];
+
+export const MOCK_STOCK_SUMMARY = {
+  total_amads: 25,
+  active_amads: 18,
+  fully_dispatched: 7,
+  remaining_packets: 5200,
+  remaining_weight: 260000,
+  total_weight: 350000,
+};
+
+export const MOCK_TODAY_SUMMARY = {
+  arrivals: { count: 3, packets: 150, weight: 7500 },
+  dispatches: { count: 2, packets: 80, weight: 4000 },
+};
+
+export const MOCK_AMADS = [
+  {
+    id: "amad-1",
+    amad_no: "KB/2025-00001",
+    date: "2025-01-10",
+    party: "party-1",
+    party_name: "Ram Singh",
+    party_code: "5001",
+    commodity: "comm-1",
+    commodity_name: "Wheat",
+    room: "room-1",
+    room_number: 1,
+    amad_type: "SEEDHI",
+    total_packets: 100,
+    total_weight: 5000,
+    remaining_packets: 60,
+    remaining_weight: 3000,
+    is_fully_dispatched: false,
+  },
+  {
+    id: "amad-2",
+    amad_no: "KB/2025-00002",
+    date: "2025-01-12",
+    party: "party-2",
+    party_name: "Shyam Kumar",
+    party_code: "5002",
+    commodity: "comm-2",
+    commodity_name: "Rice",
+    room: "room-2",
+    room_number: 2,
+    amad_type: "DUMP",
+    total_packets: 50,
+    total_weight: 2500,
+    remaining_packets: 50,
+    remaining_weight: 2500,
+    is_fully_dispatched: false,
+  },
+  {
+    id: "amad-3",
+    amad_no: "KB/2025-00003",
+    date: "2025-01-08",
+    party: "party-1",
+    party_name: "Ram Singh",
+    party_code: "5001",
+    commodity: "comm-1",
+    commodity_name: "Wheat",
+    room: "room-1",
+    room_number: 1,
+    amad_type: "SEEDHI",
+    total_packets: 80,
+    total_weight: 4000,
+    remaining_packets: 0,
+    remaining_weight: 0,
+    is_fully_dispatched: true,
+  },
+];
+
+export const MOCK_RENTS = [
+  {
+    id: "rent-1",
+    serial_no: "NK/2025-00001",
+    date: "2025-01-20",
+    party: "party-1",
+    party_name: "Ram Singh",
+    party_code: "5001",
+    amad: "amad-1",
+    amad_no: "KB/2025-00001",
+    commodity_name: "Wheat",
+    nikasi_type: "SEEDHI" as const,
+    packets: 40,
+    weight: 2000,
+    storage_days: 10,
+    rent_rate: 12.5,
+    rent_amount: 833.33,
+    gst_percent: 18,
+    gst_amount: 150,
+    total_amount: 983.33,
+  },
+  {
+    id: "rent-2",
+    serial_no: "NK/2025-00002",
+    date: "2025-01-22",
+    party: "party-2",
+    party_name: "Shyam Kumar",
+    party_code: "5002",
+    amad: "amad-2",
+    amad_no: "KB/2025-00002",
+    commodity_name: "Rice",
+    nikasi_type: "KATAI" as const,
+    packets: 20,
+    weight: 1000,
+    storage_days: 10,
+    rent_rate: 15.0,
+    rent_amount: 500,
+    gst_percent: 18,
+    gst_amount: 90,
+    total_amount: 590,
+  },
+];
+
+export const MOCK_RENT_CALCULATION = {
+  amad_no: "KB/2025-00001",
+  amad_date: "2025-01-10",
+  dispatch_date: "2025-01-20",
+  packets: 40,
+  weight: 2000,
+  weight_quintals: 20.0,
+  storage_days: 10,
+  grace_days: 15,
+  billable_days: 0,
+  rent_rate: 12.5,
+  rent_amount: 833.33,
+  gst_percent: 18,
+  gst_amount: 150,
+  total_amount: 983.33,
+};
+
+export const MOCK_TAKPATTIS = [
+  {
+    id: "tkp-1",
+    takpatti_no: "TP/2025-00001",
+    date: "2025-01-10",
+    amad: "amad-1",
+    amad_no: "KB/2025-00001",
+    party_name: "Ram Singh",
+    packets: 50,
+    gross_weight: 2600,
+    tare_weight: 100,
+    net_weight: 2500,
+    room: "room-1",
+    room_number: 1,
+    floor_no: 1,
+  },
+  {
+    id: "tkp-2",
+    takpatti_no: "TP/2025-00002",
+    date: "2025-01-12",
+    amad: "amad-2",
+    amad_no: "KB/2025-00002",
+    party_name: "Shyam Kumar",
+    packets: 50,
+    gross_weight: 2550,
+    tare_weight: 50,
+    net_weight: 2500,
+    room: "room-2",
+    room_number: 2,
+    floor_no: 2,
+  },
+];

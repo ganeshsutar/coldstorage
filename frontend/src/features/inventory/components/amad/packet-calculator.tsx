@@ -33,13 +33,13 @@ export function PacketCalculator({ disabled }: PacketCalculatorProps) {
   }, [pkt1, pwt1, pkt2, pwt2, pkt3, pwt3])
 
   const packetTypes = [
-    { label: "Type 1 (Large)", pktField: "pkt1", wtField: "pwt1" },
-    { label: "Type 2 (Medium)", pktField: "pkt2", wtField: "pwt2" },
-    { label: "Type 3 (Small)", pktField: "pkt3", wtField: "pwt3" },
+    { label: "Type 1 (Large)", pktField: "pkt1", wtField: "pwt1", pktTestId: "amad-pkt1-input", wtTestId: "amad-pwt1-input" },
+    { label: "Type 2 (Medium)", pktField: "pkt2", wtField: "pwt2", pktTestId: "amad-pkt2-input", wtTestId: "amad-pwt2-input" },
+    { label: "Type 3 (Small)", pktField: "pkt3", wtField: "pwt3", pktTestId: "amad-pkt3-input", wtTestId: "amad-pwt3-input" },
   ] as const
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="amad-packet-calculator">
       <Label className="text-base font-medium">Packet Details</Label>
       <div className="grid gap-4">
         {/* Header */}
@@ -50,7 +50,7 @@ export function PacketCalculator({ disabled }: PacketCalculatorProps) {
         </div>
 
         {/* Packet rows */}
-        {packetTypes.map(({ label, pktField, wtField }) => (
+        {packetTypes.map(({ label, pktField, wtField, pktTestId, wtTestId }) => (
           <div key={pktField} className="grid grid-cols-3 gap-4 items-center">
             <Label className="text-sm">{label}</Label>
             <FormField
@@ -64,6 +64,7 @@ export function PacketCalculator({ disabled }: PacketCalculatorProps) {
                       min="0"
                       placeholder="0"
                       disabled={disabled}
+                      data-testid={pktTestId}
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -84,6 +85,7 @@ export function PacketCalculator({ disabled }: PacketCalculatorProps) {
                       step="0.01"
                       placeholder="0.00"
                       disabled={disabled}
+                      data-testid={wtTestId}
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -98,10 +100,10 @@ export function PacketCalculator({ disabled }: PacketCalculatorProps) {
         {/* Totals row */}
         <div className="grid grid-cols-3 gap-4 items-center pt-2 border-t">
           <Label className="font-semibold">Total</Label>
-          <div className="font-mono font-bold text-lg">
+          <div className="font-mono font-bold text-lg" data-testid="amad-total-packets">
             {totals.packets.toLocaleString("en-IN")}
           </div>
-          <div className="font-mono font-bold text-lg">
+          <div className="font-mono font-bold text-lg" data-testid="amad-total-weight">
             {totals.weight.toLocaleString("en-IN", { maximumFractionDigits: 2 })} kg
           </div>
         </div>

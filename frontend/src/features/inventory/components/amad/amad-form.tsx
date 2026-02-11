@@ -119,7 +119,7 @@ export function AmadForm({
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6" data-testid="amad-form">
           {/* Auto Number */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Amad No</label>
@@ -135,7 +135,7 @@ export function AmadForm({
                 <FormItem>
                   <FormLabel>Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} disabled={loading} />
+                    <Input type="date" {...field} disabled={loading} data-testid="amad-date-input" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -153,7 +153,7 @@ export function AmadForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="amad-type-select">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
                     </FormControl>
@@ -181,6 +181,7 @@ export function AmadForm({
                       value={field.value}
                       onChange={field.onChange}
                       disabled={loading}
+                      data-testid="amad-party-combobox"
                     />
                   </FormControl>
                   <FormMessage />
@@ -199,7 +200,7 @@ export function AmadForm({
                     value={field.value || "__none__"}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="amad-village-select">
                         <SelectValue placeholder="Select village" />
                       </SelectTrigger>
                     </FormControl>
@@ -232,6 +233,7 @@ export function AmadForm({
                       value={field.value}
                       onChange={field.onChange}
                       disabled={loading}
+                      data-testid="amad-commodity-combobox"
                     />
                   </FormControl>
                   <FormMessage />
@@ -250,7 +252,7 @@ export function AmadForm({
                     value={field.value || "__none__"}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger data-testid="amad-room-select">
                         <SelectValue placeholder="Select room" />
                       </SelectTrigger>
                     </FormControl>
@@ -284,6 +286,7 @@ export function AmadForm({
                     <Input
                       placeholder="Identification marks"
                       disabled={loading}
+                      data-testid="amad-marks-input"
                       {...field}
                     />
                   </FormControl>
@@ -303,6 +306,7 @@ export function AmadForm({
                       min="0"
                       placeholder="0"
                       disabled={loading}
+                      data-testid="amad-grace-days-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -324,6 +328,7 @@ export function AmadForm({
                       step="0.01"
                       placeholder="0.00"
                       disabled={loading}
+                      data-testid="amad-rent-rate-input"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                     />
@@ -345,6 +350,7 @@ export function AmadForm({
                   <Input
                     placeholder="E-way bill number"
                     disabled={loading}
+                    data-testid="amad-eway-input"
                     {...field}
                   />
                 </FormControl>
@@ -355,10 +361,10 @@ export function AmadForm({
 
           {/* Actions */}
           <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" onClick={onCancel} disabled={loading}>
+            <Button type="button" variant="outline" onClick={onCancel} disabled={loading} data-testid="amad-cancel-button">
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} data-testid="amad-submit-button">
               {loading ? "Saving..." : "Save Amad"}
             </Button>
           </div>

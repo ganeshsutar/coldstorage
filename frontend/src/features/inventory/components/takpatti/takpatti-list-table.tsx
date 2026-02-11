@@ -59,14 +59,14 @@ export function TakpattiListTable({
 
   if (takpattis.length === 0) {
     return (
-      <div className="text-center py-8 text-muted-foreground">
+      <div className="text-center py-8 text-muted-foreground" data-testid="takpatti-list-empty">
         No takpatti entries found
       </div>
     )
   }
 
   return (
-    <Table>
+    <Table data-testid="takpatti-list-table">
       <TableHeader>
         <TableRow>
           <TableHead className="w-32">Takpatti No</TableHead>
@@ -80,8 +80,8 @@ export function TakpattiListTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {takpattis.map((takpatti) => (
-          <TableRow key={takpatti.id} className="group">
+        {takpattis.map((takpatti, index) => (
+          <TableRow key={takpatti.id} className="group" data-testid={`takpatti-row-${index}`}>
             <TableCell className="font-mono">{takpatti.takpatti_no}</TableCell>
             <TableCell className="text-muted-foreground">
               {formatDate(takpatti.date)}
@@ -107,6 +107,7 @@ export function TakpattiListTable({
                       variant="ghost"
                       size="icon-xs"
                       title="Delete"
+                      data-testid={`takpatti-row-delete-${index}`}
                     >
                       <Trash2Icon className="h-4 w-4 text-destructive" />
                     </Button>
@@ -125,6 +126,7 @@ export function TakpattiListTable({
                       <AlertDialogAction
                         onClick={() => onDelete?.(takpatti)}
                         className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        data-testid="takpatti-delete-confirm"
                       >
                         Delete
                       </AlertDialogAction>

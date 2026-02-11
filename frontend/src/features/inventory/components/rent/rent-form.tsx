@@ -136,7 +136,7 @@ export function RentForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6" data-testid="nikasi-form">
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Form Section */}
           <div className="lg:col-span-2 space-y-6">
@@ -155,7 +155,7 @@ export function RentForm({
                   <FormItem>
                     <FormLabel>Dispatch Date</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} disabled={loading} />
+                      <Input type="date" {...field} disabled={loading} data-testid="nikasi-date-input" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -173,7 +173,7 @@ export function RentForm({
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger data-testid="nikasi-type-select">
                           <SelectValue placeholder="Select type" />
                         </SelectTrigger>
                       </FormControl>
@@ -201,6 +201,7 @@ export function RentForm({
                         value={field.value}
                         onChange={field.onChange}
                         disabled={loading || !!watchAmad}
+                        data-testid="nikasi-party-combobox"
                       />
                     </FormControl>
                     <FormMessage />
@@ -220,6 +221,7 @@ export function RentForm({
                         onChange={field.onChange}
                         disabled={loading}
                         filterByParty={watchParty || undefined}
+                        data-testid="nikasi-amad-combobox"
                       />
                     </FormControl>
                     <FormMessage />
@@ -249,6 +251,7 @@ export function RentForm({
                         min="1"
                         max={selectedAmad?.remaining_packets}
                         disabled={loading}
+                        data-testid="nikasi-packets-input"
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                       />
@@ -277,6 +280,7 @@ export function RentForm({
                         step="0.01"
                         max={selectedAmad?.remaining_weight}
                         disabled={loading}
+                        data-testid="nikasi-weight-input"
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                       />
@@ -299,6 +303,7 @@ export function RentForm({
                       <Input
                         placeholder="e.g., UP32AB1234"
                         disabled={loading}
+                        data-testid="nikasi-vehicle-input"
                         {...field}
                       />
                     </FormControl>
@@ -316,6 +321,7 @@ export function RentForm({
                       <Input
                         placeholder="Person receiving goods"
                         disabled={loading}
+                        data-testid="nikasi-receiver-input"
                         {...field}
                       />
                     </FormControl>
@@ -337,6 +343,7 @@ export function RentForm({
                       placeholder="Additional notes..."
                       disabled={loading}
                       rows={2}
+                      data-testid="nikasi-narration-input"
                       {...field}
                     />
                   </FormControl>
@@ -354,10 +361,10 @@ export function RentForm({
 
         {/* Actions */}
         <div className="flex justify-end gap-4">
-          <Button type="button" variant="outline" onClick={onCancel} disabled={loading}>
+          <Button type="button" variant="outline" onClick={onCancel} disabled={loading} data-testid="nikasi-cancel-button">
             Cancel
           </Button>
-          <Button type="submit" disabled={loading || !calculation}>
+          <Button type="submit" disabled={loading || !calculation} data-testid="nikasi-submit-button">
             {loading ? "Creating..." : "Create Dispatch"}
           </Button>
         </div>

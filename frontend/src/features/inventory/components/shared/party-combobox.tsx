@@ -23,6 +23,7 @@ interface PartyComboboxProps {
   onChange: (value: string) => void
   disabled?: boolean
   placeholder?: string
+  "data-testid"?: string
 }
 
 export function PartyCombobox({
@@ -30,6 +31,7 @@ export function PartyCombobox({
   onChange,
   disabled,
   placeholder = "Select party...",
+  "data-testid": dataTestId,
 }: PartyComboboxProps) {
   const [open, setOpen] = React.useState(false)
   const { parties, loading } = usePartyAccounts()
@@ -45,6 +47,7 @@ export function PartyCombobox({
           aria-expanded={open}
           className="w-full justify-between"
           disabled={disabled || loading}
+          data-testid={dataTestId}
         >
           {selectedParty ? (
             <span className="truncate">
