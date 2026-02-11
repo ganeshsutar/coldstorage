@@ -82,7 +82,7 @@ export function TemperatureDashboardPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="temperature">
+    <DashboardLayout activeNavItemId="temperature" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Temperature" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">

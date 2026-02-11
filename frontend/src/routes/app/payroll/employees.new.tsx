@@ -3,7 +3,7 @@ import { EmployeeForm } from "@/features/payroll"
 
 export function NewEmployeePage() {
   return (
-    <DashboardLayout activeNavItemId="payroll">
+    <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "New Employee" }]}>
       <EmployeeForm />
     </DashboardLayout>
   )

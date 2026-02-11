@@ -6,7 +6,7 @@ export function PaySlipPage() {
   const { id } = useParams({ strict: false })
 
   return (
-    <DashboardLayout activeNavItemId="payroll">
+    <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "Pay Slip" }]}>
       <PaySlip attendanceId={id as string} />
     </DashboardLayout>
   )

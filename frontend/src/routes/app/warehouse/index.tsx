@@ -91,7 +91,7 @@ export function WarehouseIndexPage() {
   const currentFloor = map?.floors.find((f) => f.floor_number === selectedFloor)
 
   return (
-    <DashboardLayout activeNavItemId="room-map">
+    <DashboardLayout activeNavItemId="room-map" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Room Map" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">

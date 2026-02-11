@@ -6,7 +6,7 @@ export function NewBardanaReturnPage() {
   const { accounts } = useAccounts()
 
   return (
-    <DashboardLayout activeNavItemId="bardana">
+    <DashboardLayout activeNavItemId="bardana" breadcrumbs={[{ label: "Bardana", to: "/app/bardana/returns" }, { label: "New Return" }]}>
       <BardanaReturnForm
         accounts={accounts.map((a) => ({ id: a.id, code: a.code, name: a.name }))}
       />

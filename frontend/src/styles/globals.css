@@ -853,3 +853,36 @@
 .dark * {
   scrollbar-color: oklch(0.7 0.02 286 / 0.3) transparent;
 }
+
+/* Sidebar: show scrollbar only on hover */
+[data-sidebar="content"]::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+[data-sidebar="content"]:hover::-webkit-scrollbar-thumb {
+  background: oklch(0.5 0.02 286 / 0.4);
+}
+[data-sidebar="content"]:hover::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0.02 286 / 0.6);
+}
+
+/* Dark mode */
+.dark [data-sidebar="content"]::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.dark [data-sidebar="content"]:hover::-webkit-scrollbar-thumb {
+  background: oklch(0.7 0.02 286 / 0.3);
+}
+.dark [data-sidebar="content"]:hover::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.7 0.02 286 / 0.5);
+}
+
+/* Firefox */
+[data-sidebar="content"] {
+  scrollbar-color: transparent transparent;
+}
+[data-sidebar="content"]:hover {
+  scrollbar-color: oklch(0.5 0.02 286 / 0.4) transparent;
+}
+.dark [data-sidebar="content"]:hover {
+  scrollbar-color: oklch(0.7 0.02 286 / 0.3) transparent;
+}

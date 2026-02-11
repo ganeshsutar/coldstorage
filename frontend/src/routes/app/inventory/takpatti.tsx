@@ -40,7 +40,7 @@ export function TakpattiPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="takpatti">
+    <DashboardLayout activeNavItemId="takpatti" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/takpatti" }, { label: "Takpatti" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>

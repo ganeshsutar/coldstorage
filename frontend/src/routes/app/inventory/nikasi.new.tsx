@@ -57,7 +57,7 @@ export function NewNikasiPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="nikasi">
+    <DashboardLayout activeNavItemId="nikasi" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/nikasi" }, { label: "New Nikasi" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <Button

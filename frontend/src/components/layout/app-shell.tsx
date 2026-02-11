@@ -4,6 +4,11 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/layout/app-sidebar"
 import { Header, type BreadcrumbItem } from "@/components/layout/header"
 
+function getSidebarDefaultOpen(): boolean {
+  const match = document.cookie.match(/(?:^|;\s*)sidebar_state=([^;]*)/)
+  return match ? match[1] === "true" : true
+}
+
 interface AppShellProps {
   children: ReactNode
   organizationName?: string
@@ -24,7 +29,7 @@ export function AppShell({
   activeNavItemId,
 }: AppShellProps) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={getSidebarDefaultOpen()}>
       <AppSidebar
         organizationName={organizationName}
         userEmail={userEmail}

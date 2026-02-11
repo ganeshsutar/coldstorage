@@ -6,7 +6,7 @@ export function BardanaReturnDetailPage() {
   const { id } = useParams({ strict: false }) as { id: string }
 
   return (
-    <DashboardLayout activeNavItemId="bardana">
+    <DashboardLayout activeNavItemId="bardana" breadcrumbs={[{ label: "Bardana", to: "/app/bardana/returns" }, { label: "Return Details" }]}>
       <BardanaReturnDetail returnId={id} />
     </DashboardLayout>
   )
