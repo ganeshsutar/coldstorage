@@ -3,7 +3,7 @@ import { AttendanceGrid } from "@/features/payroll"
 
 export function AttendancePage() {
   return (
-    <DashboardLayout activeNavItemId="payroll">
+    <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "Attendance" }]}>
       <AttendanceGrid />
     </DashboardLayout>
   )

@@ -6,7 +6,7 @@ export function BardanaIssueDetailPage() {
   const { id } = useParams({ strict: false }) as { id: string }
 
   return (
-    <DashboardLayout activeNavItemId="bardana">
+    <DashboardLayout activeNavItemId="bardana" breadcrumbs={[{ label: "Bardana", to: "/app/bardana/issues" }, { label: "Issue Details" }]}>
       <BardanaIssueDetail issueId={id} />
     </DashboardLayout>
   )

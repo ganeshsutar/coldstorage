@@ -3,7 +3,7 @@ import { GradingForm } from "@/features/trading"
 
 export function NewGradingPage() {
   return (
-    <DashboardLayout activeNavItemId="trading">
+    <DashboardLayout activeNavItemId="trading" breadcrumbs={[{ label: "Trading", to: "/app/trading" }, { label: "New Grading" }]}>
       <GradingForm />
     </DashboardLayout>
   )

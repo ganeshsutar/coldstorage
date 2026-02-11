@@ -74,7 +74,7 @@ export function NewLoadingPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="room-map">
+    <DashboardLayout activeNavItemId="room-map" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "New Loading" }]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4">

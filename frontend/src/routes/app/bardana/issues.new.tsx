@@ -6,7 +6,7 @@ export function NewBardanaIssuePage() {
   const { accounts } = useAccounts()
 
   return (
-    <DashboardLayout activeNavItemId="bardana">
+    <DashboardLayout activeNavItemId="bardana" breadcrumbs={[{ label: "Bardana", to: "/app/bardana/issues" }, { label: "New Issue" }]}>
       <BardanaIssueForm
         accounts={accounts.map((a) => ({ id: a.id, code: a.code, name: a.name }))}
       />

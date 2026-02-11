@@ -3,7 +3,7 @@ import { RentBillList } from "@/features/billing"
 
 export function BillingPage() {
   return (
-    <DashboardLayout activeNavItemId="billing">
+    <DashboardLayout activeNavItemId="billing" breadcrumbs={[{ label: "Billing", to: "/app/billing" }, { label: "Rent Bills" }]}>
       <RentBillList />
     </DashboardLayout>
   )

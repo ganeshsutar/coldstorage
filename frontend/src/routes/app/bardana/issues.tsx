@@ -3,7 +3,7 @@ import { BardanaIssueList } from "@/features/bardana/components"
 
 export function BardanaIssuesPage() {
   return (
-    <DashboardLayout activeNavItemId="bardana">
+    <DashboardLayout activeNavItemId="bardana" breadcrumbs={[{ label: "Bardana", to: "/app/bardana/issues" }, { label: "Issues" }]}>
       <BardanaIssueList />
     </DashboardLayout>
   )

@@ -6,7 +6,7 @@ export function LoanDetailPage() {
   const { id } = useParams({ strict: false })
 
   return (
-    <DashboardLayout activeNavItemId="loans">
+    <DashboardLayout activeNavItemId="loans" breadcrumbs={[{ label: "Loans", to: "/app/loans" }, { label: "Loan Details" }]}>
       <LoanDetailView loanId={id || ""} />
     </DashboardLayout>
   )

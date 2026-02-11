@@ -28,7 +28,7 @@ export function ChartOfAccountsPage() {
   }
 
   return (
-    <DashboardLayout activeNavItemId="chart-of-accounts">
+    <DashboardLayout activeNavItemId="chart-of-accounts" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/chart-of-accounts" }, { label: "Chart of Accounts" }]}>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
