@@ -199,7 +199,7 @@ export function BillAllocationTable({
                   <TableCell className="text-right font-mono">
                     {formatIndianRupees(alloc.bill_amount)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-green-600">
+                  <TableCell className="text-right font-mono text-status-success-foreground">
                     {formatIndianRupees(
                       alloc.bill_amount - alloc.balance_amount
                     )}
@@ -250,7 +250,7 @@ export function BillAllocationTable({
             </span>
             <span>
               Allocated:{" "}
-              <span className="font-medium font-mono text-green-600">
+              <span className="font-medium font-mono text-status-success-foreground">
                 {formatIndianRupees(totalAllocated)}
               </span>
             </span>
@@ -258,7 +258,7 @@ export function BillAllocationTable({
           {unallocated !== 0 && (
             <span
               className={
-                unallocated > 0 ? "text-amber-600" : "text-destructive"
+                unallocated > 0 ? "text-status-warning-foreground" : "text-destructive"
               }
             >
               {unallocated > 0 ? "Unallocated: " : "Over-allocated: "}

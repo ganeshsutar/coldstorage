@@ -43,15 +43,16 @@ export function NewAmadPage() {
 
   return (
     <DashboardLayout activeNavItemId="amad" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/amad" }, { label: "New Amad" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/inventory/amad" })}
             data-testid="new-amad-back-button"
           >
-            <ArrowLeftIcon className="h-4 w-4" />
+            <ArrowLeftIcon className="size-4" />
           </Button>
           <div>
             <h1 className="text-2xl font-semibold" data-testid="new-amad-title">New Amad Entry</h1>

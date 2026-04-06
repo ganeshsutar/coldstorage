@@ -1,5 +1,24 @@
 // Shifting types
 
+import type { AmadSummary } from "@/features/inventory"
+
+export interface ShiftingWizardState {
+  step: 1 | 2 | 3 | 4
+  sourceRoomId?: string
+  sourceFloorNumber?: number
+  sourceRackNumber?: number
+  destinationRoomId?: string
+  destinationFloorNumber?: number
+  destinationRackNumber?: number
+  amadId?: string
+  amad?: AmadSummary
+  pkt1: number
+  pkt2: number
+  pkt3: number
+  reason?: string
+  remarks?: string
+}
+
 export interface ShiftingItem {
   id: string
   amad: string

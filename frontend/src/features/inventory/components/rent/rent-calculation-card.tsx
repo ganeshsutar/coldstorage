@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { RentCalculation } from "../../types/rent"
@@ -81,9 +82,7 @@ export function RentCalculationCard({
           {rows.map((row) => (
             <div
               key={row.label}
-              className={`flex justify-between text-sm ${
-                row.highlight ? "font-medium" : ""
-              }`}
+              className={cn("flex justify-between text-sm", row.highlight && "font-medium")}
             >
               <span className="text-muted-foreground">{row.label}</span>
               <span className="font-mono">{row.value}</span>

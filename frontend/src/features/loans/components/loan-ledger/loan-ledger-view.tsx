@@ -38,9 +38,10 @@ export function LoanLedgerView() {
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Go back"
           onClick={() => navigate({ to: "/app/loans" })}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Loan Ledger</h2>

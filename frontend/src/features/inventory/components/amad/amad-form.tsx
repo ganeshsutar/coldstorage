@@ -5,6 +5,7 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import {
   Form,
   FormControl,
@@ -94,7 +95,7 @@ export function AmadForm({
     },
   })
 
-  // eslint-disable-next-line react-hooks/incompatible-library
+  // eslint-disable-next-line react-hooks/incompatible-library -- false positive: react-hook-form's watch() is a valid hook-compatible API
   const watchCommodityId = form.watch("commodity")
   const selectedCommodity = React.useMemo(() => {
     return commodities.find((c) => c.id === watchCommodityId)
@@ -135,7 +136,7 @@ export function AmadForm({
                 <FormItem>
                   <FormLabel>Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} disabled={loading} data-testid="amad-date-input" />
+                    <FormDatePicker {...field} disabled={loading} data-testid="amad-date-input" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -118,7 +118,7 @@ export function DoubleEntryForm({
                   onClick={() => removeLine(index)}
                   disabled={lines.length <= 2}
                 >
-                  <TrashIcon className="h-4 w-4" />
+                  <TrashIcon className="size-4" />
                 </Button>
               </TableCell>
             </TableRow>
@@ -127,18 +127,18 @@ export function DoubleEntryForm({
         <TableFooter>
           <TableRow>
             <TableCell className="font-medium">Total</TableCell>
-            <TableCell data-testid="voucher-total-debit" className="text-right font-mono font-medium text-red-600">
+            <TableCell data-testid="voucher-total-debit" className="text-right font-mono font-medium text-status-danger-foreground">
               {formatIndianNumber(totalDebit)}
             </TableCell>
-            <TableCell data-testid="voucher-total-credit" className="text-right font-mono font-medium text-green-600">
+            <TableCell data-testid="voucher-total-credit" className="text-right font-mono font-medium text-status-success-foreground">
               {formatIndianNumber(totalCredit)}
             </TableCell>
             <TableCell>
               <span data-testid="voucher-balance-indicator">
               {isBalanced ? (
-                <CheckIcon className="h-4 w-4 text-green-600" />
+                <CheckIcon className="size-4 text-status-success-foreground" />
               ) : (
-                <XIcon className="h-4 w-4 text-red-600" />
+                <XIcon className="size-4 text-status-danger-foreground" />
               )}
               </span>
             </TableCell>
@@ -148,7 +148,7 @@ export function DoubleEntryForm({
 
       <div className="flex items-center justify-between">
         <Button data-testid="voucher-add-line-button" variant="outline" size="sm" onClick={addLine}>
-          <PlusIcon className="mr-2 h-4 w-4" />
+          <PlusIcon className="mr-2 size-4" />
           Add Line
         </Button>
 

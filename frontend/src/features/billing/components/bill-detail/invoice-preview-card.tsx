@@ -33,11 +33,11 @@ export function InvoicePreviewCard({
         <CardTitle className="text-base">Invoice</CardTitle>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={onPrint}>
-            <Printer className="mr-2 h-4 w-4" />
+            <Printer className="mr-2 size-4" />
             Print
           </Button>
           <Button variant="outline" size="sm" onClick={onDownload}>
-            <Download className="mr-2 h-4 w-4" />
+            <Download className="mr-2 size-4" />
             PDF
           </Button>
         </div>
@@ -204,7 +204,7 @@ export function InvoicePreviewCard({
               </div>
             )}
             {bill.discount_amount > 0 && (
-              <div className="flex justify-between text-sm text-green-600">
+              <div className="flex justify-between text-sm text-status-success-foreground">
                 <span>Discount</span>
                 <span className="font-mono">
                   -{formatIndianRupees(bill.discount_amount)}
@@ -284,7 +284,7 @@ export function InvoicePreviewCard({
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
                 <span>Paid Amount</span>
-                <span className="font-mono text-green-600">
+                <span className="font-mono text-status-success-foreground">
                   {formatIndianRupees(bill.paid_amount)}
                 </span>
               </div>

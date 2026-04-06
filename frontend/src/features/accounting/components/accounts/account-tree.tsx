@@ -60,7 +60,7 @@ export function AccountTree({ tree, loading, onSelect }: AccountTreeProps) {
     <div data-slot="account-tree" data-testid="account-tree" className="flex flex-col h-full">
       <div className="p-4 border-b">
         <div className="relative">
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
             data-testid="account-tree-search-input"
             placeholder="Search accounts..."

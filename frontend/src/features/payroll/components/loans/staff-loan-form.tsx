@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -56,8 +57,8 @@ export function StaffLoanForm() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate({ to: "/app/payroll" })}>
-          <ArrowLeft className="h-4 w-4" />
+        <Button variant="ghost" size="icon" aria-label="Go back" onClick={() => navigate({ to: "/app/payroll" })}>
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight">New Staff Loan</h2>
@@ -96,11 +97,10 @@ export function StaffLoanForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="loan_date">Loan Date *</Label>
-              <Input
+              <FormDatePicker
                 id="loan_date"
-                type="date"
                 value={loanDate}
-                onChange={(e) => setLoanDate(e.target.value)}
+                onChange={(val) => setLoanDate(val)}
               />
             </div>
           </div>

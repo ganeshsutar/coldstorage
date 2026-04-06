@@ -28,8 +28,8 @@ export function DateNavigator({ date, onChange }: DateNavigatorProps) {
       data-testid="date-navigator"
       className="flex items-center gap-2"
     >
-      <Button data-testid="date-navigator-prev-button" variant="outline" size="icon" onClick={handlePrev}>
-        <ChevronLeftIcon className="h-4 w-4" />
+      <Button data-testid="date-navigator-prev-button" variant="outline" size="icon" aria-label="Previous day" onClick={handlePrev}>
+        <ChevronLeftIcon className="size-4" />
       </Button>
 
       <DatePicker
@@ -39,8 +39,8 @@ export function DateNavigator({ date, onChange }: DateNavigatorProps) {
         className="w-48"
       />
 
-      <Button data-testid="date-navigator-next-button" variant="outline" size="icon" onClick={handleNext}>
-        <ChevronRightIcon className="h-4 w-4" />
+      <Button data-testid="date-navigator-next-button" variant="outline" size="icon" aria-label="Next day" onClick={handleNext}>
+        <ChevronRightIcon className="size-4" />
       </Button>
 
       <Button

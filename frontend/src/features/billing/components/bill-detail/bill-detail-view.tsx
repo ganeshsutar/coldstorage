@@ -8,6 +8,7 @@ import {
   Printer,
   MoreHorizontal,
 } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -66,8 +67,8 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
     try {
       await rentBillService.confirmRentBill(bill.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to confirm bill:", err)
+    } catch {
+      toast.error("Failed to confirm bill")
     } finally {
       setActionLoading(false)
     }
@@ -81,8 +82,8 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
       refetch()
       setShowCancelDialog(false)
       setCancelReason("")
-    } catch (err) {
-      console.error("Failed to cancel bill:", err)
+    } catch {
+      toast.error("Failed to cancel bill")
     } finally {
       setActionLoading(false)
     }
@@ -127,8 +128,8 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={handleBack}>
-            <ArrowLeft className="h-4 w-4" />
+          <Button variant="ghost" size="icon" aria-label="Go back" onClick={handleBack}>
+            <ArrowLeft className="size-4" />
           </Button>
           <h1 className="text-2xl font-bold">Bill Not Found</h1>
         </div>
@@ -154,8 +155,8 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={handleBack}>
-            <ArrowLeft className="h-4 w-4" />
+          <Button variant="ghost" size="icon" aria-label="Go back" onClick={handleBack}>
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <div className="flex items-center gap-3">
@@ -175,25 +176,25 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
         <div className="flex items-center gap-2">
           {bill.status === "DRAFT" && (
             <Button onClick={handleConfirm} disabled={actionLoading}>
-              <CheckCircle className="mr-2 h-4 w-4" />
+              <CheckCircle className="mr-2 size-4" />
               Confirm
             </Button>
           )}
           {bill.status !== "CANCELLED" && bill.status !== "PAID" && (
             <Button variant="outline" onClick={handleNewReceipt}>
-              <Receipt className="mr-2 h-4 w-4" />
+              <Receipt className="mr-2 size-4" />
               New Receipt
             </Button>
           )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <MoreHorizontal className="h-4 w-4" />
+              <Button variant="outline" size="icon" aria-label="More actions">
+                <MoreHorizontal className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={handlePrint}>
-                <Printer className="mr-2 h-4 w-4" />
+                <Printer className="mr-2 size-4" />
                 Print
               </DropdownMenuItem>
               {bill.status !== "CANCELLED" && bill.paid_amount === 0 && (
@@ -201,7 +202,7 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
                   className="text-destructive"
                   onClick={() => setShowCancelDialog(true)}
                 >
-                  <XCircle className="mr-2 h-4 w-4" />
+                  <XCircle className="mr-2 size-4" />
                   Cancel Bill
                 </DropdownMenuItem>
               )}
@@ -243,7 +244,7 @@ export function BillDetailView({ billId }: BillDetailViewProps) {
                   {formatIndianRupees(bill.net_amount)}
                 </span>
               </div>
-              <div className="flex justify-between text-sm text-green-600">
+              <div className="flex justify-between text-sm text-status-success-foreground">
                 <span>Paid</span>
                 <span className="font-mono">
                   {formatIndianRupees(bill.paid_amount)}

@@ -109,7 +109,7 @@ export function TakpattiListTable({
                       title="Delete"
                       data-testid={`takpatti-row-delete-${index}`}
                     >
-                      <Trash2Icon className="h-4 w-4 text-destructive" />
+                      <Trash2Icon className="size-4 text-destructive" />
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>

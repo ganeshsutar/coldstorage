@@ -54,9 +54,10 @@ export function BardanaReturnDetail({ returnId }: BardanaReturnDetailProps) {
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Go back"
           onClick={() => navigate({ to: "/app/bardana/returns" })}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="size-4" />
         </Button>
         <div className="flex-1">
           <h2 className="text-2xl font-bold tracking-tight">{ret.voucher_no}</h2>
@@ -68,7 +69,7 @@ export function BardanaReturnDetail({ returnId }: BardanaReturnDetailProps) {
             onClick={() => confirmMutation.mutateAsync(ret.id)}
             disabled={confirmMutation.isPending}
           >
-            <CheckCircle className="mr-2 h-4 w-4" />
+            <CheckCircle className="mr-2 size-4" />
             {confirmMutation.isPending ? "Confirming..." : "Confirm"}
           </Button>
         )}
@@ -117,7 +118,7 @@ export function BardanaReturnDetail({ returnId }: BardanaReturnDetailProps) {
           <Card className="border-destructive">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-destructive">
-                <XCircle className="h-4 w-4" />
+                <XCircle className="size-4" />
                 Cancelled
               </CardTitle>
             </CardHeader>

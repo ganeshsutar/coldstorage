@@ -61,6 +61,7 @@ function Calendar({
         <Button
           variant="outline"
           size="icon"
+          aria-label="Previous month"
           onClick={handlePrevMonth}
           className="h-7 w-7"
         >
@@ -72,6 +73,7 @@ function Calendar({
         <Button
           variant="outline"
           size="icon"
+          aria-label="Next month"
           onClick={handleNextMonth}
           className="h-7 w-7"
         >
@@ -87,7 +89,7 @@ function Calendar({
             {day}
           </div>
         ))}
-        {days.map((day, idx) => {
+        {days.map((day) => {
           const isSelected = selected ? isSameDay(day, selected) : false
           const isCurrentMonth = isSameMonth(day, currentMonth)
           const isTodayDate = isToday(day)
@@ -95,7 +97,7 @@ function Calendar({
 
           return (
             <button
-              key={idx}
+              key={day.toISOString()}
               type="button"
               onClick={() => handleDayClick(day)}
               disabled={isDisabled}

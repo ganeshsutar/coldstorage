@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { Plus, Eye, XCircle, MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -73,8 +74,8 @@ export function LoanDashboard() {
         await loanService.cancelLoan(cancelItem.item.id, cancelReason)
         refetchLoans()
       }
-    } catch (err) {
-      console.error("Failed to cancel:", err)
+    } catch {
+      toast.error("Failed to cancel")
     } finally {
       setCancelling(false)
       setCancelItem(null)
@@ -99,11 +100,11 @@ export function LoanDashboard() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => navigate({ to: "/app/loans/loans/new" })}>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             New Loan
           </Button>
           <Button onClick={() => navigate({ to: "/app/loans/advances/new" })}>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             New Advance
           </Button>
         </div>
@@ -229,13 +230,13 @@ function AdvancesTable({
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" aria-label="Open menu">
+                        <MoreHorizontal className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => onView(advance.id)}>
-                        <Eye className="mr-2 h-4 w-4" />
+                        <Eye className="mr-2 size-4" />
                         View
                       </DropdownMenuItem>
                       {advance.status === "ACTIVE" && (
@@ -243,7 +244,7 @@ function AdvancesTable({
                           className="text-destructive"
                           onClick={() => onCancel(advance)}
                         >
-                          <XCircle className="mr-2 h-4 w-4" />
+                          <XCircle className="mr-2 size-4" />
                           Cancel
                         </DropdownMenuItem>
                       )}
@@ -317,13 +318,13 @@ function LoansTable({
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" aria-label="Open menu">
+                        <MoreHorizontal className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => onView(loan.id)}>
-                        <Eye className="mr-2 h-4 w-4" />
+                        <Eye className="mr-2 size-4" />
                         View
                       </DropdownMenuItem>
                       {loan.status === "ACTIVE" && (
@@ -331,7 +332,7 @@ function LoansTable({
                           className="text-destructive"
                           onClick={() => onCancel(loan)}
                         >
-                          <XCircle className="mr-2 h-4 w-4" />
+                          <XCircle className="mr-2 size-4" />
                           Cancel
                         </DropdownMenuItem>
                       )}

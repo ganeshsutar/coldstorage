@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Plus, Pencil, Trash2, Search } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -67,8 +68,8 @@ export function BankList() {
     try {
       await bankService.deleteBank(deleteBank.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to delete bank:", err)
+    } catch {
+      toast.error("Failed to delete bank")
     } finally {
       setDeleting(false)
       setDeleteBank(null)
@@ -95,7 +96,7 @@ export function BankList() {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
           <Input
             placeholder="Search banks..."
             value={search}
@@ -104,7 +105,7 @@ export function BankList() {
           />
         </div>
         <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add Bank
         </Button>
       </div>
@@ -143,16 +144,18 @@ export function BankList() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Edit bank"
                         onClick={() => handleEdit(bank)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete bank"
                         onClick={() => setDeleteBank(bank)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="size-4" />
                       </Button>
                     </div>
                   </TableCell>

@@ -44,7 +44,7 @@ export function DashboardPage() {
           description="2 resolved today"
         />
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
             <CardTitle>Overview</CardTitle>

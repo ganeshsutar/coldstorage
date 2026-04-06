@@ -1,35 +1,29 @@
 import * as React from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { PlusIcon, UserPlusIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   AccountTree,
-  AddAccountDialog,
-  AddPartyDialog,
 } from "@/features/accounting/components/accounts"
-import { useAccountTree, useAccounts } from "@/features/accounting"
+import { useAccountTree } from "@/features/accounting"
 import type { AccountTreeNode } from "@/features/accounting"
 
 export function ChartOfAccountsPage() {
-  const { tree, loading, refetch } = useAccountTree()
-  const { accounts } = useAccounts()
-  const [addAccountOpen, setAddAccountOpen] = React.useState(false)
-  const [addPartyOpen, setAddPartyOpen] = React.useState(false)
+  const navigate = useNavigate()
+  const { tree, loading } = useAccountTree()
   const [selectedAccount, setSelectedAccount] = React.useState<AccountTreeNode | null>(null)
 
   const handleAccountSelect = (node: AccountTreeNode) => {
     setSelectedAccount(node)
   }
 
-  const handleSuccess = () => {
-    refetch()
-  }
-
   return (
     <DashboardLayout activeNavItemId="chart-of-accounts" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/chart-of-accounts" }, { label: "Chart of Accounts" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 data-testid="chart-of-accounts-title" className="text-2xl font-semibold">Chart of Accounts</h1>
@@ -41,13 +35,13 @@ export function ChartOfAccountsPage() {
             <Button
               data-testid="coa-add-account-button"
               variant="outline"
-              onClick={() => setAddAccountOpen(true)}
+              onClick={() => navigate({ to: "/app/accounts/accounts/new" })}
             >
-              <PlusIcon className="mr-2 h-4 w-4" />
+              <PlusIcon className="mr-2 size-4" />
               Account
             </Button>
-            <Button data-testid="coa-add-party-button" onClick={() => setAddPartyOpen(true)}>
-              <UserPlusIcon className="mr-2 h-4 w-4" />
+            <Button data-testid="coa-add-party-button" onClick={() => navigate({ to: "/app/accounts/parties/new" })}>
+              <UserPlusIcon className="mr-2 size-4" />
               Party
             </Button>
           </div>
@@ -96,11 +90,12 @@ export function ChartOfAccountsPage() {
                     <p className="text-sm text-muted-foreground">Balance</p>
                     <p
                       data-testid="coa-detail-balance"
-                      className={`font-mono ${
+                      className={cn(
+                        "font-mono",
                         selectedAccount.balance_nature === "DEBIT"
-                          ? "text-red-600"
-                          : "text-green-600"
-                      }`}
+                          ? "text-status-danger-foreground"
+                          : "text-status-success-foreground"
+                      )}
                     >
                       {selectedAccount.balance_nature === "DEBIT" ? "Dr" : "Cr"}{" "}
                       {parseFloat(selectedAccount.closing_balance).toLocaleString("en-IN")}
@@ -125,18 +120,6 @@ export function ChartOfAccountsPage() {
         </div>
       </div>
 
-      <AddAccountDialog
-        open={addAccountOpen}
-        onOpenChange={setAddAccountOpen}
-        parentAccounts={accounts}
-        onSuccess={handleSuccess}
-      />
-
-      <AddPartyDialog
-        open={addPartyOpen}
-        onOpenChange={setAddPartyOpen}
-        onSuccess={handleSuccess}
-      />
     </DashboardLayout>
   )
 }

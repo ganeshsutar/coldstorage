@@ -26,8 +26,8 @@ export function usePartyOutstandingList() {
 
 export function usePartyOutstandingDetail(partyId: string | null) {
   return useQuery({
-    queryKey: bardanaStatsKeys.partyOutstanding(partyId!),
-    queryFn: () => bardanaStatsService.getPartyOutstanding(partyId!) as Promise<PartyOutstanding>,
+    queryKey: bardanaStatsKeys.partyOutstanding(partyId ?? ""),
+    queryFn: () => bardanaStatsService.getPartyOutstanding(partyId ?? "") as Promise<PartyOutstanding>,
     enabled: !!partyId,
   })
 }

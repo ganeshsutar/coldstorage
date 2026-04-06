@@ -39,7 +39,7 @@ export function StockTypeCard({ type }: StockTypeCardProps) {
           </div>
           <div>
             <p className="text-muted-foreground">Outstanding</p>
-            <p className="font-medium text-orange-600">{type.outstanding}</p>
+            <p className="font-medium text-status-warning-foreground">{type.outstanding}</p>
           </div>
         </div>
       </CardContent>

@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select"
 import { StatCard } from "@/components/ui/stat-card"
 import { RentListTable } from "@/features/inventory/components/rent"
-import { useRents, type RentSummary } from "@/features/inventory"
+import { useRents } from "@/features/inventory"
 
 function formatNumber(num: number): string {
   return num.toLocaleString("en-IN")
@@ -60,9 +60,8 @@ export function NikasiPage() {
     return result
   }, [rents, search, typeFilter])
 
-  const handleView = (rent: RentSummary) => {
+  const handleView = () => {
     // Could open a detail view
-    console.log("View rent:", rent)
   }
 
   // Calculate summary
@@ -71,7 +70,7 @@ export function NikasiPage() {
 
   return (
     <DashboardLayout activeNavItemId="nikasi" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/nikasi" }, { label: "Nikasi (Dispatch)" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold" data-testid="nikasi-title">Nikasi (Goods Dispatch)</h1>
@@ -80,7 +79,7 @@ export function NikasiPage() {
             </p>
           </div>
           <Button onClick={() => navigate({ to: "/app/inventory/nikasi/new" })} data-testid="nikasi-new-button">
-            <PlusIcon className="mr-2 h-4 w-4" />
+            <PlusIcon className="mr-2 size-4" />
             New Dispatch
           </Button>
         </div>
@@ -124,7 +123,7 @@ export function NikasiPage() {
               </CardTitle>
               <div className="flex items-center gap-2">
                 <div className="relative">
-                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                   <Input
                     placeholder="Search dispatches..."
                     value={search}
@@ -138,7 +137,7 @@ export function NikasiPage() {
                   onValueChange={(v) => setTypeFilter(v as typeof typeFilter)}
                 >
                   <SelectTrigger className="w-32" data-testid="nikasi-filter-select">
-                    <FilterIcon className="h-4 w-4 mr-2" />
+                    <FilterIcon className="size-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

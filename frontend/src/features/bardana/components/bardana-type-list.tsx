@@ -61,7 +61,7 @@ export function BardanaTypeList() {
             setDialogOpen(true)
           }}
         >
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add Type
         </Button>
       </div>
@@ -107,15 +107,16 @@ export function BardanaTypeList() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleEdit(type)}>
-                        <Pencil className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" aria-label="Edit type" onClick={() => handleEdit(type)}>
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete type"
                         onClick={() => setDeleteType(type)}
                       >
-                        <Trash2 className="h-4 w-4 text-destructive" />
+                        <Trash2 className="size-4 text-destructive" />
                       </Button>
                     </div>
                   </TableCell>

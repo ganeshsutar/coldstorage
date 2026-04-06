@@ -4,7 +4,7 @@ import { ChambersTab } from "@/features/warehouse/components/chambers"
 export function ChambersPage() {
   return (
     <DashboardLayout activeNavItemId="chamber-management" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Chamber Management" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold">Chamber Management</h1>

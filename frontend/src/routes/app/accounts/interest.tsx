@@ -1,6 +1,7 @@
 import * as React from "react"
 import { format, startOfMonth, endOfMonth } from "date-fns"
 import { CalculatorIcon, SendIcon, EyeIcon } from "lucide-react"
+import { toast } from "sonner"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
@@ -62,8 +63,8 @@ export function InterestPage() {
         post_date: format(new Date(), "yyyy-MM-dd"),
       })
       reset()
-    } catch (err) {
-      console.error("Failed to post interest:", err)
+    } catch {
+      toast.error("Failed to post interest")
     } finally {
       setPosting(false)
     }
@@ -71,7 +72,7 @@ export function InterestPage() {
 
   return (
     <DashboardLayout activeNavItemId="interest" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/party-ledger" }, { label: "Interest" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 data-testid="interest-title" className="text-2xl font-semibold">Interest Calculation</h1>
@@ -122,7 +123,7 @@ export function InterestPage() {
                 onClick={handleCalculate}
                 disabled={loading || components.length === 0}
               >
-                <CalculatorIcon className="mr-2 h-4 w-4" />
+                <CalculatorIcon className="mr-2 size-4" />
                 {loading ? "Calculating..." : "Calculate Interest"}
               </Button>
             </div>
@@ -148,7 +149,7 @@ export function InterestPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-muted-foreground">Total Interest</p>
-                  <p data-testid="interest-total-amount" className="text-2xl font-bold font-mono text-red-600">
+                  <p data-testid="interest-total-amount" className="text-2xl font-bold font-mono text-status-danger-foreground">
                     {formatCurrency(result.total_interest)}
                   </p>
                 </div>
@@ -161,7 +162,7 @@ export function InterestPage() {
 
               <div className="flex justify-end gap-2">
                 <Button data-testid="interest-preview-button" variant="outline">
-                  <EyeIcon className="mr-2 h-4 w-4" />
+                  <EyeIcon className="mr-2 size-4" />
                   Preview
                 </Button>
                 <Button
@@ -169,7 +170,7 @@ export function InterestPage() {
                   onClick={handlePost}
                   disabled={posting}
                 >
-                  <SendIcon className="mr-2 h-4 w-4" />
+                  <SendIcon className="mr-2 size-4" />
                   {posting ? "Posting..." : "Post Interest"}
                 </Button>
               </div>

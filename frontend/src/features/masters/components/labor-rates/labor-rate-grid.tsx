@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Plus, Pencil, Trash2, Calendar } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -86,8 +87,8 @@ export function LaborRateGrid() {
     try {
       await laborRateService.deleteLaborRate(deleteRate.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to delete labor rate:", err)
+    } catch {
+      toast.error("Failed to delete labor rate")
     } finally {
       setDeleting(false)
       setDeleteRate(null)
@@ -137,7 +138,7 @@ export function LaborRateGrid() {
           </SelectContent>
         </Select>
         <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add Rate
         </Button>
       </div>
@@ -151,7 +152,7 @@ export function LaborRateGrid() {
               <TableHead className="text-right">Rate</TableHead>
               <TableHead>
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
+                  <Calendar className="size-4" />
                   Effective From
                 </div>
               </TableHead>
@@ -191,16 +192,18 @@ export function LaborRateGrid() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Edit rate"
                         onClick={() => handleEdit(rate)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete rate"
                         onClick={() => setDeleteRate(rate)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="size-4" />
                       </Button>
                     </div>
                   </TableCell>

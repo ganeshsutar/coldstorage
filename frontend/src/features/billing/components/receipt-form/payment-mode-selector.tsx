@@ -46,7 +46,7 @@ export function PaymentModeSelector({
               value === mode.value && "bg-primary text-primary-foreground"
             )}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className="size-4" />
             <span>{mode.label}</span>
           </ToggleGroupItem>
         )

@@ -24,8 +24,8 @@ function SummaryItem({ label, value, type, "data-testid": testId }: SummaryItemP
       <span
         className={cn(
           "font-mono tabular-nums text-sm",
-          type === "positive" && "text-green-600",
-          type === "negative" && "text-red-600"
+          type === "positive" && "text-status-success-foreground",
+          type === "negative" && "text-status-danger-foreground"
         )}
       >
         {type === "positive" && "+"}
@@ -65,7 +65,7 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
       <Card data-testid="daily-summary-cash-card">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-medium flex items-center gap-2">
-            <BanknoteIcon className="h-4 w-4 text-green-600" />
+            <BanknoteIcon className="size-4 text-status-success-foreground" />
             Cash
           </CardTitle>
         </CardHeader>
@@ -102,7 +102,7 @@ export function DailySummaryCards({ summary, loading }: DailySummaryCardsProps) 
       <Card data-testid="daily-summary-bank-card">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-medium flex items-center gap-2">
-            <BuildingIcon className="h-4 w-4 text-blue-600" />
+            <BuildingIcon className="size-4 text-status-info-foreground" />
             Bank
           </CardTitle>
         </CardHeader>

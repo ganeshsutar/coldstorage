@@ -61,7 +61,7 @@ export function PartySelectorWithBalance({
             ) : (
               <span className="text-muted-foreground">{placeholder}</span>
             )}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[400px] p-0" align="start">
@@ -80,7 +80,7 @@ export function PartySelectorWithBalance({
                   >
                     <Check
                       className={cn(
-                        "mr-2 h-4 w-4",
+                        "mr-2 size-4",
                         value === party.id ? "opacity-100" : "opacity-0"
                       )}
                     />
@@ -109,7 +109,7 @@ export function PartySelectorWithBalance({
                 "font-medium",
                 selectedParty.balance_nature === "DEBIT"
                   ? "text-destructive"
-                  : "text-green-600"
+                  : "text-status-success-foreground"
               )}
             >
               {formatIndianRupees(parseFloat(selectedParty.closing_balance) || 0)} ({selectedParty.balance_nature === "DEBIT" ? "Dr" : "Cr"})

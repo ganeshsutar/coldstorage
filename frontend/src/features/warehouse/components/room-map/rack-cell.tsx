@@ -18,10 +18,10 @@ interface RackCellProps {
 
 const statusColors: Record<RackStatus, string> = {
   empty: "bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700",
-  partial: "bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-800",
-  full: "bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-800",
-  reserved: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-800",
-  maintenance: "bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-800",
+  partial: "bg-status-warning-muted border-status-warning-muted",
+  full: "bg-status-success-muted border-status-success-muted",
+  reserved: "bg-status-info-muted border-status-info-muted",
+  maintenance: "bg-status-danger-muted border-status-danger-muted",
 }
 
 export function RackCell({
@@ -42,7 +42,7 @@ export function RackCell({
           <button
             onClick={onClick}
             className={cn(
-              "w-10 h-10 rounded border-2 text-xs font-medium transition-all",
+              "size-10 rounded border-2 text-xs font-medium transition-all",
               "hover:ring-2 hover:ring-primary/50 hover:ring-offset-1",
               "flex items-center justify-center",
               statusColors[status],

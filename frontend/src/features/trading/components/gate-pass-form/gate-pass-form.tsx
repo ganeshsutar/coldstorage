@@ -5,6 +5,7 @@ import { ArrowLeft, Plus, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -126,15 +127,16 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {!onSuccess && (
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => onCancel ? onCancel() : navigate({ to: "/app/trading" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <h1 className="text-2xl font-bold">New Gate Pass</h1>
@@ -151,66 +153,66 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
 
       {onSuccess ? (
         /* Compact dialog layout — no card wrappers */
-        <div className="space-y-5">
+        <div className="flex flex-col gap-5">
           <div className="grid grid-cols-4 gap-4">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label>GP No</Label>
               <Input value={numberLoading ? "..." : nextGpNo} readOnly className="bg-muted font-mono" />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="gp_date">Date *</Label>
-              <Input id="gp_date" type="date" value={gpDate} onChange={(e) => setGpDate(e.target.value)} />
+              <FormDatePicker id="gp_date" value={gpDate} onChange={(val) => setGpDate(val)} />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="gp_time">Time</Label>
               <Input id="gp_time" type="time" value={gpTime} onChange={(e) => setGpTime(e.target.value)} />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="sauda_id">Deal (Sauda) ID</Label>
               <Input id="sauda_id" value={saudaId} onChange={(e) => setSaudaId(e.target.value)} placeholder="Link to deal (optional)" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="seller_id">Seller (Account ID) *</Label>
               <Input id="seller_id" value={sellerId} onChange={(e) => setSellerId(e.target.value)} placeholder="Enter seller account ID" />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="buyer_id">Buyer (Account ID) *</Label>
               <Input id="buyer_id" value={buyerId} onChange={(e) => setBuyerId(e.target.value)} placeholder="Enter buyer account ID" />
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="flex flex-col gap-3">
             <h4 className="text-sm font-medium">Transport Details</h4>
             <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="transport_name">Transport Name</Label>
                 <Input id="transport_name" value={transportName} onChange={(e) => setTransportName(e.target.value)} placeholder="Enter transport name" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="vehicle_no">Vehicle No</Label>
                 <Input id="vehicle_no" value={vehicleNo} onChange={(e) => setVehicleNo(e.target.value)} placeholder="Enter vehicle number" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="driver_name">Driver Name</Label>
                 <Input id="driver_name" value={driverName} onChange={(e) => setDriverName(e.target.value)} placeholder="Enter driver name" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="driver_contact">Driver Contact</Label>
                 <Input id="driver_contact" value={driverContact} onChange={(e) => setDriverContact(e.target.value)} placeholder="Enter driver contact" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="bilti_no">Bilti No</Label>
                 <Input id="bilti_no" value={biltiNo} onChange={(e) => setBiltiNo(e.target.value)} placeholder="Transport receipt no" />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="gp_rate">Default Rate</Label>
                 <Input id="gp_rate" type="number" min="0" step="0.01" value={gpRate || ""} onChange={(e) => setGpRate(parseFloat(e.target.value) || 0)} placeholder="Default rate for items" className="font-mono" />
               </div>
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="gp_remarks">Remarks</Label>
               <Textarea id="gp_remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} placeholder="Add any remarks..." rows={2} />
             </div>
@@ -218,22 +220,22 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
         </div>
       ) : (
         /* Full page layout with cards */
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Gate Pass Details</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="gp_date">Date *</Label>
-                  <Input id="gp_date" type="date" value={gpDate} onChange={(e) => setGpDate(e.target.value)} />
+                  <FormDatePicker id="gp_date" value={gpDate} onChange={(val) => setGpDate(val)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="gp_time">Time</Label>
                   <Input id="gp_time" type="time" value={gpTime} onChange={(e) => setGpTime(e.target.value)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="sauda_id">Deal (Sauda) ID</Label>
                   <Input id="sauda_id" value={saudaId} onChange={(e) => setSaudaId(e.target.value)} placeholder="Link to deal (optional)" />
                 </div>
@@ -245,13 +247,13 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Party & Deal</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="seller_id">Seller (Account ID) *</Label>
                   <Input id="seller_id" value={sellerId} onChange={(e) => setSellerId(e.target.value)} placeholder="Enter seller account ID" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="buyer_id">Buyer (Account ID) *</Label>
                   <Input id="buyer_id" value={buyerId} onChange={(e) => setBuyerId(e.target.value)} placeholder="Enter buyer account ID" />
                 </div>
@@ -263,34 +265,34 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Transport Details</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="transport_name">Transport Name</Label>
                   <Input id="transport_name" value={transportName} onChange={(e) => setTransportName(e.target.value)} placeholder="Enter transport name" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="vehicle_no">Vehicle No</Label>
                   <Input id="vehicle_no" value={vehicleNo} onChange={(e) => setVehicleNo(e.target.value)} placeholder="Enter vehicle number" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="driver_name">Driver Name</Label>
                   <Input id="driver_name" value={driverName} onChange={(e) => setDriverName(e.target.value)} placeholder="Enter driver name" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="driver_contact">Driver Contact</Label>
                   <Input id="driver_contact" value={driverContact} onChange={(e) => setDriverContact(e.target.value)} placeholder="Enter driver contact" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="bilti_no">Bilti No</Label>
                   <Input id="bilti_no" value={biltiNo} onChange={(e) => setBiltiNo(e.target.value)} placeholder="Transport receipt no" />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="gp_rate">Default Rate</Label>
                   <Input id="gp_rate" type="number" min="0" step="0.01" value={gpRate || ""} onChange={(e) => setGpRate(parseFloat(e.target.value) || 0)} placeholder="Default rate for items" className="font-mono" />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="gp_remarks">Remarks</Label>
                 <Textarea id="gp_remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} placeholder="Add any remarks..." rows={2} />
               </div>
@@ -305,7 +307,7 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
           <div className="flex items-center justify-between">
             <CardTitle className="text-base">Amads for Dispatch</CardTitle>
             <Button variant="outline" size="sm" onClick={addItem}>
-              <Plus className="mr-2 h-4 w-4" />
+              <Plus className="mr-2 size-4" />
               Add Row
             </Button>
           </div>
@@ -386,9 +388,10 @@ export function GatePassForm({ onSuccess, onCancel }: GatePassFormProps = {}) {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Remove item"
                         onClick={() => removeItem(index)}
                       >
-                        <Trash2 className="h-4 w-4 text-destructive" />
+                        <Trash2 className="size-4 text-destructive" />
                       </Button>
                     )}
                   </TableCell>

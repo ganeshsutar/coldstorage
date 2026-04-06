@@ -19,8 +19,8 @@ export function useStaffLoans(filters?: StaffLoanFilters) {
 
 export function useStaffLoanDetail(id: string | null) {
   return useQuery({
-    queryKey: staffLoanKeys.detail(id!),
-    queryFn: () => staffLoanService.get(id!),
+    queryKey: staffLoanKeys.detail(id ?? ""),
+    queryFn: () => staffLoanService.get(id ?? ""),
     enabled: !!id,
   })
 }

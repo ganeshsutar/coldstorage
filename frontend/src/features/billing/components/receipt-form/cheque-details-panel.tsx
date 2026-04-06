@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -46,11 +47,10 @@ export function ChequeDetailsPanel({
           </div>
           <div className="space-y-2">
             <Label htmlFor="cheque_date">Cheque Date</Label>
-            <Input
+            <FormDatePicker
               id="cheque_date"
-              type="date"
               value={details.cheque_date}
-              onChange={(e) => handleChange("cheque_date", e.target.value)}
+              onChange={(val) => handleChange("cheque_date", val)}
               disabled={disabled}
             />
           </div>

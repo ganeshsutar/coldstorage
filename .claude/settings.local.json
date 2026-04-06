@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(shadcn)",
+      "Bash(npx shadcn@latest add --all --dry-run)",
+      "Bash(done)",
+      "Bash(npm run:*)",
+      "Bash(find frontend/src -name *theme* -o -name *ui-store*)",
+      "Bash(xargs grep:*)",
+      "Bash(for f:*)",
+      "Bash(do sed:*)",
+      "Bash(echo \"Updated $f\")",
+      "Bash(grep -l \"from.*@/\" src/components/ui/*.tsx)",
+      "Bash(xargs -I {} head -15 {})",
+      "Bash(do basename:*)",
+      "Bash(find src/components/ui -name \"*.tsx\" -exec wc -l {} +)"
+    ]
+  }
+}

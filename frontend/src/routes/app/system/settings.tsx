@@ -23,11 +23,11 @@ import {
 export function SystemSettingsPage() {
   return (
     <DashboardLayout breadcrumbs={[{ label: "Settings" }]} activeNavItemId="settings">
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div>
           <div className="flex items-center gap-2">
-            <Settings className="h-6 w-6" />
+            <Settings className="size-6" />
             <h1 className="text-2xl font-bold">Settings</h1>
           </div>
           <p className="text-muted-foreground">

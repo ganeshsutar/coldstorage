@@ -39,7 +39,7 @@ export function DaybookPage() {
 
   return (
     <DashboardLayout activeNavItemId="daybook" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/party-ledger" }, { label: "Daybook" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 data-testid="daybook-title" className="text-2xl font-semibold">Daybook</h1>
@@ -51,7 +51,7 @@ export function DaybookPage() {
             <DateNavigator date={date} onChange={setDate} />
             {summary?.is_closed ? (
               <Badge data-testid="daybook-day-closed-badge" variant="secondary" className="gap-1">
-                <LockIcon className="h-3 w-3" />
+                <LockIcon className="size-3" />
                 Day Closed
               </Badge>
             ) : (

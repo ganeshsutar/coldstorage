@@ -42,9 +42,10 @@ export function PaySlip({ attendanceId }: PaySlipProps) {
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/payroll/salary" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Pay Slip</h2>
@@ -54,7 +55,7 @@ export function PaySlip({ attendanceId }: PaySlipProps) {
           </div>
         </div>
         <Button variant="outline" onClick={handlePrint}>
-          <Printer className="mr-2 h-4 w-4" />
+          <Printer className="mr-2 size-4" />
           Print
         </Button>
       </div>

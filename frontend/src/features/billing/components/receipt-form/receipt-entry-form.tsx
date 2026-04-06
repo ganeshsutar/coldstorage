@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useNextNumber } from "@/features/system"
@@ -163,8 +164,8 @@ export function ReceiptEntryForm({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={handleCancel}>
-          <ArrowLeft className="h-4 w-4" />
+        <Button variant="ghost" size="icon" aria-label="Go back" onClick={handleCancel}>
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">New Receipt</h1>
@@ -198,11 +199,10 @@ export function ReceiptEntryForm({
             </div>
             <div className="space-y-2">
               <Label htmlFor="receipt_date">Date</Label>
-              <Input
+              <FormDatePicker
                 id="receipt_date"
-                type="date"
                 value={receiptDate}
-                onChange={(e) => setReceiptDate(e.target.value)}
+                onChange={(val) => setReceiptDate(val)}
               />
             </div>
           </div>

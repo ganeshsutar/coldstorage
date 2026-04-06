@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { MoreHorizontal, Plus, Shield, UserCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -61,6 +62,7 @@ function formatDate(dateString: string | null) {
 }
 
 export function UserList() {
+  const navigate = useNavigate()
   const { users, loading, error, refetch, deleteUser } = useUsers()
   const {
     paginatedItems,
@@ -76,11 +78,10 @@ export function UserList() {
     goToLastPage,
   } = useClientPagination(users)
   const [dialogOpen, setDialogOpen] = React.useState(false)
-  const [editUser, setEditUser] = React.useState<OrganizationUser | undefined>()
+  const [editUser, setEditUser] = React.useState<OrganizationUser | null>(null)
 
   const handleAddUser = () => {
-    setEditUser(undefined)
-    setDialogOpen(true)
+    navigate({ to: "/app/system/users/new" })
   }
 
   const handleEditUser = (user: OrganizationUser) => {
@@ -102,7 +103,7 @@ export function UserList() {
   const handleSuccess = () => {
     refetch()
     setDialogOpen(false)
-    setEditUser(undefined)
+    setEditUser(null)
   }
 
   if (loading) {
@@ -124,7 +125,7 @@ export function UserList() {
             </CardDescription>
           </div>
           <Button data-testid="user-list-add-button" onClick={handleAddUser}>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             Add User
           </Button>
         </CardHeader>
@@ -149,8 +150,8 @@ export function UserList() {
                   <TableRow key={user.id} data-testid={`user-row-${index}`}>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
-                          <UserCircle className="h-6 w-6 text-muted-foreground" />
+                        <div className="flex size-10 items-center justify-center rounded-full bg-muted">
+                          <UserCircle className="size-6 text-muted-foreground" />
                         </div>
                         <div>
                           <div className="font-medium">{user.user.full_name}</div>
@@ -163,7 +164,7 @@ export function UserList() {
                     <TableCell>
                       <Badge variant={getRoleBadgeVariant(user.role)}>
                         {user.role === "ADMIN" && (
-                          <Shield className="mr-1 h-3 w-3" />
+                          <Shield className="mr-1 size-3" />
                         )}
                         {user.role_display}
                       </Badge>
@@ -180,7 +181,7 @@ export function UserList() {
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon" data-testid={`user-row-menu-${index}`}>
-                            <MoreHorizontal className="h-4 w-4" />
+                            <MoreHorizontal className="size-4" />
                             <span className="sr-only">Open menu</span>
                           </Button>
                         </DropdownMenuTrigger>
@@ -219,12 +220,14 @@ export function UserList() {
         </CardContent>
       </Card>
 
-      <UserDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        onSuccess={handleSuccess}
-        editUser={editUser}
-      />
+      {editUser && (
+        <UserDialog
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          onSuccess={handleSuccess}
+          editUser={editUser}
+        />
+      )}
     </>
   )
 }

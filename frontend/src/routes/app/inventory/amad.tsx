@@ -65,7 +65,7 @@ export function AmadPage() {
 
   return (
     <DashboardLayout activeNavItemId="amad" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/amad" }, { label: "Amad (Receipts)" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold" data-testid="amad-title">Amad (Goods Arrival)</h1>
@@ -74,7 +74,7 @@ export function AmadPage() {
             </p>
           </div>
           <Button onClick={() => navigate({ to: "/app/inventory/amad/new" })} data-testid="amad-new-button">
-            <PlusIcon className="mr-2 h-4 w-4" />
+            <PlusIcon className="mr-2 size-4" />
             New Amad
           </Button>
         </div>
@@ -93,7 +93,7 @@ export function AmadPage() {
               </CardTitle>
               <div className="flex items-center gap-2">
                 <div className="relative">
-                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                   <Input
                     placeholder="Search amads..."
                     value={search}
@@ -107,7 +107,7 @@ export function AmadPage() {
                   onValueChange={(v) => setFilter(v as typeof filter)}
                 >
                   <SelectTrigger className="w-36" data-testid="amad-filter-select">
-                    <FilterIcon className="h-4 w-4 mr-2" />
+                    <FilterIcon className="size-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

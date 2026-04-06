@@ -33,7 +33,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
       for (const [key, value] of Object.entries(data)) {
         if (Array.isArray(value)) {
           fieldErrors[key] = value.map(String);
-        } else if (key === "detail" || key === "message") {
+        } else if (key === "detail" || key === "message" || key === "error") {
           message = String(value);
         }
       }

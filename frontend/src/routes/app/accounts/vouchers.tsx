@@ -40,7 +40,7 @@ export function VouchersPage() {
 
   return (
     <DashboardLayout activeNavItemId="vouchers" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/vouchers" }, { label: "Vouchers" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 data-testid="vouchers-title" className="text-2xl font-semibold">Vouchers</h1>
@@ -50,7 +50,7 @@ export function VouchersPage() {
           </div>
           <Button asChild data-testid="vouchers-new-button">
             <Link to="/app/accounts/vouchers/new">
-              <PlusIcon className="mr-2 h-4 w-4" />
+              <PlusIcon className="mr-2 size-4" />
               New Voucher
             </Link>
           </Button>

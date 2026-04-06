@@ -20,8 +20,8 @@ export function useBardanaIssues(filters?: BardanaIssueFilters) {
 
 export function useBardanaIssueDetail(id: string | null) {
   return useQuery({
-    queryKey: bardanaIssueKeys.detail(id!),
-    queryFn: () => bardanaIssueService.get(id!),
+    queryKey: bardanaIssueKeys.detail(id ?? ""),
+    queryFn: () => bardanaIssueService.get(id ?? ""),
     enabled: !!id,
   })
 }

@@ -23,16 +23,16 @@ export function useReceipts(filters?: ReceiptFilters) {
 
 export function useReceiptDetail(id: string | null) {
   return useQuery({
-    queryKey: receiptKeys.detail(id!),
-    queryFn: () => receiptService.getReceipt(id!),
+    queryKey: receiptKeys.detail(id ?? ""),
+    queryFn: () => receiptService.getReceipt(id ?? ""),
     enabled: !!id,
   })
 }
 
 export function useUnpaidBills(partyId: string | null) {
   return useQuery({
-    queryKey: receiptKeys.unpaidBills(partyId!),
-    queryFn: () => receiptService.getUnpaidBillsByParty(partyId!),
+    queryKey: receiptKeys.unpaidBills(partyId ?? ""),
+    queryFn: () => receiptService.getUnpaidBillsByParty(partyId ?? ""),
     enabled: !!partyId,
   })
 }

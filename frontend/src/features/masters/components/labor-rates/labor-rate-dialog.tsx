@@ -5,6 +5,7 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import {
   Dialog,
   DialogContent,
@@ -245,8 +246,7 @@ export function LaborRateDialog({
                   <FormItem>
                     <FormLabel>Effective From</FormLabel>
                     <FormControl>
-                      <Input
-                        type="date"
+                      <FormDatePicker
                         disabled={loading}
                         {...field}
                       />

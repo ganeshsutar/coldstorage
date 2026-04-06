@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -81,14 +82,15 @@ export function LoanForm() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Go back"
           onClick={() => navigate({ to: "/app/loans" })}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight">New Loan (Karz)</h2>
@@ -102,27 +104,26 @@ export function LoanForm() {
         </div>
       )}
 
-      <div className="space-y-6">
+      <div className="flex flex-col gap-6">
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Loan Info</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
+          <CardContent className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <Label>Loan No</Label>
               <Input value={numberLoading ? "..." : nextLoanNo} readOnly className="bg-muted font-mono w-48" />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="date">Date *</Label>
-                <Input
+                <FormDatePicker
                   id="date"
-                  type="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(val) => setDate(val)}
                 />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="interest_rate">Interest Rate (% monthly)</Label>
                 <Input
                   id="interest_rate"
@@ -142,8 +143,8 @@ export function LoanForm() {
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Party</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
+          <CardContent className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="party_id">Party ID *</Label>
               <Input
                 id="party_id"
@@ -193,6 +194,7 @@ export function LoanForm() {
                           <input
                             type="radio"
                             name="amad"
+                            aria-label={`Select amad ${amad.amad_no}`}
                             checked={selectedAmadId === amad.id}
                             onChange={() => setSelectedAmadId(amad.id)}
                           />
@@ -219,9 +221,9 @@ export function LoanForm() {
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Loan Amount & Payment</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex flex-col gap-4">
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="amount">Loan Amount *</Label>
                 <Input
                   id="amount"
@@ -234,13 +236,13 @@ export function LoanForm() {
                   className="font-mono"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label>Total</Label>
                 <div className="p-2 border rounded-md bg-muted text-lg font-mono font-medium">
                   {formatCurrency(amount)}
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="payment_mode">Payment Mode</Label>
                 <Select value={paymentMode} onValueChange={setPaymentMode}>
                   <SelectTrigger>
@@ -258,7 +260,7 @@ export function LoanForm() {
 
             {paymentMode === "CHEQUE" && (
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="cheque_number">Cheque Number</Label>
                   <Input
                     id="cheque_number"
@@ -266,16 +268,15 @@ export function LoanForm() {
                     onChange={(e) => setChequeNumber(e.target.value)}
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="cheque_date">Cheque Date</Label>
-                  <Input
+                  <FormDatePicker
                     id="cheque_date"
-                    type="date"
                     value={chequeDate}
-                    onChange={(e) => setChequeDate(e.target.value)}
+                    onChange={(val) => setChequeDate(val)}
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="bank_name">Bank Name</Label>
                   <Input
                     id="bank_name"
@@ -287,7 +288,7 @@ export function LoanForm() {
             )}
 
             {paymentMode === "BANK" && (
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="bank_name_transfer">Bank Name</Label>
                 <Input
                   id="bank_name_transfer"
@@ -298,7 +299,7 @@ export function LoanForm() {
             )}
 
             {paymentMode === "UPI" && (
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="upi_reference">UPI Reference</Label>
                 <Input
                   id="upi_reference"
@@ -315,7 +316,7 @@ export function LoanForm() {
             <CardTitle className="text-base">Additional</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="narration">Narration</Label>
               <Textarea
                 id="narration"

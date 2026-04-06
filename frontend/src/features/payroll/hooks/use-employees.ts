@@ -19,8 +19,8 @@ export function useEmployees(filters?: EmployeeFilters) {
 
 export function useEmployeeDetail(id: string | null) {
   return useQuery({
-    queryKey: employeeKeys.detail(id!),
-    queryFn: () => employeeService.get(id!),
+    queryKey: employeeKeys.detail(id ?? ""),
+    queryFn: () => employeeService.get(id ?? ""),
     enabled: !!id,
   })
 }

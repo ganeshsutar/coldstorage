@@ -28,15 +28,16 @@ export function StockTransferPage() {
 
   return (
     <DashboardLayout activeNavItemId="stock-transfer" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/amad" }, { label: "Stock Transfer" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/inventory/amad" })}
             data-testid="transfer-back-button"
           >
-            <ArrowLeftIcon className="h-4 w-4" />
+            <ArrowLeftIcon className="size-4" />
           </Button>
           <div>
             <h1 className="text-2xl font-semibold" data-testid="transfer-title">Stock Transfer</h1>
@@ -56,7 +57,7 @@ export function StockTransferPage() {
             {completedAmad ? (
               <div className="text-center py-8 space-y-4" data-testid="transfer-success">
                 <div className="flex justify-center">
-                  <CheckCircleIcon className="h-16 w-16 text-green-500" />
+                  <CheckCircleIcon className="size-16 text-status-success-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold">
                   Stock Transferred Successfully

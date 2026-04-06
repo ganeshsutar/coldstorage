@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import type { ComponentType } from "../../types/interest"
@@ -8,9 +9,9 @@ interface ComponentCheckboxesProps {
 }
 
 const components: { value: ComponentType; label: string; color: string }[] = [
-  { value: "rent", label: "Rent", color: "text-blue-600" },
-  { value: "loan", label: "Loan", color: "text-green-600" },
-  { value: "bardana", label: "Bardana", color: "text-orange-600" },
+  { value: "rent", label: "Rent", color: "text-status-info-foreground" },
+  { value: "loan", label: "Loan", color: "text-status-success-foreground" },
+  { value: "bardana", label: "Bardana", color: "text-status-warning-foreground" },
   { value: "other", label: "Other", color: "text-gray-600" },
 ]
 
@@ -41,7 +42,7 @@ export function ComponentCheckboxes({
             />
             <Label
               htmlFor={`component-${component.value}`}
-              className={`font-normal cursor-pointer ${component.color}`}
+              className={cn("font-normal cursor-pointer", component.color)}
             >
               {component.label}
             </Label>

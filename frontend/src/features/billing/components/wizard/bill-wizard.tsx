@@ -146,9 +146,10 @@ export function BillWizard({ onSuccess, onCancel }: BillWizardProps) {
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Go back"
           onClick={handleCancel}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">

@@ -9,10 +9,10 @@ interface ComponentBreakdownProps {
 }
 
 const componentColors = {
-  rent: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
-  loan: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
-  bardana: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
-  interest: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  rent: "bg-status-info-muted text-status-info-foreground",
+  loan: "bg-status-success-muted text-status-success-foreground",
+  bardana: "bg-status-warning-muted text-status-warning-foreground",
+  interest: "bg-status-danger-muted text-status-danger-foreground",
   other: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
 }
 

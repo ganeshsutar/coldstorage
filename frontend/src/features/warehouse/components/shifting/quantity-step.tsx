@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import type { ShiftingWizardState } from "./shifting-wizard"
+import type { ShiftingWizardState } from "../../types/shifting"
 
 interface QuantityStepProps {
   state: ShiftingWizardState
@@ -115,7 +115,7 @@ export function QuantityStep({
       {/* Exceeds Warning */}
       {exceedsAvailable && (
         <div className="flex gap-3 rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-          <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+          <AlertCircle className="size-5 text-destructive flex-shrink-0 mt-0.5" />
           <p className="text-sm text-destructive">
             Quantity exceeds available packets ({maxPkt1} available)
           </p>

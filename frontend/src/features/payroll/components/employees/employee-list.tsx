@@ -65,7 +65,7 @@ export function EmployeeList() {
           </Select>
         </div>
         <Button onClick={() => navigate({ to: "/app/payroll/employees/new" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Employee
         </Button>
       </div>
@@ -114,8 +114,8 @@ export function EmployeeList() {
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" aria-label="Open menu">
+                          <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -124,7 +124,7 @@ export function EmployeeList() {
                             navigate({ to: "/app/payroll/employees/$id", params: { id: employee.id } })
                           }
                         >
-                          <Eye className="mr-2 h-4 w-4" />
+                          <Eye className="mr-2 size-4" />
                           View
                         </DropdownMenuItem>
                         <DropdownMenuItem
@@ -132,7 +132,7 @@ export function EmployeeList() {
                             navigate({ to: "/app/payroll/employees/$id", params: { id: employee.id } })
                           }
                         >
-                          <Edit className="mr-2 h-4 w-4" />
+                          <Edit className="mr-2 size-4" />
                           Edit
                         </DropdownMenuItem>
                       </DropdownMenuContent>

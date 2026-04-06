@@ -28,20 +28,20 @@ const statusConfig: Record<TemperatureStatus, {
 }> = {
   NORMAL: {
     icon: CheckCircle,
-    color: "text-green-600 dark:text-green-500",
-    bgColor: "bg-green-100 dark:bg-green-900/30",
+    color: "text-status-success-foreground",
+    bgColor: "bg-status-success-muted",
     label: "Normal",
   },
   WARNING: {
     icon: AlertTriangle,
-    color: "text-amber-600 dark:text-amber-500",
-    bgColor: "bg-amber-100 dark:bg-amber-900/30",
+    color: "text-status-warning-foreground",
+    bgColor: "bg-status-warning-muted",
     label: "Warning",
   },
   CRITICAL: {
     icon: AlertTriangle,
-    color: "text-red-600 dark:text-red-500",
-    bgColor: "bg-red-100 dark:bg-red-900/30",
+    color: "text-status-danger-foreground",
+    bgColor: "bg-status-danger-muted",
     label: "Critical",
   },
   OFFLINE: {
@@ -58,17 +58,17 @@ const trendConfig: Record<
 > = {
   rising: {
     icon: TrendingUp,
-    color: "text-red-500",
+    color: "text-status-danger-foreground",
     label: "Rising",
   },
   falling: {
     icon: TrendingDown,
-    color: "text-blue-500",
+    color: "text-status-info-foreground",
     label: "Falling",
   },
   stable: {
     icon: Minus,
-    color: "text-green-500",
+    color: "text-status-success-foreground",
     label: "Stable",
   },
   unknown: {
@@ -115,14 +115,14 @@ export function TemperatureCard({ temperature, trend, onClick }: TemperatureCard
             variant={temperature.status === "NORMAL" ? "secondary" : "destructive"}
             className={cn(config.color)}
           >
-            <StatusIcon className="h-3 w-3 mr-1" />
+            <StatusIcon className="size-3 mr-1" />
             {config.label}
           </Badge>
         </div>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-4">
-          <Thermometer className={cn("h-8 w-8", config.color)} />
+          <Thermometer className={cn("size-8", config.color)} />
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <p className="text-3xl font-bold font-mono">
@@ -130,7 +130,7 @@ export function TemperatureCard({ temperature, trend, onClick }: TemperatureCard
               </p>
               {TrendIcon && trendInfo && trend !== "unknown" && (
                 <div className={cn("flex items-center gap-1", trendInfo.color)}>
-                  <TrendIcon className="h-4 w-4" />
+                  <TrendIcon className="size-4" />
                   <span className="text-xs">{trendInfo.label}</span>
                 </div>
               )}

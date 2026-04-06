@@ -4,6 +4,7 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import {
   Form,
   FormControl,
@@ -113,7 +114,7 @@ export function TakpattiForm({
                 <FormItem>
                   <FormLabel>Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} disabled={loading} data-testid="takpatti-date-input" />
+                    <FormDatePicker {...field} disabled={loading} data-testid="takpatti-date-input" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

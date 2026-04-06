@@ -24,8 +24,8 @@ export function useRentBills(filters?: RentBillFilters) {
 
 export function useRentBillDetail(id: string | null) {
   return useQuery({
-    queryKey: rentBillKeys.detail(id!),
-    queryFn: () => rentBillService.getRentBill(id!),
+    queryKey: rentBillKeys.detail(id ?? ""),
+    queryFn: () => rentBillService.getRentBill(id ?? ""),
     enabled: !!id,
   })
 }

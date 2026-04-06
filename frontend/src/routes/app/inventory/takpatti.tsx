@@ -1,11 +1,12 @@
 import * as React from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { PlusIcon, SearchIcon } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { TakpattiListTable, TakpattiDialog } from "@/features/inventory/components/takpatti"
+import { TakpattiListTable } from "@/features/inventory/components/takpatti"
 import {
   useTakpattis,
   takpattiService,
@@ -13,10 +14,10 @@ import {
 } from "@/features/inventory"
 
 export function TakpattiPage() {
+  const navigate = useNavigate()
   const { takpattis, loading, refetch } = useTakpattis()
 
   const [search, setSearch] = React.useState("")
-  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const filteredTakpattis = React.useMemo(() => {
     if (!search) return takpattis
@@ -41,7 +42,7 @@ export function TakpattiPage() {
 
   return (
     <DashboardLayout activeNavItemId="takpatti" breadcrumbs={[{ label: "Inventory", to: "/app/inventory/takpatti" }, { label: "Takpatti" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold" data-testid="takpatti-title">Takpatti</h1>
@@ -49,8 +50,8 @@ export function TakpattiPage() {
               Weighment slips for inventory items
             </p>
           </div>
-          <Button onClick={() => setDialogOpen(true)} data-testid="takpatti-new-button">
-            <PlusIcon className="mr-2 h-4 w-4" />
+          <Button onClick={() => navigate({ to: "/app/inventory/takpatti/new" })} data-testid="takpatti-new-button">
+            <PlusIcon className="mr-2 size-4" />
             New Takpatti
           </Button>
         </div>
@@ -62,7 +63,7 @@ export function TakpattiPage() {
                 Weighment Records
               </CardTitle>
               <div className="relative">
-                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                 <Input
                   placeholder="Search takpattis..."
                   value={search}
@@ -83,11 +84,6 @@ export function TakpattiPage() {
         </Card>
       </div>
 
-      <TakpattiDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        onSuccess={refetch}
-      />
     </DashboardLayout>
   )
 }

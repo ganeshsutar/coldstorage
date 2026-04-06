@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Plus, Pencil, Trash2, Search } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -80,8 +81,8 @@ export function VillageList() {
     try {
       await villageService.deleteVillage(deleteVillage.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to delete village:", err)
+    } catch {
+      toast.error("Failed to delete village")
     } finally {
       setDeleting(false)
       setDeleteVillage(null)
@@ -108,7 +109,7 @@ export function VillageList() {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
           <Input
             placeholder="Search villages..."
             value={search}
@@ -117,7 +118,7 @@ export function VillageList() {
           />
         </div>
         <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add Village
         </Button>
       </div>
@@ -160,16 +161,18 @@ export function VillageList() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Edit village"
                         onClick={() => handleEdit(village)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete village"
                         onClick={() => setDeleteVillage(village)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="size-4" />
                       </Button>
                     </div>
                   </TableCell>

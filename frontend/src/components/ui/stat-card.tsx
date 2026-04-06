@@ -34,8 +34,8 @@ function TrendBadge({ trend }: { trend: TrendProps }) {
     <div
       className={cn(
         "flex items-center gap-1 text-sm font-medium",
-        isPositive && "text-green-600 dark:text-green-500",
-        isNegative && "text-red-600 dark:text-red-500",
+        isPositive && "text-status-success-foreground",
+        isNegative && "text-status-danger-foreground",
         !isPositive && !isNegative && "text-muted-foreground"
       )}
     >

@@ -78,7 +78,7 @@ export function RegisterForm({
         password: values.password,
       });
       setUser(user);
-      navigate({ to: "/app/dashboard" });
+      navigate({ to: "/app/system/settings" });
     } catch (error) {
       if (error instanceof ApiClientError) {
         // Map backend field errors to form

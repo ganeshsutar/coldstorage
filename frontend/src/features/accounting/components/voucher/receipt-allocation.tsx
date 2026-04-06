@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import {
   Table,
@@ -26,10 +27,10 @@ const headLabels = {
 }
 
 const headColors = {
-  rent: "text-blue-600",
-  loan: "text-green-600",
-  bardana: "text-orange-600",
-  interest: "text-red-600",
+  rent: "text-status-info-foreground",
+  loan: "text-status-success-foreground",
+  bardana: "text-status-warning-foreground",
+  interest: "text-status-danger-foreground",
   other: "text-gray-600",
 }
 
@@ -77,7 +78,7 @@ export function ReceiptAllocation({
           {itemsWithOutstanding.map((item, index) => (
             <TableRow key={item.head}>
               <TableCell
-                className={`font-medium ${headColors[item.head]}`}
+                className={cn("font-medium", headColors[item.head])}
               >
                 {headLabels[item.head]}
               </TableCell>

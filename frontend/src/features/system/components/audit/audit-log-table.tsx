@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import {
   Select,
   SelectContent,
@@ -35,21 +36,21 @@ import type { ActionType, ActivityLog, ActivityLogFilters } from "../../types"
 function getActionIcon(actionType: ActionType) {
   switch (actionType) {
     case "LOGIN":
-      return <LogIn className="h-4 w-4" />
+      return <LogIn className="size-4" />
     case "LOGOUT":
-      return <LogOut className="h-4 w-4" />
+      return <LogOut className="size-4" />
     case "CREATE":
-      return <Plus className="h-4 w-4" />
+      return <Plus className="size-4" />
     case "UPDATE":
-      return <Edit2 className="h-4 w-4" />
+      return <Edit2 className="size-4" />
     case "DELETE":
-      return <Trash2 className="h-4 w-4" />
+      return <Trash2 className="size-4" />
     case "VIEW":
-      return <Eye className="h-4 w-4" />
+      return <Eye className="size-4" />
     case "PRINT":
-      return <Printer className="h-4 w-4" />
+      return <Printer className="size-4" />
     case "EXPORT":
-      return <FileDown className="h-4 w-4" />
+      return <FileDown className="size-4" />
     default:
       return null
   }
@@ -183,20 +184,18 @@ export function AuditLogTable() {
                 <SelectItem value="Inventory">Inventory</SelectItem>
               </SelectContent>
             </Select>
-            <Input
+            <FormDatePicker
               data-testid="audit-from-date-input"
-              type="date"
               placeholder="From date"
               value={filters.from_date || ""}
-              onChange={(e) => handleFilterChange("from_date", e.target.value)}
+              onChange={(val) => handleFilterChange("from_date", val)}
               className="w-[150px]"
             />
-            <Input
+            <FormDatePicker
               data-testid="audit-to-date-input"
-              type="date"
               placeholder="To date"
               value={filters.to_date || ""}
-              onChange={(e) => handleFilterChange("to_date", e.target.value)}
+              onChange={(val) => handleFilterChange("to_date", val)}
               className="w-[150px]"
             />
           </div>
@@ -263,7 +262,7 @@ export function AuditLogTable() {
                         size="icon"
                         onClick={() => setSelectedLog(log)}
                       >
-                        <Eye className="h-4 w-4" />
+                        <Eye className="size-4" />
                         <span className="sr-only">View details</span>
                       </Button>
                     </TableCell>

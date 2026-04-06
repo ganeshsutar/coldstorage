@@ -56,7 +56,7 @@ export function getDailyStats(readings: TemperatureReading[]): DailyStats[] {
     if (!byDate.has(date)) {
       byDate.set(date, [])
     }
-    byDate.get(date)!.push(reading)
+    byDate.get(date)?.push(reading)
   }
 
   // Calculate stats for each date
@@ -109,11 +109,11 @@ export function formatTemperature(
 export function getTrendColorClass(trend: TemperatureTrend): string {
   switch (trend) {
     case "rising":
-      return "text-red-500"
+      return "text-status-danger-foreground"
     case "falling":
-      return "text-blue-500"
+      return "text-status-info-foreground"
     case "stable":
-      return "text-green-500"
+      return "text-status-success-foreground"
     default:
       return "text-muted-foreground"
   }

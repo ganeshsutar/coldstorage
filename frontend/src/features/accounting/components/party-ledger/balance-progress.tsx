@@ -25,13 +25,13 @@ export function BalanceProgress({
         value={usage}
         className={cn(
           "h-2 w-16",
-          isOverLimit && "[&>div]:bg-red-500"
+          isOverLimit && "[&>div]:bg-status-danger"
         )}
       />
       <span
         className={cn(
           "text-sm font-mono tabular-nums",
-          isOverLimit ? "text-red-600" : "text-muted-foreground"
+          isOverLimit ? "text-status-danger-foreground" : "text-muted-foreground"
         )}
       >
         {Math.round(usage)}%

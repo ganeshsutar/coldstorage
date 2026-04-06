@@ -2,6 +2,7 @@ import * as React from "react"
 import { format } from "date-fns"
 import { SaveIcon, PrinterIcon, XIcon, ArrowLeftIcon } from "lucide-react"
 import { Link, useNavigate } from "@tanstack/react-router"
+import { toast } from "sonner"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
@@ -65,8 +66,8 @@ export function NewVoucherPage() {
         payment_details: paymentDetails,
       })
       navigate({ to: "/app/accounts/vouchers" })
-    } catch (error) {
-      console.error("Failed to save voucher:", error)
+    } catch {
+      toast.error("Failed to save voucher")
     } finally {
       setSaving(false)
     }
@@ -74,12 +75,12 @@ export function NewVoucherPage() {
 
   return (
     <DashboardLayout activeNavItemId="vouchers" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/vouchers" }, { label: "New Voucher" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild data-testid="new-voucher-back-button">
+            <Button variant="ghost" size="icon" aria-label="Go back" asChild data-testid="new-voucher-back-button">
               <Link to="/app/accounts/vouchers">
-                <ArrowLeftIcon className="h-4 w-4" />
+                <ArrowLeftIcon className="size-4" />
               </Link>
             </Button>
             <div>
@@ -156,7 +157,7 @@ export function NewVoucherPage() {
                 <div className="flex justify-end gap-2 mt-4">
                   <Button variant="outline" asChild data-testid="new-voucher-cancel-button">
                     <Link to="/app/accounts/vouchers">
-                      <XIcon className="mr-2 h-4 w-4" />
+                      <XIcon className="mr-2 size-4" />
                       Cancel
                     </Link>
                   </Button>
@@ -165,7 +166,7 @@ export function NewVoucherPage() {
                     onClick={handleSave}
                     disabled={!isBalanced || totalAmount === 0 || saving}
                   >
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <SaveIcon className="mr-2 size-4" />
                     {saving ? "Saving..." : "Save"}
                   </Button>
                   <Button
@@ -173,7 +174,7 @@ export function NewVoucherPage() {
                     variant="secondary"
                     disabled={!isBalanced || totalAmount === 0 || saving}
                   >
-                    <PrinterIcon className="mr-2 h-4 w-4" />
+                    <PrinterIcon className="mr-2 size-4" />
                     Save & Print
                   </Button>
                 </div>

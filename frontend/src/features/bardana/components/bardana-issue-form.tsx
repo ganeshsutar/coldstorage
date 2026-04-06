@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -138,7 +139,7 @@ export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
                   <FormItem>
                     <FormLabel>Date</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} />
+                      <FormDatePicker {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -206,7 +207,7 @@ export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
                 size="sm"
                 onClick={() => append({ bardana_type_id: "", qty: 0, rate: 0 })}
               >
-                <Plus className="mr-1 h-4 w-4" />
+                <Plus className="mr-1 size-4" />
                 Add Item
               </Button>
             </CardHeader>
@@ -285,11 +286,12 @@ export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
                       type="button"
                       variant="ghost"
                       size="icon"
+                      aria-label="Remove item"
                       onClick={() => remove(index)}
                       disabled={fields.length === 1}
                       className="mb-0.5"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="size-4" />
                     </Button>
                   </div>
                 ))}
@@ -336,7 +338,7 @@ export function BardanaIssueForm({ accounts = [] }: BardanaIssueFormProps) {
                     <FormItem>
                       <FormLabel>Expected Arrival Date</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} />
+                        <FormDatePicker {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -18,11 +18,11 @@ export function KpiCards({
 }: KpiCardsProps) {
   const tempColor =
     temperatureStatus === "NORMAL"
-      ? "text-green-600"
+      ? "text-status-success-foreground"
       : temperatureStatus === "WARNING"
-      ? "text-amber-600"
+      ? "text-status-warning-foreground"
       : temperatureStatus === "CRITICAL"
-      ? "text-red-600"
+      ? "text-status-danger-foreground"
       : "text-gray-600"
 
   return (

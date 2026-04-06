@@ -24,17 +24,17 @@ export function AlertSummaryCard({ alerts, loading }: AlertSummaryCardProps) {
 
   if (!hasAlerts) {
     return (
-      <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/30">
+      <Card className="border-status-success-muted bg-status-success-muted">
         <CardContent className="py-6">
           <div className="flex items-center gap-4">
-            <div className="rounded-full bg-green-100 p-3 dark:bg-green-900/50">
-              <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+            <div className="rounded-full bg-status-success-muted p-3">
+              <CheckCircle className="size-6 text-status-success-foreground" />
             </div>
             <div>
-              <p className="font-semibold text-green-700 dark:text-green-300">
+              <p className="font-semibold text-status-success-foreground">
                 All Systems Normal
               </p>
-              <p className="text-sm text-green-600 dark:text-green-400">
+              <p className="text-sm text-status-success-foreground">
                 No temperature alerts at this time
               </p>
             </div>
@@ -45,24 +45,24 @@ export function AlertSummaryCard({ alerts, loading }: AlertSummaryCardProps) {
   }
 
   return (
-    <Card className="border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/30">
+    <Card className="border-status-warning-muted bg-status-warning-muted">
       <CardContent className="py-6">
         <div className="flex items-center gap-4">
-          <div className="rounded-full bg-amber-100 p-3 dark:bg-amber-900/50">
-            <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <div className="rounded-full bg-status-warning-muted p-3">
+            <AlertTriangle className="size-6 text-status-warning-foreground" />
           </div>
           <div className="flex-1">
-            <p className="font-semibold text-amber-700 dark:text-amber-300">
+            <p className="font-semibold text-status-warning-foreground">
               {alerts.length} Active Alert{alerts.length !== 1 ? "s" : ""}
             </p>
             <div className="flex gap-4 text-sm mt-1">
               {criticalCount > 0 && (
-                <span className="text-red-600 dark:text-red-400">
+                <span className="text-status-danger-foreground">
                   {criticalCount} Critical
                 </span>
               )}
               {warningCount > 0 && (
-                <span className="text-amber-600 dark:text-amber-400">
+                <span className="text-status-warning-foreground">
                   {warningCount} Warning
                 </span>
               )}

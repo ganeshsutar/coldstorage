@@ -95,14 +95,14 @@ export function DashboardSettingsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         {saveError && (
           <div data-testid="dashboard-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
             {saveError}
           </div>
         )}
         {saveSuccess && (
-          <div data-testid="dashboard-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+          <div data-testid="dashboard-success-message" className="text-sm text-status-success-foreground bg-status-success-muted p-3 rounded-md">
             Settings saved successfully
           </div>
         )}
@@ -114,13 +114,13 @@ export function DashboardSettingsForm() {
               Configure which widgets to show on the dashboard
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex flex-col gap-4">
             <FormField
               control={form.control}
               name="show_summary_inward"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Summary Inward</FormLabel>
                     <FormDescription>Display inward summary widget</FormDescription>
                   </div>
@@ -140,7 +140,7 @@ export function DashboardSettingsForm() {
               name="show_bag_grading"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Bag Grading Summary</FormLabel>
                     <FormDescription>Display bag grading statistics</FormDescription>
                   </div>
@@ -160,7 +160,7 @@ export function DashboardSettingsForm() {
               name="show_pending_dues"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Pending Dues</FormLabel>
                     <FormDescription>Display pending dues widget</FormDescription>
                   </div>
@@ -180,7 +180,7 @@ export function DashboardSettingsForm() {
               name="show_low_stock_alert"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Low Stock Alerts</FormLabel>
                     <FormDescription>Display low stock warnings</FormDescription>
                   </div>
@@ -200,7 +200,7 @@ export function DashboardSettingsForm() {
               name="show_chamber_occupancy"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Chamber Occupancy</FormLabel>
                     <FormDescription>Display chamber occupancy stats</FormDescription>
                   </div>
@@ -220,7 +220,7 @@ export function DashboardSettingsForm() {
               name="show_recent_transactions"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Recent Transactions</FormLabel>
                     <FormDescription>Display recent transaction list</FormDescription>
                   </div>
@@ -240,7 +240,7 @@ export function DashboardSettingsForm() {
               name="show_todays_collections"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Show Today's Collections</FormLabel>
                     <FormDescription>Display today's collection summary</FormDescription>
                   </div>
@@ -265,13 +265,13 @@ export function DashboardSettingsForm() {
               Configure automatic print behavior
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex flex-col gap-4">
             <FormField
               control={form.control}
               name="print_takpatti"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Print Takpatti on Save</FormLabel>
                     <FormDescription>Auto-print takpatti when saved</FormDescription>
                   </div>
@@ -291,7 +291,7 @@ export function DashboardSettingsForm() {
               name="print_gate_pass"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Print Gate Pass on Save</FormLabel>
                     <FormDescription>Auto-print gate pass when saved</FormDescription>
                   </div>
@@ -311,7 +311,7 @@ export function DashboardSettingsForm() {
               name="print_receipt"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Print Receipt on Save</FormLabel>
                     <FormDescription>Auto-print receipt when saved</FormDescription>
                   </div>
@@ -331,7 +331,7 @@ export function DashboardSettingsForm() {
               name="auto_print_rent_bill"
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="space-y-0.5">
+                  <div className="flex flex-col gap-0.5">
                     <FormLabel>Auto-print Rent Bill</FormLabel>
                     <FormDescription>Auto-print rent bills when created</FormDescription>
                   </div>
@@ -356,7 +356,7 @@ export function DashboardSettingsForm() {
               Configure default values for lists and displays
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex flex-col gap-4">
             <div className="grid gap-4 md:grid-cols-3">
               <FormField
                 control={form.control}

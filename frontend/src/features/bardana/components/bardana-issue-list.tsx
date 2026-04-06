@@ -91,7 +91,7 @@ export function BardanaIssueList() {
           <p className="text-muted-foreground">Manage bardana issued to parties</p>
         </div>
         <Button onClick={() => navigate({ to: "/app/bardana/issues/new" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Issue
         </Button>
       </div>
@@ -160,8 +160,8 @@ export function BardanaIssueList() {
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" aria-label="Open menu">
+                          <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -173,12 +173,12 @@ export function BardanaIssueList() {
                             })
                           }
                         >
-                          <Eye className="mr-2 h-4 w-4" />
+                          <Eye className="mr-2 size-4" />
                           View
                         </DropdownMenuItem>
                         {issue.status === "DRAFT" && (
                           <DropdownMenuItem onClick={() => handleConfirm(issue)}>
-                            <CheckCircle className="mr-2 h-4 w-4" />
+                            <CheckCircle className="mr-2 size-4" />
                             Confirm
                           </DropdownMenuItem>
                         )}
@@ -187,7 +187,7 @@ export function BardanaIssueList() {
                             className="text-destructive"
                             onClick={() => setCancelIssue(issue)}
                           >
-                            <XCircle className="mr-2 h-4 w-4" />
+                            <XCircle className="mr-2 size-4" />
                             Cancel
                           </DropdownMenuItem>
                         )}

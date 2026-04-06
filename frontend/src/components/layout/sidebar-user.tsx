@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import {
   BadgeCheck,
   Bell,
@@ -119,7 +120,7 @@ export function SidebarUser({ email, name, onSignOut }: SidebarUserProps) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               data-testid="sidebar-user-button"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar className="size-8 rounded-lg">
                 <AvatarImage src={avatarUrl} alt={displayName} />
                 <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
               </Avatar>
@@ -138,7 +139,7 @@ export function SidebarUser({ email, name, onSignOut }: SidebarUserProps) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+                <Avatar className="size-8 rounded-lg">
                   <AvatarImage src={avatarUrl} alt={displayName} />
                   <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
                 </Avatar>
@@ -231,7 +232,7 @@ export function SidebarUser({ email, name, onSignOut }: SidebarUserProps) {
                     key={option.value}
                     onClick={() => setAccent(option.value)}
                   >
-                    <div className={`mr-2 size-4 rounded-full ${option.color}`} />
+                    <div className={cn("mr-2 size-4 rounded-full", option.color)} />
                     {option.label}
                     {config.accent === option.value && (
                       <Check className="ml-auto size-4" />

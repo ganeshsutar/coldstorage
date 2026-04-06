@@ -11,8 +11,8 @@ export function useBillingStats() {
 
 export function usePartyOutstanding(partyId: string | null) {
   return useQuery({
-    queryKey: rentBillKeys.partyOutstanding(partyId!),
-    queryFn: () => rentBillService.getPartyOutstanding(partyId!),
+    queryKey: rentBillKeys.partyOutstanding(partyId ?? ""),
+    queryFn: () => rentBillService.getPartyOutstanding(partyId ?? ""),
     enabled: !!partyId,
   })
 }

@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
@@ -70,14 +71,15 @@ export function DealForm() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
           size="icon"
+          aria-label="Go back"
           onClick={() => navigate({ to: "/app/trading" })}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h1 className="text-2xl font-bold">New Deal (Sauda)</h1>
@@ -96,22 +98,21 @@ export function DealForm() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Deal Information</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label>Deal No</Label>
               <Input value={numberLoading ? "..." : nextDealNo} readOnly className="bg-muted font-mono" />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="deal_date">Deal Date *</Label>
-              <Input
+              <FormDatePicker
                 id="deal_date"
-                type="date"
                 value={dealDate}
-                onChange={(e) => setDealDate(e.target.value)}
+                onChange={(val) => setDealDate(val)}
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="variety">Variety</Label>
               <Input
                 id="variety"
@@ -129,9 +130,9 @@ export function DealForm() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Parties</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="seller_id">Seller (Party Account ID) *</Label>
               <Input
                 id="seller_id"
@@ -140,7 +141,7 @@ export function DealForm() {
                 placeholder="Enter seller account ID"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="buyer_id">Buyer (Party Account ID) *</Label>
               <Input
                 id="buyer_id"
@@ -150,7 +151,7 @@ export function DealForm() {
               />
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="commodity_id">Commodity ID *</Label>
             <Input
               id="commodity_id"
@@ -167,9 +168,9 @@ export function DealForm() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Details</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="quantity">Quantity (Bags) *</Label>
               <Input
                 id="quantity"
@@ -181,7 +182,7 @@ export function DealForm() {
                 placeholder="Enter quantity"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="rate">Rate *</Label>
               <Input
                 id="rate"
@@ -194,7 +195,7 @@ export function DealForm() {
                 className="font-mono"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label className="text-muted-foreground">Total Amount</Label>
               <div className="p-2 border rounded-md bg-muted text-lg font-mono font-medium">
                 {formatCurrency(totalAmount)}
@@ -209,9 +210,9 @@ export function DealForm() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Terms</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="due_days">Due Days</Label>
               <Input
                 id="due_days"
@@ -222,17 +223,16 @@ export function DealForm() {
                 placeholder="Number of days"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="due_date">Due Date</Label>
-              <Input
+              <FormDatePicker
                 id="due_date"
-                type="date"
                 value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
+                onChange={(val) => setDueDate(val)}
               />
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="delivery_location">Delivery Location</Label>
             <Input
               id="delivery_location"
@@ -241,7 +241,7 @@ export function DealForm() {
               placeholder="Enter delivery location"
             />
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="payment_terms">Payment Terms</Label>
             <Textarea
               id="payment_terms"
@@ -251,7 +251,7 @@ export function DealForm() {
               rows={2}
             />
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="remarks">Remarks</Label>
             <Textarea
               id="remarks"

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { Package, Clock, User, Upload, Download, ArrowRightLeft } from "lucide-react"
 import {
   Sheet,
@@ -24,9 +25,9 @@ interface RackDetailSheetProps {
 }
 
 const typeLabels: Record<string, { label: string; color: string }> = {
-  load: { label: "Loaded", color: "bg-green-500" },
-  unload: { label: "Unloaded", color: "bg-amber-500" },
-  shift_in: { label: "Shifted In", color: "bg-blue-500" },
+  load: { label: "Loaded", color: "bg-status-success" },
+  unload: { label: "Unloaded", color: "bg-status-warning" },
+  shift_in: { label: "Shifted In", color: "bg-status-info" },
   shift_out: { label: "Shifted Out", color: "bg-purple-500" },
 }
 
@@ -65,7 +66,7 @@ export function RackDetailSheet({
                 className="flex-1"
                 onClick={onLoadClick}
               >
-                <Upload className="h-4 w-4 mr-2" />
+                <Upload className="size-4 mr-2" />
                 Load
               </Button>
             )}
@@ -76,7 +77,7 @@ export function RackDetailSheet({
                 className="flex-1"
                 onClick={onUnloadClick}
               >
-                <Download className="h-4 w-4 mr-2" />
+                <Download className="size-4 mr-2" />
                 Unload
               </Button>
             )}
@@ -87,7 +88,7 @@ export function RackDetailSheet({
                 className="flex-1"
                 onClick={onShiftClick}
               >
-                <ArrowRightLeft className="h-4 w-4 mr-2" />
+                <ArrowRightLeft className="size-4 mr-2" />
                 Shift
               </Button>
             )}
@@ -105,7 +106,7 @@ export function RackDetailSheet({
             {/* Current Items */}
             <div className="space-y-4">
               <h4 className="font-semibold flex items-center gap-2">
-                <Package className="h-4 w-4" />
+                <Package className="size-4" />
                 Current Contents ({contents.items.length} items)
               </h4>
               {contents.items.length === 0 ? (
@@ -145,7 +146,7 @@ export function RackDetailSheet({
             {/* History */}
             <div className="space-y-4">
               <h4 className="font-semibold flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+                <Clock className="size-4" />
                 Recent History
               </h4>
               {contents.history.length === 0 ? (
@@ -163,7 +164,7 @@ export function RackDetailSheet({
                         className="flex items-start gap-3 text-sm"
                       >
                         <div
-                          className={`w-2 h-2 rounded-full mt-1.5 ${typeInfo.color}`}
+                          className={cn("size-2 rounded-full mt-1.5", typeInfo.color)}
                         />
                         <div className="flex-1">
                           <div className="flex justify-between">
@@ -176,7 +177,7 @@ export function RackDetailSheet({
                             {entry.amad_no}
                           </p>
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <User className="h-3 w-3" />
+                            <User className="size-3" />
                             {entry.user} - {new Date(entry.date).toLocaleDateString()}
                           </div>
                         </div>

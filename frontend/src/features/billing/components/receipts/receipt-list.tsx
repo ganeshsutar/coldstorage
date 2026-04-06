@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { Plus, Eye, Printer, XCircle, MoreHorizontal, CheckCircle } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -74,8 +75,8 @@ export function ReceiptList() {
     try {
       await receiptService.cancelReceipt(cancelReceipt.id, cancelReason)
       refetch()
-    } catch (err) {
-      console.error("Failed to cancel receipt:", err)
+    } catch {
+      toast.error("Failed to cancel receipt")
     } finally {
       setCancelling(false)
       setCancelReceipt(null)
@@ -87,8 +88,8 @@ export function ReceiptList() {
     try {
       await receiptService.confirmReceipt(receipt.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to confirm receipt:", err)
+    } catch {
+      toast.error("Failed to confirm receipt")
     }
   }
 
@@ -118,7 +119,7 @@ export function ReceiptList() {
           </p>
         </div>
         <Button onClick={() => navigate({ to: "/app/billing/receipts/new" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Receipt
         </Button>
       </div>
@@ -193,8 +194,8 @@ export function ReceiptList() {
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" aria-label="Open menu">
+                          <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -206,17 +207,17 @@ export function ReceiptList() {
                             })
                           }
                         >
-                          <Eye className="mr-2 h-4 w-4" />
+                          <Eye className="mr-2 size-4" />
                           View
                         </DropdownMenuItem>
                         {receipt.status === "DRAFT" && (
                           <DropdownMenuItem onClick={() => handleConfirm(receipt)}>
-                            <CheckCircle className="mr-2 h-4 w-4" />
+                            <CheckCircle className="mr-2 size-4" />
                             Confirm
                           </DropdownMenuItem>
                         )}
                         <DropdownMenuItem>
-                          <Printer className="mr-2 h-4 w-4" />
+                          <Printer className="mr-2 size-4" />
                           Print
                         </DropdownMenuItem>
                         {receipt.status !== "CANCELLED" && (
@@ -224,7 +225,7 @@ export function ReceiptList() {
                             className="text-destructive"
                             onClick={() => setCancelReceipt(receipt)}
                           >
-                            <XCircle className="mr-2 h-4 w-4" />
+                            <XCircle className="mr-2 size-4" />
                             Cancel
                           </DropdownMenuItem>
                         )}

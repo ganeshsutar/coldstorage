@@ -14,6 +14,7 @@ export interface Organization {
   id: string;
   name: string;
   slug: string;
+  is_configured: boolean;
 }
 
 export interface OrganizationMembership {

@@ -7,6 +7,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.utils import timezone
+
+from .models import Organization, OrganizationMembership
 from .serializers import (
     LoginSerializer,
     SignupSerializer,
@@ -57,6 +60,24 @@ class LoginView(APIView):
         user = serializer.validated_data["user"]
         login(request, user)
         user.update_last_login()
+
+        # Ensure user has at least one organization
+        has_membership = OrganizationMembership.objects.filter(
+            user=user, status=OrganizationMembership.Status.ACTIVE
+        ).exists()
+        if not has_membership:
+            org = Organization.objects.create(
+                name=f"{user.full_name}'s Organization",
+                billing_status=Organization.BillingStatus.TRIAL,
+            )
+            OrganizationMembership.objects.create(
+                user=user,
+                organization=org,
+                role=OrganizationMembership.Role.ADMIN,
+                is_default=True,
+                status=OrganizationMembership.Status.ACTIVE,
+                joined_at=timezone.now(),
+            )
 
         # Return user data with organizations
         response_serializer = UserWithOrganizationsSerializer(user)

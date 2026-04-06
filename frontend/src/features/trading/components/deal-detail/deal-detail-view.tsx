@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft, Truck, XCircle } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -48,8 +49,8 @@ export function DealDetailView({ dealId }: DealDetailViewProps) {
     try {
       await saudaService.cancelSauda(sauda.id, cancelReason)
       refetch()
-    } catch (err) {
-      console.error("Failed to cancel deal:", err)
+    } catch {
+      toast.error("Failed to cancel deal")
     } finally {
       setCancelling(false)
       setShowCancelDialog(false)
@@ -83,9 +84,10 @@ export function DealDetailView({ dealId }: DealDetailViewProps) {
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/trading" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <div className="flex items-center gap-3">
@@ -108,7 +110,7 @@ export function DealDetailView({ dealId }: DealDetailViewProps) {
                 search: { sauda_id: sauda.id },
               })}
             >
-              <Truck className="mr-2 h-4 w-4" />
+              <Truck className="mr-2 size-4" />
               Create Gate Pass
             </Button>
           )}
@@ -117,7 +119,7 @@ export function DealDetailView({ dealId }: DealDetailViewProps) {
               variant="outline"
               onClick={() => setShowCancelDialog(true)}
             >
-              <XCircle className="mr-2 h-4 w-4" />
+              <XCircle className="mr-2 size-4" />
               Cancel
             </Button>
           )}

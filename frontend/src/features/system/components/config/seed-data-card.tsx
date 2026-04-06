@@ -63,13 +63,13 @@ export function SeedDataCard() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Database className="h-5 w-5" />
+            <Database className="size-5" />
             Seed Data
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="size-4 animate-spin" />
             Loading seed data status...
           </div>
         </CardContent>
@@ -81,7 +81,7 @@ export function SeedDataCard() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Database className="h-5 w-5" />
+          <Database className="size-5" />
           Seed Data
         </CardTitle>
         <CardDescription>
@@ -91,7 +91,7 @@ export function SeedDataCard() {
       <CardContent className="space-y-4">
         {error && (
           <div className="flex items-center gap-2 text-sm text-destructive">
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="size-4" />
             {error}
           </div>
         )}
@@ -113,9 +113,9 @@ export function SeedDataCard() {
         )}
 
         {result && (
-          <div className="flex items-start gap-2 rounded-md border border-green-200 bg-green-50 p-3 dark:border-green-900 dark:bg-green-950">
-            <CheckCircle2 className="h-4 w-4 mt-0.5 text-green-600 dark:text-green-400" />
-            <div className="text-sm text-green-800 dark:text-green-200">
+          <div className="flex items-start gap-2 rounded-md border border-status-success bg-status-success-muted p-3">
+            <CheckCircle2 className="size-4 mt-0.5 text-status-success-foreground" />
+            <div className="text-sm text-status-success-foreground">
               <p className="font-medium">Seeding complete</p>
               <ul className="mt-1 space-y-0.5">
                 {Object.entries(result).map(([key, counts]) => {
@@ -134,7 +134,7 @@ export function SeedDataCard() {
 
         {seedError && (
           <div className="flex items-center gap-2 text-sm text-destructive">
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="size-4" />
             {seedError}
           </div>
         )}
@@ -144,7 +144,7 @@ export function SeedDataCard() {
           disabled={seeding}
           data-testid="seed-data-button"
         >
-          {seeding && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {seeding && <Loader2 className="mr-2 size-4 animate-spin" />}
           {status?.all_seeded ? "Re-seed Data" : "Initialize Seed Data"}
         </Button>
       </CardContent>

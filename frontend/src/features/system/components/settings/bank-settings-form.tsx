@@ -93,7 +93,7 @@ export function BankSettingsForm() {
               </div>
             )}
             {saveSuccess && (
-              <div data-testid="bank-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="bank-success-message" className="text-sm text-status-success-foreground bg-status-success-muted p-3 rounded-md">
                 Bank settings saved successfully
               </div>
             )}

@@ -6,6 +6,7 @@ import {
 } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import type { PaymentDetails as PaymentDetailsType, PaymentMode } from "../../types/voucher"
@@ -50,7 +51,7 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
               data-testid={`payment-mode-${mode.value}`}
               className="gap-2"
             >
-              <mode.icon className="h-4 w-4" />
+              <mode.icon className="size-4" />
               {mode.label}
             </ToggleGroupItem>
           ))}
@@ -71,12 +72,11 @@ export function PaymentDetails({ value, onChange }: PaymentDetailsProps) {
           </div>
           <div className="space-y-2">
             <Label htmlFor="cheque_date">Cheque Date</Label>
-            <Input
+            <FormDatePicker
               id="cheque_date"
               data-testid="payment-cheque-date-input"
-              type="date"
               value={value.cheque_date || ""}
-              onChange={(e) => handleFieldChange("cheque_date", e.target.value)}
+              onChange={(val) => handleFieldChange("cheque_date", val)}
             />
           </div>
         </div>

@@ -1,10 +1,11 @@
+import { cn } from "@/lib/utils"
 
 const legendItems = [
   { label: "Empty", color: "bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700" },
-  { label: "Partial", color: "bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-800" },
-  { label: "Full", color: "bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-800" },
-  { label: "Reserved", color: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-800" },
-  { label: "Maintenance", color: "bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-800" },
+  { label: "Partial", color: "bg-status-warning-muted border-status-warning-muted" },
+  { label: "Full", color: "bg-status-success-muted border-status-success-muted" },
+  { label: "Reserved", color: "bg-status-info-muted border-status-info-muted" },
+  { label: "Maintenance", color: "bg-status-danger-muted border-status-danger-muted" },
 ]
 
 export function RackLegend() {
@@ -13,7 +14,7 @@ export function RackLegend() {
       <span className="text-muted-foreground">Legend:</span>
       {legendItems.map((item) => (
         <div key={item.label} className="flex items-center gap-2">
-          <div className={`w-4 h-4 rounded border-2 ${item.color}`} />
+          <div className={cn("size-4 rounded border-2", item.color)} />
           <span>{item.label}</span>
         </div>
       ))}

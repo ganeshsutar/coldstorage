@@ -2,9 +2,11 @@ import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
@@ -83,15 +85,16 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {!onSuccess && (
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => onCancel ? onCancel() : navigate({ to: "/app/trading" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <h1 className="text-2xl font-bold">New Grading (Katai)</h1>
@@ -108,18 +111,17 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
 
       {onSuccess ? (
         /* Compact dialog layout — no card wrappers */
-        <div className="space-y-5">
+        <div className="flex flex-col gap-5">
           <div className="grid grid-cols-4 gap-4">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="katai_date">Date *</Label>
-              <Input
+              <FormDatePicker
                 id="katai_date"
-                type="date"
                 value={kataiDate}
-                onChange={(e) => setKataiDate(e.target.value)}
+                onChange={(val) => setKataiDate(val)}
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="party_id">Party (Account ID) *</Label>
               <Input
                 id="party_id"
@@ -128,7 +130,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                 placeholder="Enter party account ID"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="amad_id">Amad ID *</Label>
               <Input
                 id="amad_id"
@@ -137,7 +139,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                 placeholder="Enter amad ID"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="bags_graded">Bags to Grade *</Label>
               <Input
                 id="bags_graded"
@@ -150,43 +152,43 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="flex flex-col gap-3">
             <h4 className="text-sm font-medium">
               Output Breakdown
               {bagsGraded > 0 && (
-                <span className={`ml-2 text-sm font-normal ${isOutputValid ? "text-green-600" : "text-destructive"}`}>
+                <span className={cn("ml-2 text-sm font-normal", isOutputValid ? "text-status-success-foreground" : "text-destructive")}>
                   ({outputSum}/{bagsGraded} bags)
                 </span>
               )}
             </h4>
             <div className="grid grid-cols-5 gap-4">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="mota_bags">Mota</Label>
                 <Input id="mota_bags" type="number" min="0" value={motaBags || ""} onChange={(e) => setMotaBags(parseInt(e.target.value) || 0)} />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="chatta_bags">Chatta</Label>
                 <Input id="chatta_bags" type="number" min="0" value={chattaBags || ""} onChange={(e) => setChattaBags(parseInt(e.target.value) || 0)} />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="beej_bags">Beej</Label>
                 <Input id="beej_bags" type="number" min="0" value={beejBags || ""} onChange={(e) => setBeejBags(parseInt(e.target.value) || 0)} />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="mix_bags">Mix</Label>
                 <Input id="mix_bags" type="number" min="0" value={mixBags || ""} onChange={(e) => setMixBags(parseInt(e.target.value) || 0)} />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="gulla_bags">Gulla</Label>
                 <Input id="gulla_bags" type="number" min="0" value={gullaBags || ""} onChange={(e) => setGullaBags(parseInt(e.target.value) || 0)} />
               </div>
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="flex flex-col gap-3">
             <h4 className="text-sm font-medium">Charges & Labor</h4>
             <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="charge_per_bag">Charge per Bag</Label>
                 <Input
                   id="charge_per_bag"
@@ -199,13 +201,13 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                   className="font-mono"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label className="text-muted-foreground">Total Charges</Label>
                 <div className="p-2 border rounded-md bg-muted text-lg font-mono font-medium">
                   {formatCurrency(totalCharges)}
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="labor_name">Labor Name</Label>
                 <Input
                   id="labor_name"
@@ -215,7 +217,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                 />
               </div>
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="grading_remarks">Remarks</Label>
               <Textarea
                 id="grading_remarks"
@@ -229,23 +231,22 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
         </div>
       ) : (
         /* Full page layout with cards */
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Source</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="katai_date">Date *</Label>
-                  <Input
+                  <FormDatePicker
                     id="katai_date"
-                    type="date"
                     value={kataiDate}
-                    onChange={(e) => setKataiDate(e.target.value)}
+                    onChange={(val) => setKataiDate(val)}
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="party_id">Party (Account ID) *</Label>
                   <Input
                     id="party_id"
@@ -254,7 +255,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                     placeholder="Enter party account ID"
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="amad_id">Amad ID *</Label>
                   <Input
                     id="amad_id"
@@ -271,8 +272,8 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Details</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
+            <CardContent className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="bags_graded">Total Bags to Grade *</Label>
                 <Input
                   id="bags_graded"
@@ -292,7 +293,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
               <CardTitle className="text-base">
                 Output Breakdown
                 {bagsGraded > 0 && (
-                  <span className={`ml-2 text-sm font-normal ${isOutputValid ? "text-green-600" : "text-destructive"}`}>
+                  <span className={cn("ml-2 text-sm font-normal", isOutputValid ? "text-status-success-foreground" : "text-destructive")}>
                     ({outputSum}/{bagsGraded} bags)
                   </span>
                 )}
@@ -300,23 +301,23 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 sm:grid-cols-5">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="mota_bags">Mota</Label>
                   <Input id="mota_bags" type="number" min="0" value={motaBags || ""} onChange={(e) => setMotaBags(parseInt(e.target.value) || 0)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="chatta_bags">Chatta</Label>
                   <Input id="chatta_bags" type="number" min="0" value={chattaBags || ""} onChange={(e) => setChattaBags(parseInt(e.target.value) || 0)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="beej_bags">Beej</Label>
                   <Input id="beej_bags" type="number" min="0" value={beejBags || ""} onChange={(e) => setBeejBags(parseInt(e.target.value) || 0)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="mix_bags">Mix</Label>
                   <Input id="mix_bags" type="number" min="0" value={mixBags || ""} onChange={(e) => setMixBags(parseInt(e.target.value) || 0)} />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="gulla_bags">Gulla</Label>
                   <Input id="gulla_bags" type="number" min="0" value={gullaBags || ""} onChange={(e) => setGullaBags(parseInt(e.target.value) || 0)} />
                 </div>
@@ -328,9 +329,9 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Charges & Labor</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="charge_per_bag">Charge per Bag</Label>
                   <Input
                     id="charge_per_bag"
@@ -343,13 +344,13 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                     className="font-mono"
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label className="text-muted-foreground">Total Charges</Label>
                   <div className="p-2 border rounded-md bg-muted text-lg font-mono font-medium">
                     {formatCurrency(totalCharges)}
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="labor_name">Labor Name</Label>
                   <Input
                     id="labor_name"
@@ -359,7 +360,7 @@ export function GradingForm({ onSuccess, onCancel }: GradingFormProps = {}) {
                   />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="grading_remarks">Remarks</Label>
                 <Textarea
                   id="grading_remarks"

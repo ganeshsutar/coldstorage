@@ -180,7 +180,7 @@ export function PermissionEditor() {
           </div>
         )}
         {saveSuccess && (
-          <div className="text-sm text-green-600 bg-green-50 p-3 rounded-md mb-4" data-testid="permission-success-message">
+          <div className="text-sm text-status-success-foreground bg-status-success-muted p-3 rounded-md mb-4" data-testid="permission-success-message">
             Permissions saved successfully
           </div>
         )}

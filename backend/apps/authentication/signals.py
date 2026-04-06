@@ -8,7 +8,7 @@ from .models import Organization, OrganizationMembership, User
 @receiver(post_save, sender=User)
 def create_default_organization(sender, instance, created, **kwargs):
     """Create a default organization when a new user signs up."""
-    if created and not instance.is_superuser:
+    if created:
         # Create default organization
         org_name = f"{instance.full_name}'s Organization"
         organization = Organization.objects.create(

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useCreateShiftHeader } from "../../hooks/use-shifting"
 import { useRooms } from "@/features/inventory"
-import type { ShiftingWizardState } from "./shifting-wizard"
+import type { ShiftingWizardState } from "../../types/shifting"
 
 interface ConfirmStepProps {
   state: ShiftingWizardState
@@ -35,11 +35,11 @@ export function ConfirmStep({ state, onBack, onSuccess }: ConfirmStepProps) {
         {
           amad: state.amadId,
           from_room: state.sourceRoomId,
-          from_floor: state.sourceFloorNumber!,
-          from_rack: state.sourceRackNumber!,
+          from_floor: state.sourceFloorNumber ?? 0,
+          from_rack: state.sourceRackNumber ?? 0,
           to_room: state.destinationRoomId,
-          to_floor: state.destinationFloorNumber!,
-          to_rack: state.destinationRackNumber!,
+          to_floor: state.destinationFloorNumber ?? 0,
+          to_rack: state.destinationRackNumber ?? 0,
           quantity: totalQuantity,
           narration: state.reason,
         },
@@ -68,7 +68,7 @@ export function ConfirmStep({ state, onBack, onSuccess }: ConfirmStepProps) {
               Floor {state.sourceFloorNumber}, Rack {state.sourceRackNumber}
             </p>
           </div>
-          <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+          <ArrowRight className="size-5 text-muted-foreground flex-shrink-0" />
           <div className="flex-1 rounded-lg bg-muted p-3">
             <p className="text-xs text-muted-foreground">To</p>
             <p className="font-medium">
@@ -142,7 +142,7 @@ export function ConfirmStep({ state, onBack, onSuccess }: ConfirmStepProps) {
 
       {/* Confirmation Message */}
       <div className="flex gap-3 rounded-lg border bg-muted/50 p-4">
-        <CheckCircle className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+        <CheckCircle className="size-5 text-muted-foreground flex-shrink-0 mt-0.5" />
         <p className="text-sm text-muted-foreground">
           Please review the details above. Once confirmed, the shift will be
           recorded and cannot be undone.
@@ -152,7 +152,7 @@ export function ConfirmStep({ state, onBack, onSuccess }: ConfirmStepProps) {
       {/* Error Display */}
       {error && (
         <div className="flex gap-3 rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-          <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+          <AlertCircle className="size-5 text-destructive flex-shrink-0 mt-0.5" />
           <p className="text-sm text-destructive">{error}</p>
         </div>
       )}
@@ -165,7 +165,7 @@ export function ConfirmStep({ state, onBack, onSuccess }: ConfirmStepProps) {
         <Button onClick={handleConfirm} disabled={loading}>
           {loading ? (
             <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Loader2 className="size-4 mr-2 animate-spin" />
               Processing...
             </>
           ) : (

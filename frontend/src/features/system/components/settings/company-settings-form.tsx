@@ -120,7 +120,7 @@ export function CompanySettingsForm() {
           </div>
         )}
         {saveSuccess && (
-          <div data-testid="company-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+          <div data-testid="company-success-message" className="text-sm text-status-success-foreground bg-status-success-muted p-3 rounded-md">
             Settings saved successfully
           </div>
         )}

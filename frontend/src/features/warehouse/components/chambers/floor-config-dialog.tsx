@@ -202,7 +202,7 @@ export function FloorConfigDialog({
               onClick={handleAutoGenerate}
               disabled={!chamber?.rack_count}
             >
-              <Wand2 className="mr-2 h-4 w-4" />
+              <Wand2 className="mr-2 size-4" />
               Auto-generate
             </Button>
           </div>
@@ -293,7 +293,7 @@ export function FloorConfigDialog({
                             size="icon-sm"
                             onClick={() => handleRemoveFloor(originalIndex)}
                           >
-                            <Trash2 className="h-4 w-4 text-destructive" />
+                            <Trash2 className="size-4 text-destructive" />
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -311,7 +311,7 @@ export function FloorConfigDialog({
             size="sm"
             onClick={handleAddFloor}
           >
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             Add Floor
           </Button>
         </div>

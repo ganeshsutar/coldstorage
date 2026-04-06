@@ -121,7 +121,7 @@ export function RentListTable({
                 title="View details"
                 data-testid={`nikasi-row-view-${index}`}
               >
-                <EyeIcon className="h-4 w-4" />
+                <EyeIcon className="size-4" />
               </Button>
             </TableCell>
           </TableRow>

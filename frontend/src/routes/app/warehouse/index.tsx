@@ -92,7 +92,7 @@ export function WarehouseIndexPage() {
 
   return (
     <DashboardLayout activeNavItemId="room-map" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Room Map" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -103,12 +103,12 @@ export function WarehouseIndexPage() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => refetchMap()}>
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="size-4 mr-2" />
               Refresh
             </Button>
             <Button asChild>
               <Link to="/app/warehouse/loading/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="size-4 mr-2" />
                 New Loading
               </Link>
             </Button>
@@ -189,7 +189,7 @@ export function WarehouseIndexPage() {
                   <CardTitle>Loading Records</CardTitle>
                   <Button asChild size="sm">
                     <Link to="/app/warehouse/loading/new">
-                      <Plus className="h-4 w-4 mr-2" />
+                      <Plus className="size-4 mr-2" />
                       New Loading
                     </Link>
                   </Button>
@@ -211,7 +211,7 @@ export function WarehouseIndexPage() {
                   <CardTitle>Unloading Records</CardTitle>
                   <Button asChild size="sm">
                     <Link to="/app/warehouse/unloading/new">
-                      <Plus className="h-4 w-4 mr-2" />
+                      <Plus className="size-4 mr-2" />
                       New Unloading
                     </Link>
                   </Button>

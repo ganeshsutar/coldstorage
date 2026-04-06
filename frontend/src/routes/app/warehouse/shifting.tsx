@@ -1,23 +1,19 @@
-import * as React from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { Plus, RefreshCw } from "lucide-react"
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useShiftHeaders } from "@/features/warehouse"
-import { ShiftingListTable, ShiftingWizard } from "@/features/warehouse/components/shifting"
+import { ShiftingListTable } from "@/features/warehouse/components/shifting"
 
 export function ShiftingPage() {
+  const navigate = useNavigate()
   const { headers, loading, refetch } = useShiftHeaders()
-  const [wizardOpen, setWizardOpen] = React.useState(false)
-
-  const handleWizardSuccess = () => {
-    refetch()
-  }
 
   return (
     <DashboardLayout activeNavItemId="shifting" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Shifting" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -28,11 +24,11 @@ export function ShiftingPage() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => refetch()}>
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="size-4 mr-2" />
               Refresh
             </Button>
-            <Button onClick={() => setWizardOpen(true)}>
-              <Plus className="h-4 w-4 mr-2" />
+            <Button onClick={() => navigate({ to: "/app/warehouse/shifting/new" })}>
+              <Plus className="size-4 mr-2" />
               New Shift
             </Button>
           </div>
@@ -48,13 +44,6 @@ export function ShiftingPage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Shifting Wizard Dialog */}
-      <ShiftingWizard
-        open={wizardOpen}
-        onOpenChange={setWizardOpen}
-        onSuccess={handleWizardSuccess}
-      />
     </DashboardLayout>
   )
 }

@@ -24,13 +24,19 @@ import { NikasiPage } from "@/routes/app/inventory/nikasi"
 import { NewNikasiPage } from "@/routes/app/inventory/nikasi.new"
 import { StockTransferPage } from "@/routes/app/inventory/stock-transfer"
 import { TakpattiPage } from "@/routes/app/inventory/takpatti"
+import { NewTakpattiPage } from "@/routes/app/inventory/takpatti.new"
+// Accounting "new" routes
+import { NewAccountPage } from "@/routes/app/accounts/accounts.new"
+import { NewPartyPage } from "@/routes/app/accounts/parties.new"
 // Warehouse routes
 import { WarehouseIndexPage } from "@/routes/app/warehouse/index"
 import { NewLoadingPage } from "@/routes/app/warehouse/loading.new"
 import { NewUnloadingPage } from "@/routes/app/warehouse/unloading.new"
 import { TemperatureDashboardPage } from "@/routes/app/warehouse/temperature"
 import { ShiftingPage } from "@/routes/app/warehouse/shifting"
+import { NewShiftingPage } from "@/routes/app/warehouse/shifting.new"
 import { ChambersPage } from "@/routes/app/warehouse/chambers"
+import { NewChamberPage } from "@/routes/app/warehouse/chambers.new"
 // Billing routes
 import { BillingPage } from "@/routes/app/billing/index"
 import { NewBillPage } from "@/routes/app/billing/new"
@@ -74,6 +80,7 @@ import { PayrollLedgerPage } from "@/routes/app/payroll/ledger"
 import { MastersPage } from "@/routes/app/masters/index"
 // System routes
 import { SystemSettingsPage } from "@/routes/app/system/settings"
+import { NewUserPage } from "@/routes/app/system/users.new"
 
 // Root route
 const rootRoute = createRootRoute({
@@ -193,6 +200,24 @@ const takpattiRoute = createRoute({
   component: TakpattiPage,
 })
 
+const newTakpattiRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/inventory/takpatti/new",
+  component: NewTakpattiPage,
+})
+
+const newAccountRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/accounts/accounts/new",
+  component: NewAccountPage,
+})
+
+const newPartyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/accounts/parties/new",
+  component: NewPartyPage,
+})
+
 // Warehouse routes
 const warehouseIndexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -224,10 +249,22 @@ const warehouseShiftingRoute = createRoute({
   component: ShiftingPage,
 })
 
+const warehouseShiftingNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/warehouse/shifting/new",
+  component: NewShiftingPage,
+})
+
 const warehouseChambersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/app/warehouse/chambers",
   component: ChambersPage,
+})
+
+const warehouseChambersNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/warehouse/chambers/new",
+  component: NewChamberPage,
 })
 
 // Billing routes
@@ -453,6 +490,12 @@ const systemSettingsRoute = createRoute({
   component: SystemSettingsPage,
 })
 
+const systemUsersNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/system/users/new",
+  component: NewUserPage,
+})
+
 // Create the route tree
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -464,6 +507,8 @@ const routeTree = rootRoute.addChildren([
   chartOfAccountsRoute,
   vouchersRoute,
   newVoucherRoute,
+  newAccountRoute,
+  newPartyRoute,
   daybookRoute,
   interestRoute,
   // Inventory routes
@@ -474,13 +519,16 @@ const routeTree = rootRoute.addChildren([
   newNikasiRoute,
   stockTransferRoute,
   takpattiRoute,
+  newTakpattiRoute,
   // Warehouse routes
   warehouseIndexRoute,
   warehouseLoadingNewRoute,
   warehouseUnloadingNewRoute,
   warehouseTemperatureRoute,
   warehouseShiftingRoute,
+  warehouseShiftingNewRoute,
   warehouseChambersRoute,
+  warehouseChambersNewRoute,
   // Trading routes
   tradingRoute,
   tradingNewDealRoute,
@@ -524,6 +572,7 @@ const routeTree = rootRoute.addChildren([
   mastersRoute,
   // System routes
   systemSettingsRoute,
+  systemUsersNewRoute,
 ])
 
 // Create the router instance

@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import {
   Select,
   SelectContent,
@@ -33,14 +33,15 @@ export function PayrollLedgerPage() {
 
   return (
     <DashboardLayout activeNavItemId="payroll" breadcrumbs={[{ label: "Payroll", to: "/app/payroll" }, { label: "Ledger" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/payroll" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Payroll Ledger</h2>
@@ -86,19 +87,17 @@ export function PayrollLedgerPage() {
               <SelectItem value="ADV">Advance</SelectItem>
             </SelectContent>
           </Select>
-          <Input
-            type="date"
+          <FormDatePicker
             value={filters.from_date || ""}
-            onChange={(e) =>
-              setFilters((f) => ({ ...f, from_date: e.target.value || undefined }))
+            onChange={(val) =>
+              setFilters((f) => ({ ...f, from_date: val || undefined }))
             }
             className="w-40"
           />
-          <Input
-            type="date"
+          <FormDatePicker
             value={filters.to_date || ""}
-            onChange={(e) =>
-              setFilters((f) => ({ ...f, to_date: e.target.value || undefined }))
+            onChange={(val) =>
+              setFilters((f) => ({ ...f, to_date: val || undefined }))
             }
             className="w-40"
           />

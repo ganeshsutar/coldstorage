@@ -193,22 +193,24 @@ export function NumberSeriesSettings() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8"
+                            className="size-8"
+                            aria-label="Save changes"
                             onClick={saveEdit}
                             disabled={saving}
                             data-testid={`seq-${seq.key}-save-button`}
                           >
-                            <CheckIcon className="h-4 w-4 text-green-600" />
+                            <CheckIcon className="size-4 text-status-success-foreground" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8"
+                            className="size-8"
+                            aria-label="Cancel editing"
                             onClick={cancelEdit}
                             disabled={saving}
                             data-testid={`seq-${seq.key}-cancel-button`}
                           >
-                            <XIcon className="h-4 w-4 text-muted-foreground" />
+                            <XIcon className="size-4 text-muted-foreground" />
                           </Button>
                         </div>
                       </TableCell>
@@ -238,11 +240,12 @@ export function NumberSeriesSettings() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8"
+                          className="size-8"
+                          aria-label="Edit sequence"
                           onClick={() => startEdit(seq)}
                           data-testid={`seq-${seq.key}-edit-button`}
                         >
-                          <PencilIcon className="h-4 w-4" />
+                          <PencilIcon className="size-4" />
                         </Button>
                       </TableCell>
                     </>

@@ -37,7 +37,12 @@ export function LoginForm({
     try {
       const user = await authService.login({ email, password })
       setUser(user)
-      navigate({ to: "/app/dashboard" })
+      const defaultOrg = user.organizations.find(m => m.is_default)
+      if (!defaultOrg || !defaultOrg.organization.is_configured) {
+        navigate({ to: "/app/system/settings" })
+      } else {
+        navigate({ to: "/app/dashboard" })
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed")
     } finally {

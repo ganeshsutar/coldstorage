@@ -5,6 +5,7 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Form,
@@ -155,7 +156,7 @@ export function RentForm({
                   <FormItem>
                     <FormLabel>Dispatch Date</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} disabled={loading} data-testid="nikasi-date-input" />
+                      <FormDatePicker {...field} disabled={loading} data-testid="nikasi-date-input" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

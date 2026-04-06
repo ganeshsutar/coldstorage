@@ -47,7 +47,7 @@ export function PartyOutstandingList() {
                         <span className="text-muted-foreground ml-3">Returned: </span>
                         <span className="font-medium">{party.total_returned}</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      <ChevronDown className="size-4 text-muted-foreground" />
                     </div>
                   </CardHeader>
                 </CollapsibleTrigger>
@@ -75,7 +75,7 @@ export function PartyOutstandingList() {
                             </TableCell>
                             <TableCell className="text-right">{type.issued}</TableCell>
                             <TableCell className="text-right">{type.returned}</TableCell>
-                            <TableCell className="text-right font-medium text-orange-600">
+                            <TableCell className="text-right font-medium text-status-warning-foreground">
                               {type.outstanding}
                             </TableCell>
                             <TableCell className="text-right font-mono">

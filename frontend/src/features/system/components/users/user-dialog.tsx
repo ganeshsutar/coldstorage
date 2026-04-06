@@ -32,16 +32,6 @@ import {
 import { usersService } from "../../api/users"
 import type { OrganizationUser } from "../../types"
 
-const createUserSchema = z.object({
-  email: z.string().email("Valid email required"),
-  full_name: z.string().min(1, "Name is required"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  phone: z.string().optional(),
-  role: z.enum(["ADMIN", "OPERATOR"]),
-  loan_per_bag_limit: z.number().optional().nullable(),
-  backdate_entry_limit: z.number().optional().nullable(),
-})
-
 const updateUserSchema = z.object({
   full_name: z.string().min(1, "Name is required"),
   phone: z.string().optional(),
@@ -51,14 +41,13 @@ const updateUserSchema = z.object({
   backdate_entry_limit: z.number().optional().nullable(),
 })
 
-type CreateUserFormData = z.infer<typeof createUserSchema>
 type UpdateUserFormData = z.infer<typeof updateUserSchema>
 
 interface UserDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSuccess: () => void
-  editUser?: OrganizationUser
+  editUser: OrganizationUser
 }
 
 export function UserDialog({
@@ -69,22 +58,8 @@ export function UserDialog({
 }: UserDialogProps) {
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
-  const isEdit = !!editUser
 
-  const createForm = useForm<CreateUserFormData>({
-    resolver: zodResolver(createUserSchema),
-    defaultValues: {
-      email: "",
-      full_name: "",
-      password: "",
-      phone: "",
-      role: "OPERATOR",
-      loan_per_bag_limit: null,
-      backdate_entry_limit: null,
-    },
-  })
-
-  const updateForm = useForm<UpdateUserFormData>({
+  const form = useForm<UpdateUserFormData>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       full_name: "",
@@ -97,48 +72,20 @@ export function UserDialog({
   })
 
   React.useEffect(() => {
-    if (open) {
+    if (open && editUser) {
       setError(null)
-      if (editUser) {
-        updateForm.reset({
-          full_name: editUser.user.full_name,
-          phone: editUser.user.phone || "",
-          role: editUser.role,
-          status: editUser.status,
-          loan_per_bag_limit: editUser.loan_per_bag_limit,
-          backdate_entry_limit: editUser.backdate_entry_limit,
-        })
-      } else {
-        createForm.reset({
-          email: "",
-          full_name: "",
-          password: "",
-          phone: "",
-          role: "OPERATOR",
-          loan_per_bag_limit: null,
-          backdate_entry_limit: null,
-        })
-      }
+      form.reset({
+        full_name: editUser.user.full_name,
+        phone: editUser.user.phone || "",
+        role: editUser.role,
+        status: editUser.status,
+        loan_per_bag_limit: editUser.loan_per_bag_limit,
+        backdate_entry_limit: editUser.backdate_entry_limit,
+      })
     }
-  }, [open, editUser, createForm, updateForm])
+  }, [open, editUser, form])
 
-  const onCreateSubmit = async (data: CreateUserFormData) => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      await usersService.createUser(data)
-      onSuccess()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create user")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const onUpdateSubmit = async (data: UpdateUserFormData) => {
-    if (!editUser) return
-
+  const onSubmit = async (data: UpdateUserFormData) => {
     setLoading(true)
     setError(null)
 
@@ -156,252 +103,54 @@ export function UserDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit User" : "Add User"}</DialogTitle>
+          <DialogTitle>Edit User</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? "Update user details and permissions"
-              : "Create a new user account for your organization"}
+            Update user details and permissions
           </DialogDescription>
         </DialogHeader>
 
-        {isEdit ? (
-          <Form {...updateForm}>
-            <form
-              onSubmit={updateForm.handleSubmit(onUpdateSubmit)}
-              className="space-y-4"
-            >
-              {error && (
-                <div data-testid="user-dialog-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
-                  {error}
-                </div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+            {error && (
+              <div data-testid="user-dialog-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                {error}
+              </div>
+            )}
+
+            <FormField
+              control={form.control}
+              name="full_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name *</FormLabel>
+                  <FormControl>
+                    <Input data-testid="user-dialog-edit-fullname-input" disabled={loading} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
+            />
 
-              <FormField
-                control={updateForm.control}
-                name="full_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
-                    <FormControl>
-                      <Input data-testid="user-dialog-edit-fullname-input" disabled={loading} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={updateForm.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone</FormLabel>
-                    <FormControl>
-                      <Input data-testid="user-dialog-edit-phone-input" disabled={loading} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={updateForm.control}
-                  name="role"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Role *</FormLabel>
-                      <Select
-                        disabled={loading}
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <FormControl>
-                          <SelectTrigger data-testid="user-dialog-edit-role-select">
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="ADMIN">Admin</SelectItem>
-                          <SelectItem value="OPERATOR">Operator</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={updateForm.control}
-                  name="status"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Status *</FormLabel>
-                      <Select
-                        disabled={loading}
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <FormControl>
-                          <SelectTrigger data-testid="user-dialog-edit-status-select">
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="ACTIVE">Active</SelectItem>
-                          <SelectItem value="PENDING">Pending</SelectItem>
-                          <SelectItem value="SUSPENDED">Suspended</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={updateForm.control}
-                  name="loan_per_bag_limit"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Loan Per Bag Limit</FormLabel>
-                      <FormControl>
-                        <Input
-                          data-testid="user-dialog-edit-loan-limit-input"
-                          type="number"
-                          placeholder="Rs"
-                          disabled={loading}
-                          {...field}
-                          value={field.value ?? ""}
-                        />
-                      </FormControl>
-                      <FormDescription>Max loan amount per bag</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={updateForm.control}
-                  name="backdate_entry_limit"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Backdate Limit (days)</FormLabel>
-                      <FormControl>
-                        <Input
-                          data-testid="user-dialog-edit-backdate-limit-input"
-                          type="number"
-                          placeholder="Days"
-                          disabled={loading}
-                          {...field}
-                          value={field.value ?? ""}
-                        />
-                      </FormControl>
-                      <FormDescription>Days allowed for backdating</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <DialogFooter>
-                <Button
-                  data-testid="user-dialog-cancel-button"
-                  type="button"
-                  variant="outline"
-                  onClick={() => onOpenChange(false)}
-                  disabled={loading}
-                >
-                  Cancel
-                </Button>
-                <Button data-testid="user-dialog-submit-button" type="submit" disabled={loading}>
-                  {loading ? "Saving..." : "Update User"}
-                </Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        ) : (
-          <Form {...createForm}>
-            <form
-              noValidate
-              onSubmit={createForm.handleSubmit(onCreateSubmit)}
-              className="space-y-4"
-            >
-              {error && (
-                <div data-testid="user-dialog-error-message" className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
-                  {error}
-                </div>
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone</FormLabel>
+                  <FormControl>
+                    <Input data-testid="user-dialog-edit-phone-input" disabled={loading} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
+            />
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={createForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email *</FormLabel>
-                      <FormControl>
-                        <Input
-                          data-testid="user-dialog-email-input"
-                          type="email"
-                          placeholder="user@example.com"
-                          disabled={loading}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={createForm.control}
-                  name="full_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name *</FormLabel>
-                      <FormControl>
-                        <Input data-testid="user-dialog-fullname-input" disabled={loading} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={createForm.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password *</FormLabel>
-                      <FormControl>
-                        <Input data-testid="user-dialog-password-input" type="password" disabled={loading} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={createForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input data-testid="user-dialog-phone-input" disabled={loading} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
+            <div className="grid gap-4 md:grid-cols-2">
               <FormField
-                control={createForm.control}
+                control={form.control}
                 name="role"
                 render={({ field }) => (
                   <FormItem>
@@ -412,17 +161,13 @@ export function UserDialog({
                       onValueChange={field.onChange}
                     >
                       <FormControl>
-                        <SelectTrigger data-testid="user-dialog-role-select">
+                        <SelectTrigger data-testid="user-dialog-edit-role-select">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="ADMIN">
-                          Admin - Full system access
-                        </SelectItem>
-                        <SelectItem value="OPERATOR">
-                          Operator - Data entry only
-                        </SelectItem>
+                        <SelectItem value="ADMIN">Admin</SelectItem>
+                        <SelectItem value="OPERATOR">Operator</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -430,69 +175,96 @@ export function UserDialog({
                 )}
               />
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={createForm.control}
-                  name="loan_per_bag_limit"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Loan Per Bag Limit</FormLabel>
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status *</FormLabel>
+                    <Select
+                      disabled={loading}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
                       <FormControl>
-                        <Input
-                          data-testid="user-dialog-loan-limit-input"
-                          type="number"
-                          placeholder="Rs"
-                          disabled={loading}
-                          {...field}
-                          value={field.value ?? ""}
-                        />
+                        <SelectTrigger data-testid="user-dialog-edit-status-select">
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
-                      <FormDescription>Max loan amount per bag</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                      <SelectContent>
+                        <SelectItem value="ACTIVE">Active</SelectItem>
+                        <SelectItem value="PENDING">Pending</SelectItem>
+                        <SelectItem value="SUSPENDED">Suspended</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-                <FormField
-                  control={createForm.control}
-                  name="backdate_entry_limit"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Backdate Limit (days)</FormLabel>
-                      <FormControl>
-                        <Input
-                          data-testid="user-dialog-backdate-limit-input"
-                          type="number"
-                          placeholder="Days"
-                          disabled={loading}
-                          {...field}
-                          value={field.value ?? ""}
-                        />
-                      </FormControl>
-                      <FormDescription>Days allowed for backdating</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="loan_per_bag_limit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Loan Per Bag Limit</FormLabel>
+                    <FormControl>
+                      <Input
+                        data-testid="user-dialog-edit-loan-limit-input"
+                        type="number"
+                        placeholder="Rs"
+                        disabled={loading}
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    </FormControl>
+                    <FormDescription>Max loan amount per bag</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              <DialogFooter>
-                <Button
-                  data-testid="user-dialog-cancel-button"
-                  type="button"
-                  variant="outline"
-                  onClick={() => onOpenChange(false)}
-                  disabled={loading}
-                >
-                  Cancel
-                </Button>
-                <Button data-testid="user-dialog-submit-button" type="submit" disabled={loading}>
-                  {loading ? "Creating..." : "Create User"}
-                </Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        )}
+              <FormField
+                control={form.control}
+                name="backdate_entry_limit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Backdate Limit (days)</FormLabel>
+                    <FormControl>
+                      <Input
+                        data-testid="user-dialog-edit-backdate-limit-input"
+                        type="number"
+                        placeholder="Days"
+                        disabled={loading}
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    </FormControl>
+                    <FormDescription>Days allowed for backdating</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <DialogFooter>
+              <Button
+                data-testid="user-dialog-cancel-button"
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                disabled={loading}
+              >
+                Cancel
+              </Button>
+              <Button data-testid="user-dialog-submit-button" type="submit" disabled={loading}>
+                {loading ? "Saving..." : "Update User"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )

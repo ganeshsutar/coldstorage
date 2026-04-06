@@ -25,8 +25,8 @@ export function AlertCard({ alert, onAcknowledge }: AlertCardProps) {
           <div className="flex items-center gap-2">
             <AlertTriangle
               className={cn(
-                "h-5 w-5",
-                isCritical ? "text-red-500" : "text-amber-500"
+                "size-5",
+                isCritical ? "text-status-danger-foreground" : "text-status-warning-foreground"
               )}
             />
             <CardTitle className="text-base">
@@ -46,7 +46,7 @@ export function AlertCard({ alert, onAcknowledge }: AlertCardProps) {
       <CardContent>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Thermometer className="h-4 w-4 text-muted-foreground" />
+            <Thermometer className="size-4 text-muted-foreground" />
             <span className="text-sm">
               Current: {alert.latest_reading.low_temp}°C - {alert.latest_reading.high_temp}°C
             </span>

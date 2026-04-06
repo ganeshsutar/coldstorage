@@ -4,6 +4,7 @@ import { CheckIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -37,7 +38,7 @@ function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
           <div key={index} className="flex items-center">
             <div
               className={cn(
-                "flex items-center justify-center w-8 h-8 rounded-full border-2",
+                "flex items-center justify-center size-8 rounded-full border-2",
                 isCompleted && "bg-primary border-primary text-primary-foreground",
                 isCurrent && "border-primary text-primary",
                 !isCompleted && !isCurrent && "border-muted text-muted-foreground"
@@ -45,7 +46,7 @@ function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
               data-testid={`transfer-step-${stepNumber}`}
             >
               {isCompleted ? (
-                <CheckIcon className="h-4 w-4" />
+                <CheckIcon className="size-4" />
               ) : (
                 <span className="text-sm font-medium">{stepNumber}</span>
               )}
@@ -161,7 +162,7 @@ export function StockTransferWizard({
   }
 
   return (
-    <div className="space-y-6" data-testid="transfer-wizard">
+    <div className="flex flex-col gap-6" data-testid="transfer-wizard">
       <StepIndicator currentStep={step} steps={steps} />
 
       {error && (
@@ -172,9 +173,9 @@ export function StockTransferWizard({
 
       {/* Step 1: Select Source */}
       {step === 1 && (
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <Label>Source Party (Optional filter)</Label>
               <PartyCombobox
                 value={sourcePartyId}
@@ -183,7 +184,7 @@ export function StockTransferWizard({
                 data-testid="transfer-source-party"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label>Select Amad to Transfer</Label>
               <AmadCombobox
                 amads={amads}
@@ -201,7 +202,7 @@ export function StockTransferWizard({
               <CardHeader className="pb-2">
                 <CardTitle className="text-base">Selected Amad Details</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm space-y-1">
+              <CardContent className="text-sm flex flex-col gap-1">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Amad No:</span>
                   <span className="font-mono">{selectedAmad.amad_no}</span>
@@ -228,8 +229,8 @@ export function StockTransferWizard({
 
       {/* Step 2: Select Destination */}
       {step === 2 && (
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <Label>Destination Party</Label>
             <PartyCombobox
               value={destPartyId}
@@ -245,12 +246,11 @@ export function StockTransferWizard({
             </p>
           )}
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label>Transfer Date</Label>
-            <Input
-              type="date"
+            <FormDatePicker
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(val) => setDate(val)}
               data-testid="transfer-date-input"
             />
           </div>
@@ -259,9 +259,9 @@ export function StockTransferWizard({
 
       {/* Step 3: Specify Quantity */}
       {step === 3 && (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label>
                 Packets (max: {selectedAmad?.remaining_packets})
               </Label>
@@ -274,7 +274,7 @@ export function StockTransferWizard({
                 data-testid="transfer-packets-input"
               />
             </div>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Label>
                 Weight in kg (max: {selectedAmad?.remaining_weight.toLocaleString("en-IN")})
               </Label>
@@ -290,7 +290,7 @@ export function StockTransferWizard({
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label>Narration (Optional)</Label>
             <Textarea
               placeholder="Notes about this transfer..."
@@ -309,7 +309,7 @@ export function StockTransferWizard({
           <CardHeader>
             <CardTitle className="text-base">Transfer Summary</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex flex-col gap-4">
             <div className="grid gap-2 text-sm">
               <div className="flex justify-between py-1 border-b">
                 <span className="text-muted-foreground">Source Amad:</span>

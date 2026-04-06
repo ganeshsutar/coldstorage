@@ -411,10 +411,11 @@ export function StepAddCharges({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8"
+                          className="size-8"
+                          aria-label="Remove custom charge"
                           onClick={() => handleRemoveCustomCharge(custom.id)}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="size-4" />
                         </Button>
                       </div>
                     </TableCell>
@@ -448,7 +449,7 @@ export function StepAddCharges({
             className="mt-3"
             onClick={handleAddCustomCharge}
           >
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             Add Custom Charge
           </Button>
         </CardContent>

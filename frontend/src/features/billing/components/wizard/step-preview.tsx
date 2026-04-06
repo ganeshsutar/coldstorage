@@ -104,7 +104,7 @@ export function StepPreview({
         <CardHeader className="pb-3 flex-row items-center justify-between">
           <CardTitle className="text-base">Bill Preview</CardTitle>
           <Button variant="outline" size="sm" disabled>
-            <Download className="mr-2 h-4 w-4" />
+            <Download className="mr-2 size-4" />
             Download
           </Button>
         </CardHeader>

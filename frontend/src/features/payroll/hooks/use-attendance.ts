@@ -19,8 +19,8 @@ export function useAttendance(filters?: AttendanceFilters) {
 
 export function useAttendanceDetail(id: string | null) {
   return useQuery({
-    queryKey: attendanceKeys.detail(id!),
-    queryFn: () => attendanceService.get(id!),
+    queryKey: attendanceKeys.detail(id ?? ""),
+    queryFn: () => attendanceService.get(id ?? ""),
     enabled: !!id,
   })
 }

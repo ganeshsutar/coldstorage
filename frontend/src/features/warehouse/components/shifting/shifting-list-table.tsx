@@ -64,7 +64,7 @@ export function ShiftingListTable({
             <TableCell className="font-medium">{header.shift_no}</TableCell>
             <TableCell>Room {header.from_room_number}</TableCell>
             <TableCell>
-              <ArrowRight className="h-4 w-4 text-muted-foreground" />
+              <ArrowRight className="size-4 text-muted-foreground" />
             </TableCell>
             <TableCell>Room {header.to_room_number}</TableCell>
             <TableCell className="text-right">{header.item_count}</TableCell>

@@ -54,8 +54,8 @@ export function PartyDetailSheet({
                   variant="outline"
                   className={cn(
                     party.balance_nature === "DEBIT"
-                      ? "border-red-200 text-red-700"
-                      : "border-green-200 text-green-700"
+                      ? "border-status-danger-muted text-status-danger-foreground"
+                      : "border-status-success-muted text-status-success-foreground"
                   )}
                 >
                   {formatBalance(
@@ -150,12 +150,12 @@ export function PartyDetailSheet({
                           <TableCell className="font-mono text-sm">
                             {entry.voucher_no}
                           </TableCell>
-                          <TableCell className="text-right font-mono text-sm text-red-600">
+                          <TableCell className="text-right font-mono text-sm text-status-danger-foreground">
                             {entry.debit
                               ? entry.debit.toLocaleString("en-IN")
                               : "-"}
                           </TableCell>
-                          <TableCell className="text-right font-mono text-sm text-green-600">
+                          <TableCell className="text-right font-mono text-sm text-status-success-foreground">
                             {entry.credit
                               ? entry.credit.toLocaleString("en-IN")
                               : "-"}

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Plus, Pencil, Trash2, Search } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -79,8 +80,8 @@ export function CommodityList() {
     try {
       await commodityService.deleteCommodity(deleteCommodity.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to delete commodity:", err)
+    } catch {
+      toast.error("Failed to delete commodity")
     } finally {
       setDeleting(false)
       setDeleteCommodity(null)
@@ -107,7 +108,7 @@ export function CommodityList() {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
           <Input
             placeholder="Search commodities..."
             value={search}
@@ -116,7 +117,7 @@ export function CommodityList() {
           />
         </div>
         <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add Commodity
         </Button>
       </div>
@@ -159,16 +160,18 @@ export function CommodityList() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Edit commodity"
                         onClick={() => handleEdit(commodity)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete commodity"
                         onClick={() => setDeleteCommodity(commodity)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="size-4" />
                       </Button>
                     </div>
                   </TableCell>

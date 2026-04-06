@@ -30,7 +30,7 @@ export function AmountDisplay({
 }: AmountDisplayProps) {
   const variantClasses = {
     default: "",
-    positive: "text-green-600",
+    positive: "text-status-success-foreground",
     negative: "text-destructive",
   }
 

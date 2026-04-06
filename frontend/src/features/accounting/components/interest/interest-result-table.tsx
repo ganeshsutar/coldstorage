@@ -21,9 +21,9 @@ interface InterestResultTableProps {
 }
 
 const componentColors = {
-  rent: "bg-blue-100 text-blue-800",
-  loan: "bg-green-100 text-green-800",
-  bardana: "bg-orange-100 text-orange-800",
+  rent: "bg-status-info-muted text-status-info-foreground",
+  loan: "bg-status-success-muted text-status-success-foreground",
+  bardana: "bg-status-warning-muted text-status-warning-foreground",
   other: "bg-gray-100 text-gray-800",
 }
 
@@ -50,9 +50,9 @@ function PartyRow({ party, index }: { party: PartyInterestResult; index: number 
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? (
-                <ChevronDownIcon className="h-4 w-4" />
+                <ChevronDownIcon className="size-4" />
               ) : (
-                <ChevronRightIcon className="h-4 w-4" />
+                <ChevronRightIcon className="size-4" />
               )}
             </Button>
           )}
@@ -63,7 +63,7 @@ function PartyRow({ party, index }: { party: PartyInterestResult; index: number 
         </TableCell>
         <TableCell className="text-center">{party.days}</TableCell>
         <TableCell className="text-center">{party.rate}%</TableCell>
-        <TableCell className="font-mono tabular-nums text-right font-medium text-red-600">
+        <TableCell className="font-mono tabular-nums text-right font-medium text-status-danger-foreground">
           {formatIndianNumber(party.interest)}
         </TableCell>
       </TableRow>
@@ -129,7 +129,7 @@ export function InterestResultTable({ result }: InterestResultTableProps) {
             {formatIndianNumber(result.total_principal)}
           </TableCell>
           <TableCell colSpan={2} />
-          <TableCell data-testid="interest-result-total-interest" className="text-right font-mono tabular-nums font-medium text-red-600">
+          <TableCell data-testid="interest-result-total-interest" className="text-right font-mono tabular-nums font-medium text-status-danger-foreground">
             {formatIndianNumber(result.total_interest)}
           </TableCell>
         </TableRow>

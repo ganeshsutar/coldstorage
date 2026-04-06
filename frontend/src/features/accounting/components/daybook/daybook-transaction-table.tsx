@@ -18,11 +18,11 @@ interface DaybookTransactionTableProps {
 }
 
 const voucherTypeColors = {
-  CR: "bg-green-100 text-green-800",
-  DR: "bg-red-100 text-red-800",
-  JV: "bg-blue-100 text-blue-800",
+  CR: "bg-status-success-muted text-status-success-foreground",
+  DR: "bg-status-danger-muted text-status-danger-foreground",
+  JV: "bg-status-info-muted text-status-info-foreground",
   CV: "bg-purple-100 text-purple-800",
-  BH: "bg-orange-100 text-orange-800",
+  BH: "bg-status-warning-muted text-status-warning-foreground",
 }
 
 export function DaybookTransactionTable({

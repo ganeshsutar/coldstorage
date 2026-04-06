@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { Plus, Eye, Truck, Scissors, XCircle, MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -82,8 +83,8 @@ export function DealList() {
     try {
       await saudaService.cancelSauda(cancelDeal.id, cancelReason)
       refetchSaudas()
-    } catch (err) {
-      console.error("Failed to cancel deal:", err)
+    } catch {
+      toast.error("Failed to cancel deal")
     } finally {
       setCancelling(false)
       setCancelDeal(null)
@@ -104,15 +105,15 @@ export function DealList() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => setShowGatePassDialog(true)}>
-            <Truck className="mr-2 h-4 w-4" />
+            <Truck className="mr-2 size-4" />
             New Gate Pass
           </Button>
           <Button variant="outline" onClick={() => setShowGradingDialog(true)}>
-            <Scissors className="mr-2 h-4 w-4" />
+            <Scissors className="mr-2 size-4" />
             New Grading
           </Button>
           <Button onClick={() => navigate({ to: "/app/trading/deals/new" })}>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             New Deal
           </Button>
         </div>
@@ -165,7 +166,7 @@ export function DealList() {
         <TabsContent value="grading" className="mt-4">
           <div className="flex justify-end mb-4">
             <Button onClick={() => navigate({ to: "/app/trading/grading/new" })}>
-              <Plus className="mr-2 h-4 w-4" />
+              <Plus className="mr-2 size-4" />
               New Grading
             </Button>
           </div>
@@ -311,18 +312,18 @@ function DealsTable({
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" aria-label="Open menu">
+                        <MoreHorizontal className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => onView(deal.id)}>
-                        <Eye className="mr-2 h-4 w-4" />
+                        <Eye className="mr-2 size-4" />
                         View
                       </DropdownMenuItem>
                       {onCreateGP && deal.status !== "CANCELLED" && deal.status !== "DISPATCHED" && (
                         <DropdownMenuItem onClick={() => onCreateGP(deal)}>
-                          <Truck className="mr-2 h-4 w-4" />
+                          <Truck className="mr-2 size-4" />
                           Create Gate Pass
                         </DropdownMenuItem>
                       )}
@@ -331,7 +332,7 @@ function DealsTable({
                           className="text-destructive"
                           onClick={() => onCancel(deal)}
                         >
-                          <XCircle className="mr-2 h-4 w-4" />
+                          <XCircle className="mr-2 size-4" />
                           Cancel
                         </DropdownMenuItem>
                       )}
@@ -360,7 +361,7 @@ function GatePassesTable({
     <div className="space-y-4">
       <div className="flex justify-end">
         <Button onClick={() => navigate({ to: "/app/trading/gate-passes/new" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Gate Pass
         </Button>
       </div>

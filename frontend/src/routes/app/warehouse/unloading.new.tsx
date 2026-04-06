@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -91,12 +92,12 @@ export function NewUnloadingPage() {
 
   return (
     <DashboardLayout activeNavItemId="room-map" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "New Unloading" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" aria-label="Go back" asChild>
             <Link to="/app/warehouse">
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="size-4" />
             </Link>
           </Button>
           <div>
@@ -160,12 +161,10 @@ export function NewUnloadingPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="date">Date *</Label>
-                  <Input
+                  <FormDatePicker
                     id="date"
-                    type="date"
                     value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    required
+                    onChange={(val) => setDate(val)}
                   />
                 </div>
               </CardContent>
@@ -261,7 +260,7 @@ export function NewUnloadingPage() {
               <Link to="/app/warehouse">Cancel</Link>
             </Button>
             <Button type="submit" disabled={submitting || !selectedLoc}>
-              {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              {submitting && <Loader2 className="size-4 mr-2 animate-spin" />}
               Create Unloading
             </Button>
           </div>

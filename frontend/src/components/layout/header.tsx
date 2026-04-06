@@ -52,18 +52,18 @@ export function Header({ breadcrumbs = [] }: HeaderProps) {
         </Breadcrumb>
       </div>
       <div className="flex items-center gap-1 px-6">
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          <Search className="h-4 w-4" />
+        <Button variant="ghost" size="icon" className="size-8">
+          <Search className="size-4" />
           <span className="sr-only">Search</span>
         </Button>
-        <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+        <Button variant="ghost" size="icon" className="size-8" asChild>
           <Link to="/app/system/settings">
-            <Settings className="h-4 w-4" />
+            <Settings className="size-4" />
             <span className="sr-only">Settings</span>
           </Link>
         </Button>
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          <HelpCircle className="h-4 w-4" />
+        <Button variant="ghost" size="icon" className="size-8">
+          <HelpCircle className="size-4" />
           <span className="sr-only">Help</span>
         </Button>
       </div>

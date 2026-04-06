@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Plus, Pencil, Trash2, Star } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -65,8 +66,8 @@ export function GstRateList() {
     try {
       await gstRateService.deleteGstRate(deleteRate.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to delete GST rate:", err)
+    } catch {
+      toast.error("Failed to delete GST rate")
     } finally {
       setDeleting(false)
       setDeleteRate(null)
@@ -93,7 +94,7 @@ export function GstRateList() {
     <div className="space-y-4">
       <div className="flex items-center justify-end">
         <Button onClick={handleAdd}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           Add GST Rate
         </Button>
       </div>
@@ -126,7 +127,7 @@ export function GstRateList() {
                     <div className="flex items-center gap-2">
                       {rate.code}
                       {rate.is_default && (
-                        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
                       )}
                     </div>
                   </TableCell>
@@ -145,16 +146,18 @@ export function GstRateList() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Edit rate"
                         onClick={() => handleEdit(rate)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="size-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Delete rate"
                         onClick={() => setDeleteRate(rate)}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="size-4" />
                       </Button>
                     </div>
                   </TableCell>

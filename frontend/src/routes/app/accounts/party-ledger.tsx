@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { SearchIcon, FilterIcon, UserPlusIcon } from "lucide-react";
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
@@ -17,7 +18,6 @@ import {
   PartyListTable,
   PartyDetailSheet,
 } from "@/features/accounting/components/party-ledger";
-import { AddPartyDialog } from "@/features/accounting/components/accounts";
 import {
   usePartyAccounts,
   useAccountSummary,
@@ -25,7 +25,8 @@ import {
 } from "@/features/accounting";
 
 export function PartyLedgerPage() {
-  const { parties, loading: partiesLoading, refetch } = usePartyAccounts();
+  const navigate = useNavigate();
+  const { parties, loading: partiesLoading } = usePartyAccounts();
   const { summary, loading: summaryLoading } = useAccountSummary();
   const [search, setSearch] = React.useState("");
   const [filter, setFilter] = React.useState<"all" | "debtors" | "creditors">(
@@ -35,7 +36,6 @@ export function PartyLedgerPage() {
     null,
   );
   const [detailSheetOpen, setDetailSheetOpen] = React.useState(false);
-  const [addPartyOpen, setAddPartyOpen] = React.useState(false);
 
   const filteredParties = React.useMemo(() => {
     let result = parties;
@@ -65,7 +65,7 @@ export function PartyLedgerPage() {
 
   return (
     <DashboardLayout activeNavItemId="party-ledger" breadcrumbs={[{ label: "Accounts", to: "/app/accounts/party-ledger" }, { label: "Party Ledger" }]}>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 data-testid="party-ledger-title" className="text-2xl font-semibold">Party Ledger</h1>
@@ -73,8 +73,8 @@ export function PartyLedgerPage() {
               View and manage party accounts and balances
             </p>
           </div>
-          <Button data-testid="party-ledger-add-button" onClick={() => setAddPartyOpen(true)}>
-            <UserPlusIcon className="mr-2 h-4 w-4" />
+          <Button data-testid="party-ledger-add-button" onClick={() => navigate({ to: "/app/accounts/parties/new" })}>
+            <UserPlusIcon className="mr-2 size-4" />
             Add Party
           </Button>
         </div>
@@ -89,7 +89,7 @@ export function PartyLedgerPage() {
               </CardTitle>
               <div className="flex items-center gap-2">
                 <div className="relative">
-                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                   <Input
                     data-testid="party-ledger-search-input"
                     placeholder="Search parties..."
@@ -103,7 +103,7 @@ export function PartyLedgerPage() {
                   onValueChange={(v) => setFilter(v as typeof filter)}
                 >
                   <SelectTrigger data-testid="party-ledger-filter-select" className="w-56">
-                    <FilterIcon className="h-4 w-4 mr-2" />
+                    <FilterIcon className="size-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -131,11 +131,6 @@ export function PartyLedgerPage() {
         onOpenChange={setDetailSheetOpen}
       />
 
-      <AddPartyDialog
-        open={addPartyOpen}
-        onOpenChange={setAddPartyOpen}
-        onSuccess={refetch}
-      />
     </DashboardLayout>
   );
 }

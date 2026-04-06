@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Search } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -8,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
 import { LocationPicker } from "../common/location-picker"
 import { useAmads, type AmadSummary } from "@/features/inventory"
-import type { ShiftingWizardState } from "./shifting-wizard"
+import type { ShiftingWizardState } from "../../types/shifting"
 
 interface SourceStepProps {
   state: ShiftingWizardState
@@ -98,7 +99,7 @@ export function SourceStep({
 
           {/* Search Input */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search by Amad No, Party, or Commodity..."
               value={searchTerm}
@@ -128,11 +129,12 @@ export function SourceStep({
                     key={amad.id}
                     type="button"
                     onClick={() => handleSelectAmad(amad)}
-                    className={`w-full rounded-lg border p-3 text-left transition-colors hover:bg-accent ${
+                    className={cn(
+                      "w-full rounded-lg border p-3 text-left transition-colors hover:bg-accent",
                       state.amadId === amad.id
                         ? "border-primary bg-primary/5"
                         : "border-transparent"
-                    }`}
+                    )}
                   >
                     <div className="flex items-start justify-between">
                       <div>

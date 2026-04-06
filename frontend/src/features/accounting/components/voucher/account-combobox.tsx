@@ -70,7 +70,7 @@ export function AccountCombobox({
           {selectedAccount
             ? `${selectedAccount.code} - ${selectedAccount.name}`
             : placeholder}
-          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDownIcon className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0" align="start">
@@ -94,14 +94,14 @@ export function AccountCombobox({
                 >
                   <CheckIcon
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "mr-2 size-4",
                       value === account.id ? "opacity-100" : "opacity-0"
                     )}
                   />
                   <span className="font-mono text-sm mr-2">{account.code}</span>
                   <span className="truncate">{account.name}</span>
                   {account.party_type && (
-                    <span className="ml-auto text-xs text-blue-600">Party</span>
+                    <span className="ml-auto text-xs text-status-info-foreground">Party</span>
                   )}
                 </CommandItem>
               ))}

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { Plus, XCircle, MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -47,8 +48,8 @@ export function StaffLoanList() {
     if (!cancelItem || !cancelReason.trim()) return
     try {
       await cancelLoan.mutateAsync({ id: cancelItem.id, reason: cancelReason })
-    } catch (err) {
-      console.error("Failed to cancel loan:", err)
+    } catch {
+      toast.error("Failed to cancel loan")
     } finally {
       setCancelItem(null)
       setCancelReason("")
@@ -60,7 +61,7 @@ export function StaffLoanList() {
       <div className="flex items-center justify-between">
         <div />
         <Button onClick={() => navigate({ to: "/app/payroll/staff-loans/new" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Staff Loan
         </Button>
       </div>
@@ -128,8 +129,8 @@ export function StaffLoanList() {
                       {loan.status === "ACTIVE" && (
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreHorizontal className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" aria-label="Open menu">
+                              <MoreHorizontal className="size-4" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
@@ -137,7 +138,7 @@ export function StaffLoanList() {
                               className="text-destructive"
                               onClick={() => setCancelItem(loan)}
                             >
-                              <XCircle className="mr-2 h-4 w-4" />
+                              <XCircle className="mr-2 size-4" />
                               Cancel
                             </DropdownMenuItem>
                           </DropdownMenuContent>

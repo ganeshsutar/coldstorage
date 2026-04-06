@@ -83,7 +83,7 @@ export function TemperatureDashboardPage() {
 
   return (
     <DashboardLayout activeNavItemId="temperature" breadcrumbs={[{ label: "Chambers", to: "/app/warehouse" }, { label: "Temperature" }]}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -94,11 +94,11 @@ export function TemperatureDashboardPage() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleRefresh}>
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="size-4 mr-2" />
               Refresh
             </Button>
             <Button>
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="size-4 mr-2" />
               Add Reading
             </Button>
           </div>
@@ -183,12 +183,12 @@ export function TemperatureDashboardPage() {
                 ))}
               </div>
             ) : alerts.length === 0 ? (
-              <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/30">
+              <Card className="border-status-success bg-status-success-muted">
                 <CardContent className="py-8 text-center">
-                  <p className="text-green-700 dark:text-green-300 font-medium">
+                  <p className="text-status-success-foreground font-medium">
                     All rooms are within normal temperature range
                   </p>
-                  <p className="text-sm text-green-600 dark:text-green-400 mt-1">
+                  <p className="text-sm text-status-success-foreground mt-1">
                     No active alerts at this time
                   </p>
                 </CardContent>

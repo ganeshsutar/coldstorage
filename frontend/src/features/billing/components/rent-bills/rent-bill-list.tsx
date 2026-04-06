@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { Plus, Eye, Receipt, Printer, XCircle, MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -72,8 +73,8 @@ export function RentBillList() {
     try {
       await rentBillService.cancelRentBill(cancelBill.id, cancelReason)
       refetch()
-    } catch (err) {
-      console.error("Failed to cancel bill:", err)
+    } catch {
+      toast.error("Failed to cancel bill")
     } finally {
       setCancelling(false)
       setCancelBill(null)
@@ -85,8 +86,8 @@ export function RentBillList() {
     try {
       await rentBillService.confirmRentBill(bill.id)
       refetch()
-    } catch (err) {
-      console.error("Failed to confirm bill:", err)
+    } catch {
+      toast.error("Failed to confirm bill")
     }
   }
 
@@ -118,7 +119,7 @@ export function RentBillList() {
           </p>
         </div>
         <Button onClick={() => setWizardOpen(true)}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           New Bill
         </Button>
       </div>
@@ -189,7 +190,7 @@ export function RentBillList() {
                         {formatIndianRupees(bill.balance_amount)}
                       </span>
                     ) : (
-                      <span className="text-green-600">Paid</span>
+                      <span className="text-status-success-foreground">Paid</span>
                     )}
                   </TableCell>
                   <TableCell>
@@ -200,8 +201,8 @@ export function RentBillList() {
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" aria-label="Open menu">
+                          <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -210,12 +211,12 @@ export function RentBillList() {
                             navigate({ to: "/app/billing/$id", params: { id: bill.id } })
                           }
                         >
-                          <Eye className="mr-2 h-4 w-4" />
+                          <Eye className="mr-2 size-4" />
                           View
                         </DropdownMenuItem>
                         {bill.status === "DRAFT" && (
                           <DropdownMenuItem onClick={() => handleConfirm(bill)}>
-                            <Receipt className="mr-2 h-4 w-4" />
+                            <Receipt className="mr-2 size-4" />
                             Confirm
                           </DropdownMenuItem>
                         )}
@@ -228,12 +229,12 @@ export function RentBillList() {
                               })
                             }
                           >
-                            <Receipt className="mr-2 h-4 w-4" />
+                            <Receipt className="mr-2 size-4" />
                             New Receipt
                           </DropdownMenuItem>
                         )}
                         <DropdownMenuItem>
-                          <Printer className="mr-2 h-4 w-4" />
+                          <Printer className="mr-2 size-4" />
                           Print
                         </DropdownMenuItem>
                         {bill.status !== "CANCELLED" && bill.paid_amount === 0 && (
@@ -241,7 +242,7 @@ export function RentBillList() {
                             className="text-destructive"
                             onClick={() => setCancelBill(bill)}
                           >
-                            <XCircle className="mr-2 h-4 w-4" />
+                            <XCircle className="mr-2 size-4" />
                             Cancel
                           </DropdownMenuItem>
                         )}

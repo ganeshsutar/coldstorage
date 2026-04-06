@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { Plus, Search, RefreshCw } from "lucide-react"
 import { toast } from "sonner"
 
@@ -25,12 +26,12 @@ import { useRooms, roomService } from "@/features/inventory"
 import type { Room, CreateRoomRequest } from "@/features/inventory/types/masters"
 import { roomFloorService } from "@/features/warehouse/api/room-floor"
 import type { RoomFloor, CreateRoomFloorRequest } from "@/features/warehouse/types/room-floor"
-import { getNextRoomNumber } from "@/features/warehouse/utils/floor-utils"
 import { getChamberColumns } from "./chamber-columns"
 import { ChamberDialog } from "./chamber-dialog"
 import { FloorConfigDialog } from "./floor-config-dialog"
 
 export function ChambersTab() {
+  const navigate = useNavigate()
   const { rooms, loading, refetch } = useRooms()
   const [searchQuery, setSearchQuery] = React.useState("")
 
@@ -55,13 +56,9 @@ export function ChambersTab() {
     )
   }, [rooms, searchQuery])
 
-  // Get next suggested room number
-  const suggestedNumber = React.useMemo(() => getNextRoomNumber(rooms), [rooms])
-
   // Handlers
   const handleAddChamber = () => {
-    setSelectedChamber(null)
-    setChamberDialogOpen(true)
+    navigate({ to: "/app/warehouse/chambers/new" })
   }
 
   const handleEditChamber = (room: Room) => {
@@ -86,22 +83,15 @@ export function ChambersTab() {
   }
 
   const handleChamberSubmit = async (data: CreateRoomRequest) => {
+    if (!selectedChamber) return
     try {
-      if (selectedChamber) {
-        await roomService.updateRoom(selectedChamber.id, data)
-        toast.success("Chamber updated successfully")
-      } else {
-        await roomService.createRoom(data)
-        toast.success("Chamber created successfully")
-      }
+      await roomService.updateRoom(selectedChamber.id, data)
+      toast.success("Chamber updated successfully")
       refetch()
     } catch (error) {
-      toast.error(
-        selectedChamber ? "Failed to update chamber" : "Failed to create chamber",
-        {
-          description: error instanceof Error ? error.message : "Unknown error",
-        }
-      )
+      toast.error("Failed to update chamber", {
+        description: error instanceof Error ? error.message : "Unknown error",
+      })
       throw error
     }
   }
@@ -161,7 +151,7 @@ export function ChambersTab() {
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 flex-1 max-w-sm">
           <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
             <Input
               placeholder="Search chambers..."
               value={searchQuery}
@@ -171,11 +161,11 @@ export function ChambersTab() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={refetch}>
-            <RefreshCw className="h-4 w-4" />
+          <Button variant="outline" size="icon" aria-label="Refresh chambers" onClick={refetch}>
+            <RefreshCw className="size-4" />
           </Button>
           <Button onClick={handleAddChamber}>
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="size-4 mr-2" />
             Add Chamber
           </Button>
         </div>
@@ -217,12 +207,11 @@ export function ChambersTab() {
         </CardContent>
       </Card>
 
-      {/* Chamber Dialog */}
+      {/* Chamber Edit Dialog */}
       <ChamberDialog
         open={chamberDialogOpen}
         onOpenChange={setChamberDialogOpen}
         chamber={selectedChamber}
-        suggestedNumber={suggestedNumber}
         onSubmit={handleChamberSubmit}
       />
 

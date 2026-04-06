@@ -103,6 +103,8 @@ class CompanySettingsView(OrganizationMixin, APIView):
                 company_settings[field] = data[field]
         organization.settings["company"] = company_settings
 
+        if not organization.is_configured:
+            organization.is_configured = True
         organization.save()
 
         # Log the change

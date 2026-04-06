@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft, Check } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -37,8 +38,8 @@ export function SalaryProcessing() {
     try {
       await processSalary.mutateAsync({ month, year })
       refetch()
-    } catch (err) {
-      console.error("Failed to process salary:", err)
+    } catch {
+      toast.error("Failed to process salary")
     }
   }
 
@@ -46,8 +47,8 @@ export function SalaryProcessing() {
     try {
       await confirmAttendance.mutateAsync(id)
       refetch()
-    } catch (err) {
-      console.error("Failed to confirm:", err)
+    } catch {
+      toast.error("Failed to confirm attendance")
     }
   }
 
@@ -56,8 +57,8 @@ export function SalaryProcessing() {
     for (const record of processedRecords) {
       try {
         await confirmAttendance.mutateAsync(record.id)
-      } catch (err) {
-        console.error(`Failed to confirm ${record.employee_name}:`, err)
+      } catch {
+        toast.error(`Failed to confirm ${record.employee_name}`)
       }
     }
     refetch()
@@ -81,8 +82,8 @@ export function SalaryProcessing() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate({ to: "/app/payroll" })}>
-          <ArrowLeft className="h-4 w-4" />
+        <Button variant="ghost" size="icon" aria-label="Go back" onClick={() => navigate({ to: "/app/payroll" })}>
+          <ArrowLeft className="size-4" />
         </Button>
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Salary Processing</h2>
@@ -130,7 +131,7 @@ export function SalaryProcessing() {
               onClick={handleConfirmAll}
               disabled={confirmAttendance.isPending}
             >
-              <Check className="mr-2 h-4 w-4" />
+              <Check className="mr-2 size-4" />
               Confirm All
             </Button>
           )}
@@ -214,7 +215,7 @@ export function SalaryProcessing() {
                           onClick={() => handleConfirm(record.id)}
                           disabled={confirmAttendance.isPending}
                         >
-                          <Check className="h-4 w-4" />
+                          <Check className="size-4" />
                         </Button>
                       )}
                       {record.status === "CONFIRMED" && (

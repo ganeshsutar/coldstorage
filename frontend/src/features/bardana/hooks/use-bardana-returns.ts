@@ -20,8 +20,8 @@ export function useBardanaReturns(filters?: BardanaReturnFilters) {
 
 export function useBardanaReturnDetail(id: string | null) {
   return useQuery({
-    queryKey: bardanaReturnKeys.detail(id!),
-    queryFn: () => bardanaReturnService.get(id!),
+    queryKey: bardanaReturnKeys.detail(id ?? ""),
+    queryFn: () => bardanaReturnService.get(id ?? ""),
     enabled: !!id,
   })
 }

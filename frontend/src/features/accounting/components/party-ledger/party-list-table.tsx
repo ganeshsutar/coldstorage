@@ -50,9 +50,9 @@ function PartyRow({
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? (
-                <ChevronDownIcon className="h-4 w-4" />
+                <ChevronDownIcon className="size-4" />
               ) : (
-                <ChevronRightIcon className="h-4 w-4" />
+                <ChevronRightIcon className="size-4" />
               )}
             </Button>
           )}
@@ -64,7 +64,7 @@ function PartyRow({
         <TableCell
           className={cn(
             "font-mono tabular-nums text-right",
-            balanceType === "Dr" ? "text-red-600" : "text-green-600"
+            balanceType === "Dr" ? "text-status-danger-foreground" : "text-status-success-foreground"
           )}
         >
           {formatBalance(balanceAmount, balanceType)}
@@ -88,7 +88,7 @@ function PartyRow({
             onClick={onView}
             className="opacity-0 group-hover:opacity-100"
           >
-            <EyeIcon className="h-4 w-4" />
+            <EyeIcon className="size-4" />
           </Button>
         </TableCell>
       </TableRow>

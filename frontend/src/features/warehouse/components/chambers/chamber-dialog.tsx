@@ -47,7 +47,6 @@ interface ChamberDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   chamber?: Room | null
-  suggestedNumber?: string
   onSubmit: (data: CreateRoomRequest) => Promise<void>
 }
 
@@ -55,11 +54,9 @@ export function ChamberDialog({
   open,
   onOpenChange,
   chamber,
-  suggestedNumber,
   onSubmit,
 }: ChamberDialogProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const isEditing = !!chamber
 
   const form = useForm<ChamberFormValues>({
     resolver: zodResolver(chamberSchema),
@@ -81,40 +78,23 @@ export function ChamberDialog({
 
   // Reset form when chamber changes or dialog opens
   React.useEffect(() => {
-    if (open) {
-      if (chamber) {
-        form.reset({
-          number: chamber.number,
-          name: chamber.name || "",
-          name_hindi: chamber.name_hindi || "",
-          floor_count: chamber.floor_count,
-          rack_count: chamber.rack_count || 0,
-          racks_per_row: chamber.racks_per_row || 10,
-          capacity_quintals: chamber.capacity_quintals || 0,
-          is_sugar_free: chamber.is_sugar_free || false,
-          target_temperature: chamber.target_temperature,
-          min_temperature: chamber.min_temperature,
-          max_temperature: chamber.max_temperature,
-          is_active: chamber.is_active,
-        })
-      } else {
-        form.reset({
-          number: suggestedNumber || "",
-          name: "",
-          name_hindi: "",
-          floor_count: 1,
-          rack_count: 0,
-          racks_per_row: 10,
-          capacity_quintals: 0,
-          is_sugar_free: false,
-          target_temperature: null,
-          min_temperature: null,
-          max_temperature: null,
-          is_active: true,
-        })
-      }
+    if (open && chamber) {
+      form.reset({
+        number: chamber.number,
+        name: chamber.name || "",
+        name_hindi: chamber.name_hindi || "",
+        floor_count: chamber.floor_count,
+        rack_count: chamber.rack_count || 0,
+        racks_per_row: chamber.racks_per_row || 10,
+        capacity_quintals: chamber.capacity_quintals || 0,
+        is_sugar_free: chamber.is_sugar_free || false,
+        target_temperature: chamber.target_temperature,
+        min_temperature: chamber.min_temperature,
+        max_temperature: chamber.max_temperature,
+        is_active: chamber.is_active,
+      })
     }
-  }, [open, chamber, suggestedNumber, form])
+  }, [open, chamber, form])
 
   const handleSubmit = async (values: ChamberFormValues) => {
     setIsSubmitting(true)
@@ -144,11 +124,9 @@ export function ChamberDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{isEditing ? "Edit Chamber" : "Add Chamber"}</DialogTitle>
+          <DialogTitle>Edit Chamber</DialogTitle>
           <DialogDescription>
-            {isEditing
-              ? "Update the chamber configuration."
-              : "Create a new chamber/room for the cold storage."}
+            Update the chamber configuration.
           </DialogDescription>
         </DialogHeader>
 
@@ -432,11 +410,7 @@ export function ChamberDialog({
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting
-                  ? "Saving..."
-                  : isEditing
-                    ? "Update Chamber"
-                    : "Create Chamber"}
+                {isSubmitting ? "Saving..." : "Update Chamber"}
               </Button>
             </DialogFooter>
           </form>

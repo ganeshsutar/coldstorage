@@ -105,7 +105,7 @@ export function AmadListTable({
                 amad.remaining_packets === 0
                   ? "text-muted-foreground"
                   : amad.remaining_packets < amad.total_packets
-                    ? "text-amber-600"
+                    ? "text-status-warning-foreground"
                     : ""
               )}
             >
@@ -127,7 +127,7 @@ export function AmadListTable({
                   title="View details"
                   data-testid={`amad-row-view-${index}`}
                 >
-                  <EyeIcon className="h-4 w-4" />
+                  <EyeIcon className="size-4" />
                 </Button>
                 {!amad.is_fully_dispatched && (
                   <Button
@@ -137,7 +137,7 @@ export function AmadListTable({
                     title="Dispatch"
                     data-testid={`amad-row-dispatch-${index}`}
                   >
-                    <TruckIcon className="h-4 w-4" />
+                    <TruckIcon className="size-4" />
                   </Button>
                 )}
               </div>

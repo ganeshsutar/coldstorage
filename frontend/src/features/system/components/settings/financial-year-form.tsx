@@ -5,6 +5,7 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { FormDatePicker } from "@/components/ui/form-date-picker"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
@@ -120,7 +121,7 @@ export function FinancialYearForm() {
               </div>
             )}
             {saveSuccess && (
-              <div data-testid="fy-success-message" className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
+              <div data-testid="fy-success-message" className="text-sm text-status-success-foreground bg-status-success-muted p-3 rounded-md">
                 Financial year settings saved successfully
               </div>
             )}
@@ -179,7 +180,7 @@ export function FinancialYearForm() {
                   <FormItem>
                     <FormLabel>From Date</FormLabel>
                     <FormControl>
-                      <Input data-testid="fy-from-date-input" type="date" disabled={saving} {...field} />
+                      <FormDatePicker data-testid="fy-from-date-input" disabled={saving} {...field} />
                     </FormControl>
                     <FormDescription>Start date of current FY</FormDescription>
                     <FormMessage />
@@ -193,7 +194,7 @@ export function FinancialYearForm() {
                   <FormItem>
                     <FormLabel>To Date</FormLabel>
                     <FormControl>
-                      <Input data-testid="fy-to-date-input" type="date" disabled={saving} {...field} />
+                      <FormDatePicker data-testid="fy-to-date-input" disabled={saving} {...field} />
                     </FormControl>
                     <FormDescription>End date of current FY</FormDescription>
                     <FormMessage />

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { ArrowLeft, XCircle } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -40,8 +41,8 @@ export function AdvanceDetailView({ advanceId }: AdvanceDetailViewProps) {
     try {
       await advanceService.cancelAdvance(advance.id, cancelReason)
       refetch()
-    } catch (err) {
-      console.error("Failed to cancel advance:", err)
+    } catch {
+      toast.error("Failed to cancel advance")
     } finally {
       setCancelling(false)
       setShowCancelDialog(false)
@@ -73,9 +74,10 @@ export function AdvanceDetailView({ advanceId }: AdvanceDetailViewProps) {
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Go back"
             onClick={() => navigate({ to: "/app/loans" })}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="size-4" />
           </Button>
           <div>
             <div className="flex items-center gap-3">
@@ -95,7 +97,7 @@ export function AdvanceDetailView({ advanceId }: AdvanceDetailViewProps) {
             variant="outline"
             onClick={() => setShowCancelDialog(true)}
           >
-            <XCircle className="mr-2 h-4 w-4" />
+            <XCircle className="mr-2 size-4" />
             Cancel
           </Button>
         )}

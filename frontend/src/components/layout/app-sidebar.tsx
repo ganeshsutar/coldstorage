@@ -89,7 +89,7 @@ function NavGroup({
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.children!.map((subItem) => (
+                      {item.children?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.id}>
                           <SidebarMenuSubButton
                             asChild
@@ -114,7 +114,7 @@ function NavGroup({
           return (
             <SidebarMenuItem key={item.id}>
               <SidebarMenuButton asChild tooltip={item.label} isActive={isActive}>
-                <Link to={item.to!}>
+                <Link to={item.to ?? ""}>
                   <Icon />
                   <span>{item.label}</span>
                 </Link>

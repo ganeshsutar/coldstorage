@@ -115,7 +115,7 @@ Full specification at `docs/src/ui-ux-specification.md`.
 | Style Preset | Vega (standard shadcn/ui) |
 | Base Color | Zinc (cool grays) |
 | Border Radius | 0.5rem (8px) |
-| Font | Inter |
+| Font | Geist |
 | Icons | Lucide |
 
 ### Layout Dimensions
