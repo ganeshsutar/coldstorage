@@ -13,7 +13,14 @@
       "Bash(grep -l \"from.*@/\" src/components/ui/*.tsx)",
       "Bash(xargs -I {} head -15 {})",
       "Bash(do basename:*)",
-      "Bash(find src/components/ui -name \"*.tsx\" -exec wc -l {} +)"
+      "Bash(find src/components/ui -name \"*.tsx\" -exec wc -l {} +)",
+      "Bash(grep -v \"^/f/projects/coldstorage/backend/apps$\")",
+      "Bash(ls -1d \"F:/projects/coldstorage/frontend/src/routes/app\"/*/)",
+      "Bash(find:*)",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(uv run:*)",
+      "Bash(DJANGO_SETTINGS_MODULE=config.settings uv run python -c \"import django; django.setup\\(\\); from apps.inventory.views import AmadViewSet; print\\('OK'\\)\")"
     ]
   }
 }

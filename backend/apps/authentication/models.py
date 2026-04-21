@@ -86,6 +86,13 @@ class Organization(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     gst_no = models.CharField(max_length=20, blank=True, null=True)
+    pan = models.CharField(max_length=20, blank=True, null=True)
+    tan = models.CharField(max_length=20, blank=True, null=True)
+    cin = models.CharField(max_length=30, blank=True, null=True)
+    owner_name = models.CharField(max_length=255, blank=True, null=True)
+    owner_aadhar = models.CharField(max_length=20, blank=True, null=True)
+    upi_id = models.CharField(max_length=100, blank=True, null=True)
+    fax = models.CharField(max_length=20, blank=True, null=True)
     logo_url = models.URLField(blank=True, null=True)
     timezone = models.CharField(max_length=50, default="Asia/Kolkata")
     financial_year_start = models.PositiveSmallIntegerField(default=4)  # April

@@ -78,6 +78,9 @@ import { NewStaffLoanPage } from "@/routes/app/payroll/staff-loans.new"
 import { PayrollLedgerPage } from "@/routes/app/payroll/ledger"
 // Masters routes
 import { MastersPage } from "@/routes/app/masters/index"
+// Reports routes
+import { ReportsPage } from "@/routes/app/reports"
+import { ComingSoonPage } from "@/routes/app/reports/coming-soon"
 // System routes
 import { SystemSettingsPage } from "@/routes/app/system/settings"
 import { NewUserPage } from "@/routes/app/system/users.new"
@@ -483,6 +486,43 @@ const mastersRoute = createRoute({
   component: MastersPage,
 })
 
+// Reports routes
+const reportsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports",
+  component: ReportsPage,
+})
+
+const reportsCashBookRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports/cash-book",
+  component: ComingSoonPage,
+})
+
+const reportsStockRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports/stock",
+  component: ComingSoonPage,
+})
+
+const reportsRentRegisterRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports/rent-register",
+  component: ComingSoonPage,
+})
+
+const reportsSaudaRegisterRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports/sauda-register",
+  component: ComingSoonPage,
+})
+
+const reportsPayrollRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/app/reports/payroll",
+  component: ComingSoonPage,
+})
+
 // System routes
 const systemSettingsRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -570,6 +610,13 @@ const routeTree = rootRoute.addChildren([
   bardanaOutstandingRoute,
   // Masters routes
   mastersRoute,
+  // Reports routes
+  reportsRoute,
+  reportsCashBookRoute,
+  reportsStockRoute,
+  reportsRentRegisterRoute,
+  reportsSaudaRegisterRoute,
+  reportsPayrollRoute,
   // System routes
   systemSettingsRoute,
   systemUsersNewRoute,

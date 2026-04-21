@@ -8,6 +8,7 @@ import type {
   CommodityStock,
   RoomStock,
   TodaySummary,
+  DashboardData,
 } from "../types/amad"
 
 export interface AmadFilters {
@@ -77,5 +78,9 @@ export const amadService = {
     let url = "/api/inventory/amad/today_summary/"
     if (date) url += `?date=${date}`
     return apiClient.get<TodaySummary>(url)
+  },
+
+  async getDashboard(): Promise<DashboardData> {
+    return apiClient.get<DashboardData>("/api/inventory/amad/dashboard/")
   },
 }

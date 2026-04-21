@@ -283,6 +283,82 @@ class AmadViewSet(OrganizationMixin, viewsets.ModelViewSet):
         summary = service.get_today_summary(target_date)
         return Response(summary)
 
+    @action(detail=False, methods=["get"])
+    def dashboard(self, request):
+        """Get aggregated dashboard data in a single request."""
+        from django.db.models import Sum
+        from django.utils import timezone
+
+        organization = self.get_organization()
+        if not organization:
+            return Response(
+                {"error": "No organization found"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        today = timezone.now().date()
+        service = InventoryService(organization)
+
+        # Reuse existing service methods
+        today_summary = service.get_today_summary(today)
+        stock_summary = service.get_stock_summary()
+        room_stock = service.get_room_stock()
+
+        # Average room utilization
+        if room_stock:
+            avg_utilization = sum(r["utilization_percent"] for r in room_stock) / len(room_stock)
+        else:
+            avg_utilization = Decimal("0.00")
+
+        # Pending dues from rent bills
+        from apps.billing.models import RentBillHeader
+        pending_dues = RentBillHeader.objects.filter(
+            organization=organization,
+            status__in=["CONFIRMED", "PARTIAL_PAID"],
+        ).aggregate(total=Sum("balance_amount"))["total"] or Decimal("0.00")
+
+        # Today's receipts
+        from apps.billing.models import Receipt
+        today_receipts = Receipt.objects.filter(
+            organization=organization,
+            receipt_date=today,
+        ).aggregate(total=Sum("amount"))["total"] or Decimal("0.00")
+
+        # Active saudas
+        from apps.trading.models import Sauda
+        active_saudas = Sauda.objects.filter(
+            organization=organization,
+            status__in=["OPEN", "PARTIAL"],
+        ).count()
+
+        # Recent amads (last 10)
+        recent_amads = Amad.objects.filter(
+            organization=organization,
+        ).select_related("party", "commodity").order_by("-date", "-created_at")[:10]
+
+        recent_amads_data = [
+            {
+                "id": str(a.id),
+                "amad_no": a.amad_no,
+                "date": a.date,
+                "party_name": a.party.name if a.party else a.party_name,
+                "commodity_name": a.commodity.name if a.commodity else "",
+                "total_packets": a.total_packets,
+                "total_weight": str(a.total_weight),
+            }
+            for a in recent_amads
+        ]
+
+        return Response({
+            "today_summary": today_summary,
+            "stock_summary": stock_summary,
+            "avg_utilization": round(float(avg_utilization), 1),
+            "pending_dues": str(pending_dues),
+            "today_receipts": str(today_receipts),
+            "active_saudas": active_saudas,
+            "recent_amads": recent_amads_data,
+        })
+
 
 class RentViewSet(OrganizationMixin, viewsets.ModelViewSet):
     """ViewSet for Rent model."""

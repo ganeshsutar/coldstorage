@@ -8,6 +8,7 @@ import type {
   CommodityStock,
   RoomStock,
   TodaySummary,
+  DashboardData,
 } from "../types/amad"
 
 export function useAmads(filters?: AmadFilters) {
@@ -216,4 +217,29 @@ export function useTodaySummary(date?: string) {
   }, [fetchSummary])
 
   return { summary, loading, error, refetch: fetchSummary }
+}
+
+export function useDashboard() {
+  const [data, setData] = React.useState<DashboardData | null>(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState<string | null>(null)
+
+  const fetchDashboard = React.useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const result = await amadService.getDashboard()
+      setData(result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch dashboard data")
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  React.useEffect(() => {
+    fetchDashboard()
+  }, [fetchDashboard])
+
+  return { data, loading, error, refetch: fetchDashboard }
 }

@@ -133,3 +133,23 @@ export interface TodaySummary {
     amount: number
   }
 }
+
+export interface RecentAmad {
+  id: string
+  amad_no: string
+  date: string
+  party_name: string
+  commodity_name: string
+  total_packets: number
+  total_weight: string
+}
+
+export interface DashboardData {
+  today_summary: TodaySummary
+  stock_summary: StockSummary
+  avg_utilization: number
+  pending_dues: string
+  today_receipts: string
+  active_saudas: number
+  recent_amads: RecentAmad[]
+}
