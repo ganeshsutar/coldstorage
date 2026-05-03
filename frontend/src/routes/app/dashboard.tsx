@@ -153,7 +153,8 @@ export function DashboardPage() {
                         </TableCell>
                         <TableCell className="font-medium">
                           <Link
-                            to={`/app/inventory/amad/${amad.id}`}
+                            to="/app/inventory/amad/$id"
+                            params={{ id: String(amad.id) }}
                             className="text-primary hover:underline"
                           >
                             {amad.amad_no}

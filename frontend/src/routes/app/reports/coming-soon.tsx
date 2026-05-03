@@ -18,7 +18,7 @@ export function ComingSoonPage() {
     <DashboardLayout
       activeNavItemId="reports"
       breadcrumbs={[
-        { label: "Reports", href: "/app/reports" },
+        { label: "Reports", to: "/app/reports" },
         { label: pageName },
       ]}
     >
